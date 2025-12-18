@@ -1,0 +1,28 @@
+/* GuttyTECH - Main Stylesheet */
+/* Seus imports originais, que já funcionam */
+
+@import url('./css/loading.css');
+@import url('./css/spa.css');
+@import url('./css/base.css');
+@import url('./css/navigation.css');
+@import url('./css/buttons.css');
+@import url('./css/layout.css');
+@import url('./css/components.css');
+@import url('./css/banner.css');
+@import url('./css/cards.css');
+/* --- ESTILOS DO BLOG --- */
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; padding-bottom: 4rem; }
+.blog-card { display: block; text-decoration: none; color: #fff; border: 1px solid #333; transition: all 0.3s ease; overflow: hidden; background-color: #111; }
+.blog-card:hover { transform: translateY(-5px); border-color: #ff0000; }
+.blog-card-image { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #333; }
+.blog-card-content { padding: 1.5rem; }
+.blog-card-title { font-family: 'Bebas Neue', cursive; font-size: 1.5rem; color: #ff0000; margin-bottom: 0.5rem; }
+.blog-card-excerpt { font-family: 'Roboto Mono', monospace; color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
+.blog-card-readmore { font-weight: bold; color: #fff; }
+.post-container { padding: 2rem 0; }
+.post-content { max-width: 800px; margin: 0 auto; }
+.post-meta { color: #888; margin-bottom: 2rem; font-size: 0.9rem; }
+.post-main-image { width: 100%; margin: 2rem 0; border: 1px solid #333; }
+.post-content h2 { font-family: 'Bebas Neue', cursive; font-size: 2rem; color: #ff0000; margin-top: 2.5rem; margin-bottom: 1rem; }
+.cta-final-post { text-align: center; background-color: rgba(255, 0, 0, 0.05); border: 1px solid #333; padding: 2.5rem; margin-top: 3rem; }
+@import url('./css/responsive.css'); 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login | GuttyTECH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+  <style>
+    :root{--bg:#050505;--panel:#0f0f0f;--text:#fff;--text2:rgba(255,255,255,.78);--border:rgba(255,255,255,.12);--shadow:0 18px 60px rgba(0,0,0,.7);--red:#ff0000;--redBorder:rgba(255,0,0,.3);--r22:22px;--r16:16px;}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui}
+    a{color:inherit;text-decoration:none} .wrap{width:min(520px, calc(100% - 32px));margin:0 auto;padding:34px 0}
+    .brand{font-family:"Bebas Neue";font-size:34px;letter-spacing:2px}
+    .card{margin-top:14px;border:1px solid var(--border);background:var(--panel);border-radius:var(--r22);padding:18px;box-shadow:var(--shadow)}
+    .btn{height:44px;border-radius:14px;border:1px solid var(--border);background:#111;color:#fff;font-weight:900;letter-spacing:1px;text-transform:uppercase;display:flex;gap:10px;align-items:center;justify-content:center;cursor:pointer;width:100%}
+    .btn:hover{border-color:var(--redBorder)}
+    .btn-red{background:linear-gradient(180deg, rgba(255,0,0,.95), rgba(165,0,0,.95));border-color:rgba(255,0,0,.25)}
+    .btn-discord{background:#5865F2;border-color:rgba(88,101,242,.45)}
+    .row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+    label{font-weight:900;font-size:13px;letter-spacing:.5px}
+    input{width:100%;padding:12px;border-radius:14px;border:1px solid var(--border);background:#0b0b0b;color:#fff;outline:none}
+    .hint{color:var(--text2);font-size:13px;margin-top:10px}
+    .msg{margin-top:10px;color:#fff;background:rgba(255,0,0,.12);border:1px solid rgba(255,0,0,.25);padding:10px;border-radius:14px;display:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">GUTTYTECH</div>
+    <p style="margin:6px 0 0;color:var(--text2);font-weight:700;">Entre para comentar no blog.</p>
+
+    <div class="card">
+      <button class="btn btn-discord" onclick="location.href='/auth/discord'">
+        <i class="ri-discord-fill"></i> Entrar com Discord
+      </button>
+
+      <div style="height:1px;background:rgba(255,255,255,.12);margin:14px 0;"></div>
+
+      <div style="display:grid;gap:16px;">
+        <div>
+          <div style="font-weight:900;letter-spacing:1px;">LOGIN</div>
+          <div class="row">
+            <div>
+              <label>E-mail</label>
+              <input id="lEmail" placeholder="voce@email.com" />
+            </div>
+            <div>
+              <label>Senha</label>
+              <input id="lPass" type="password" placeholder="••••••" />
+            </div>
+            <button class="btn btn-red" id="btnLogin"><i class="ri-login-box-line"></i> Entrar</button>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight:900;letter-spacing:1px;">CRIAR CONTA</div>
+          <div class="row">
+            <div>
+              <label>Nome</label>
+              <input id="rName" placeholder="Seu nome" />
+            </div>
+            <div>
+              <label>E-mail</label>
+              <input id="rEmail" placeholder="voce@email.com" />
+            </div>
+            <div>
+              <label>Senha (mín 6)</label>
+              <input id="rPass" type="password" placeholder="••••••" />
+            </div>
+            <button class="btn" id="btnRegister"><i class="ri-user-add-line"></i> Criar</button>
+          </div>
+        </div>
+
+        <div class="msg" id="msg"></div>
+        <p class="hint">Ao entrar, você volta para o blog automaticamente.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const msg = document.getElementById("msg");
+    function show(t){
+      msg.style.display="block";
+      msg.textContent=t;
+    }
+
+    document.getElementById("btnLogin").addEventListener("click", async ()=>{
+      try{
+        const email = document.getElementById("lEmail").value.trim();
+        const password = document.getElementById("lPass").value;
+        const r = await fetch("/auth/login", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        if(!r.ok) return show("Login inválido.");
+        location.href="/blog.html";
+      }catch{ show("Erro no login."); }
+    });
+
+    document.getElementById("btnRegister").addEventListener("click", async ()=>{
+      try{
+        const username = document.getElementById("rName").value.trim();
+        const email = document.getElementById("rEmail").value.trim();
+        const password = document.getElementById("rPass").value;
+        const r = await fetch("/auth/register", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({ username, email, password })
+        });
+        const data = await r.json().catch(()=> ({}));
+        if(!r.ok){
+          if(data.error==="EMAIL_EXISTS") return show("Este e-mail já existe.");
+          if(data.error==="PASSWORD_TOO_SHORT") return show("Senha muito curta.");
+          return show("Erro ao criar conta.");
+        }
+        location.href="/blog.html";
+      }catch{ show("Erro ao registrar."); }
+    });
+  </script>
+</body>
+</html>

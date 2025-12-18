@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Blog - GuttyTECH</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<main class="wrap blog-post">
+
+  <article id="post">
+    <h1 id="title"></h1>
+
+    <div class="meta">
+      <img id="avatar">
+      <span id="author"></span> • 
+      <span id="date"></span> • 
+      <span id="read"></span>
+    </div>
+
+    <img id="cover" class="cover">
+
+    <div id="content" class="content"></div>
+  </article>
+
+</main>
+
+<script>
+async function loadPost() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  if (!slug) return;
+
+  const res = await fetch(`/api/posts/${slug}`);
+  const post = await res.json();
+
+  document.title = post.title + " - GuttyTECH";
+  document.getElementById("title").textContent = post.title;
+  document.getElementById("author").textContent = post.authorName;
+  document.getElementById("read").textContent = post.readingTime + " min";
+  document.getElementById("avatar").src = post.authorAvatar;
+  document.getElementById("cover").src = post.coverImage;
+  document.getElementById("date").textContent =
+    new Date(post.createdAt).toLocaleDateString("pt-BR");
+
+  document.getElementById("content").innerHTML = post.content;
+}
+
+loadPost();
+</script>
+</body>
+</html>

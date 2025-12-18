@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Comunidade - GuttyTECH</title>
+  <meta name="description" content="Junte-se ao Covil GuttyTECH no Discord. Comunidade de entusiastas de performance e overclock." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+
+  <style>
+    :root{
+      --bg:#050505;
+      --panel: rgba(18,18,18,.92);
+      --panel2: rgba(12,12,12,.92);
+      --text:#ffffff;
+      --text2:rgba(255,255,255,.80);
+      --border:rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.70);
+
+      --red:#ff0000;
+      --redBorder: rgba(255,0,0,.30);
+
+      --radius: 18px;
+      --radius2: 26px;
+      --max:1120px;
+
+      --icon: rgba(255,255,255,.92);
+    }
+
+    html[data-theme="light"]{
+      --bg:#ffffff;
+      --panel: rgba(245,245,245,.95);
+      --panel2: rgba(250,250,250,.95);
+      --text:#0a0a0a;
+      --text2:rgba(0,0,0,.72);
+      --border:rgba(0,0,0,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.12);
+
+      --icon: rgba(0,0,0,.85);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+    button{ font-family:inherit; }
+
+    .wrap{ width:min(var(--max), calc(100% - 32px)); margin:0 auto; }
+    .divider{
+      height:1px;
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 18%, transparent), transparent);
+    }
+
+    /* NAVBAR */
+    .navbar{
+      position: sticky;
+      top:0;
+      z-index:50;
+      background: color-mix(in srgb, var(--bg) 84%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .nav-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+    .brand{
+      font-family:"Bebas Neue", cursive;
+      font-size:30px;
+      letter-spacing:2px;
+      white-space:nowrap;
+    }
+    .nav-menu{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-left:auto;
+    }
+    .nav-link{
+      color:var(--text2);
+      font-weight:800;
+      font-size:14px;
+      letter-spacing:.6px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid transparent;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+      white-space:nowrap;
+    }
+    .nav-link:hover{
+      transform: translateY(-1px);
+      border-color: var(--redBorder);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      color: var(--text);
+    }
+    .nav-link.active{
+      color: var(--text);
+      border-color: var(--redBorder);
+      background: color-mix(in srgb, var(--red) 10%, transparent);
+    }
+
+    .nav-right{ display:flex; align-items:center; gap:10px; }
+
+    .icon-btn{
+      width:42px; height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .icon-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .icon-btn i{ font-size:18px; color: var(--icon); }
+
+    .btn{
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:0 14px;
+      border-radius:14px;
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:12px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      border-color: var(--redBorder);
+      box-shadow: var(--shadow);
+    }
+    .btn-primary{
+      background: linear-gradient(180deg, rgba(255,0,0,.95), rgba(165,0,0,.95));
+      border-color: rgba(255,0,0,.25);
+      color:#fff;
+    }
+
+    /* LANGUAGE */
+    .lang{ position: relative; }
+    .lang-btn{
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:0 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease;
+      color: var(--text);
+    }
+    .lang-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .lang-flag{
+      width:20px; height:20px;
+      border-radius:6px;
+      object-fit:cover;
+      border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+    }
+    .lang-code{ font-weight:900; letter-spacing:1px; font-size:12px; }
+    .lang-menu{
+      position:absolute;
+      right:0;
+      top: calc(100% + 10px);
+      width:210px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:none;
+      z-index:60;
+    }
+    .lang.open .lang-menu{ display:block; }
+    .lang-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px;
+      cursor:pointer;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      font-weight:800;
+      color: var(--text);
+    }
+    .lang-item:last-child{ border-bottom:0; }
+    .lang-item:hover{ background: color-mix(in srgb, var(--red) 7%, transparent); }
+    .lang-item-left{ display:flex; align-items:center; gap:10px; }
+    .check{ opacity:0; }
+    .check.active{ opacity:1; }
+
+    /* HERO */
+    .hero{
+      width:min(var(--max), calc(100% - 32px));
+      margin: 26px auto 0;
+      border-radius: var(--radius2);
+      overflow:hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background:#000;
+      position:relative;
+    }
+    .hero img{
+      width:100%;
+      aspect-ratio: 16 / 6;
+      object-fit:cover;
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 360px at 18% 22%, rgba(255,0,0,.10), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.76));
+      pointer-events:none;
+    }
+    .hero-content{
+      position:absolute;
+      left:18px; right:18px; bottom:18px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .hero-title{
+      font-family:"Bebas Neue", cursive;
+      font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+      letter-spacing:2px;
+      margin:0 0 6px;
+      line-height:1.02;
+      color:#fff;
+      text-shadow: 0 10px 30px rgba(0,0,0,.85);
+    }
+    .hero-sub{
+      margin:0;
+      color: rgba(255,255,255,.92);
+      font-weight:600;
+      max-width: 80ch;
+      text-shadow: 0 10px 30px rgba(0,0,0,.85);
+    }
+
+    /* CONTENT */
+    .section{ padding: 54px 0; }
+    .h2{
+      font-family:"Bebas Neue", cursive;
+      font-size: clamp(1.9rem, 2.3vw, 2.6rem);
+      letter-spacing: 1.5px;
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+    .muted{
+      margin:0 0 18px;
+      max-width: 85ch;
+      color: var(--text2);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:start;
+      margin-top: 18px;
+    }
+
+    .panel{
+      border:1px solid var(--border);
+      background: var(--panel2);
+      border-radius: var(--radius2);
+      box-shadow: 0 12px 30px color-mix(in srgb, #000 35%, transparent);
+      overflow:hidden;
+    }
+    html[data-theme="light"] .panel{ box-shadow: 0 12px 30px rgba(0,0,0,.10); }
+
+    .panel-pad{ padding:18px; }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top: 12px;
+    }
+
+    .feature{
+      padding:14px;
+      border-radius: 18px;
+      border:1px solid var(--border);
+      background: var(--panel);
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .feature:hover{
+      transform: translateY(-4px);
+      border-color: var(--redBorder);
+    }
+    .feature h3{
+      margin:0 0 6px;
+      font-family:"Bebas Neue", cursive;
+      letter-spacing:1.1px;
+      font-size: 1.6rem;
+      line-height:1.05;
+    }
+    .feature p{
+      margin:0;
+      color: var(--text2);
+    }
+
+    .mini-cards{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .mini{
+      padding:14px;
+      border-radius: 18px;
+      border:1px solid var(--border);
+      background: var(--panel);
+    }
+    .mini .row{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .mini i{
+      font-size:18px;
+      color: color-mix(in srgb, var(--red) 86%, var(--text));
+      margin-top: 2px;
+    }
+    .mini strong{
+      display:block;
+      font-size: 14px;
+      letter-spacing:.4px;
+    }
+    .mini span{
+      display:block;
+      color: var(--text2);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .cta{
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius2);
+      border:1px solid var(--redBorder);
+      background:
+        radial-gradient(900px 300px at 20% 10%, rgba(255,0,0,.10), transparent 65%),
+        var(--panel2);
+    }
+    .cta p{ margin: 0 0 12px; color: var(--text2); }
+
+    /* FOOTER */
+    .footer{ padding: 26px 0 44px; }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .social{ display:flex; gap:10px; }
+    .social a{
+      width:42px; height:42px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: var(--panel);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--icon);
+    }
+
+    /* MOBILE */
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .feature-grid{ grid-template-columns: 1fr; }
+      .hero img{ aspect-ratio: 16 / 9; }
+    }
+    @media (max-width: 860px){
+      .nav-menu{ display:none; }
+      .hero-content{
+        position: static;
+        padding: 16px;
+        background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.82));
+      }
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; animation:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="navbar">
+    <div class="wrap nav">
+      <div class="nav-left">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema">
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+
+        <a class="brand" href="index.html">GUTTYTECH</a>
+      </div>
+
+      <nav class="nav-menu" aria-label="Menu principal">
+        <a class="nav-link" href="index.html" id="mHome">HOME</a>
+        <a class="nav-link" href="servicos.html" id="mServices">SERVIÇOS</a>
+        <a class="nav-link" href="sobre.html" id="mAbout">SOBRE MIM</a>
+        <a class="nav-link active" href="comunidade.html" id="mCommunity">COMUNIDADE</a>
+        <a class="nav-link" href="blog.html" id="mBlog">BLOG</a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="lang" id="lang">
+          <button class="lang-btn" id="langBtn" type="button" aria-label="Idioma" aria-expanded="false">
+            <img class="lang-flag" id="langFlag" src="images/languages/brasil.png" alt="Idioma">
+            <span class="lang-code" id="langCode">BR</span>
+            <i class="ri-arrow-down-s-line"></i>
+          </button>
+
+          <div class="lang-menu" role="menu" aria-label="Idiomas">
+            <div class="lang-item" data-lang="pt" role="menuitem">
+              <div class="lang-item-left">
+                <img class="lang-flag" src="images/languages/brasil.png" alt="BR">
+                <span>BR</span>
+              </div>
+              <i class="ri-check-line check active" id="checkPT"></i>
+            </div>
+
+            <div class="lang-item" data-lang="en" role="menuitem">
+              <div class="lang-item-left">
+                <img class="lang-flag" src="images/languages/en.png" alt="EN">
+                <span>EN</span>
+              </div>
+              <i class="ri-check-line check" id="checkEN"></i>
+            </div>
+
+            <div class="lang-item" data-lang="eu" role="menuitem">
+              <div class="lang-item-left">
+                <img class="lang-flag" src="images/languages/eu.png" alt="EU">
+                <span>EU</span>
+              </div>
+              <i class="ri-check-line check" id="checkEU"></i>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn-primary" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer" aria-label="Entrar">
+          <i class="ri-discord-fill"></i>
+          <span id="btnSignIn">Entrar</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Comunidade">
+    <img src="images/banners/banner-comunidade.gif" alt="Entre no Covil - Comunidade GuttyTECH no Discord">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div>
+        <h1 class="hero-title" id="tHeroTitle">O COVIL</h1>
+        <p class="hero-sub" id="tHeroSub">
+          Onde os Mestres da Performance se encontram. Suporte, dicas, guias e resultados — tudo em um só lugar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top:22px;"></div>
+
+  <main>
+    <section class="wrap section" aria-labelledby="tTitle">
+      <h2 class="h2" id="tTitle">BEM-VINDO À COMUNIDADE</h2>
+      <p class="muted" id="tIntro">
+        Aqui é onde a guerra contra o lag vira rotina. No Covil você troca ideia com a tropa, pega dica diária,
+        recebe suporte e aprende performance do jeito certo — com método e resultado.
+      </p>
+
+      <div class="grid">
+        <!-- LEFT -->
+        <div class="panel">
+          <div class="panel-pad">
+            <h2 class="h2" style="margin:0 0 10px;" id="tFeatTitle">O QUE VOCÊ ENCONTRA NO COVIL</h2>
+            <p class="muted" style="margin:0;" id="tFeatSub">
+              Um lugar direto, organizado e focado em performance real. Sem papo furado.
+            </p>
+
+            <div class="feature-grid">
+              <div class="feature">
+                <h3 id="tF1">💬 SUPORTE DIRETO</h3>
+                <p id="tF1d">Tira-dúvidas sobre performance com orientação e respostas claras.</p>
+              </div>
+              <div class="feature">
+                <h3 id="tF2">📈 DICAS DIÁRIAS</h3>
+                <p id="tF2d">Ajustes, boas práticas e dicas que aceleram seu aprendizado.</p>
+              </div>
+              <div class="feature">
+                <h3 id="tF3">🎮 COMUNIDADE ATIVA</h3>
+                <p id="tF3d">Uma tropa de entusiastas trocando setups, resultados e soluções.</p>
+              </div>
+              <div class="feature">
+                <h3 id="tF4">🔧 ARSENAL VIP</h3>
+                <p id="tF4d">Conteúdo e recursos extras (quando disponíveis) para membros.</p>
+              </div>
+              <div class="feature">
+                <h3 id="tF5">⚡ UPDATES EM PRIMEIRA MÃO</h3>
+                <p id="tF5d">Novidades, avisos e spoilers dos próximos projetos.</p>
+              </div>
+              <div class="feature">
+                <h3 id="tF6">🏆 DESAFIOS & RANKINGS</h3>
+                <p id="tF6d">Eventos e desafios pra medir desempenho e evoluir com a galera.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <aside class="mini-cards">
+          <div class="panel">
+            <div class="panel-pad">
+              <h2 class="h2" style="margin:0 0 10px;" id="tHowTitle">COMO ENTRAR</h2>
+              <p class="muted" style="margin:0 0 12px;" id="tHowSub">Simples e rápido:</p>
+
+              <div class="mini">
+                <div class="row">
+                  <i class="ri-discord-fill"></i>
+                  <div>
+                    <strong id="tStep1">1) Clique em Entrar</strong>
+                    <span id="tStep1d">Você vai direto para o convite oficial do Discord.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mini">
+                <div class="row">
+                  <i class="ri-shield-check-line"></i>
+                  <div>
+                    <strong id="tStep2">2) Leia as regras</strong>
+                    <span id="tStep2d">Organização mantém o Covil forte e útil pra todo mundo.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mini">
+                <div class="row">
+                  <i class="ri-rocket-2-line"></i>
+                  <div>
+                    <strong id="tStep3">3) Comece pelo básico</strong>
+                    <span id="tStep3d">Tem canal pra dúvidas, guias e resultados (antes/depois).</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cta">
+                <h2 class="h2" style="margin:0 0 6px;" id="tCtaTitle">ENTRE AGORA</h2>
+                <p id="tCtaSub">A guerra contra o lag é vencida em equipe. Junte-se aos melhores.</p>
+                <a class="btn btn-primary" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer" id="tCtaBtn">
+                  <i class="ri-discord-fill"></i>
+                  <span id="tCtaBtnText">Entrar no Discord</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="divider"></div>
+    <div class="wrap footer-row" style="padding-top:22px;">
+      <p style="margin:0; color:var(--text2); font-size:.92rem;" id="tFooter">© 2025 GuttyTECH — Performance é obsessão.</p>
+      <div class="social">
+        <a href="https://www.instagram.com/guttytech/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+        <a href="https://www.youtube.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+        <a href="https://www.tiktok.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="ri-tiktok-line"></i></a>
+        <a href="mailto:Gutty@GuttyTech.com.br" aria-label="Email"><i class="ri-mail-line"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* COOKIE HELPERS */
+    function setCookie(name, value, days=365){
+      const maxAge = days * 24 * 60 * 60;
+      document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; Max-Age=${maxAge}; Path=/; SameSite=Lax`;
+    }
+    function getCookie(name){
+      const target = encodeURIComponent(name) + "=";
+      const parts = document.cookie.split(";").map(s => s.trim());
+      for(const p of parts){
+        if(p.startsWith(target)) return decodeURIComponent(p.slice(target.length));
+      }
+      return "";
+    }
+
+    /* THEME (cookie) */
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function applyTheme(theme){
+      root.setAttribute("data-theme", theme);
+      setCookie("gutty_theme", theme);
+      themeIcon.className = theme === "dark" ? "ri-moon-line" : "ri-sun-line";
+    }
+    applyTheme(getCookie("gutty_theme") || "dark");
+    themeToggle.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "dark";
+      applyTheme(current === "dark" ? "light" : "dark");
+    });
+
+    /* LANGUAGE (cookie) */
+    const langWrap = document.getElementById("lang");
+    const langBtn = document.getElementById("langBtn");
+    const langFlag = document.getElementById("langFlag");
+    const langCode = document.getElementById("langCode");
+    const checkPT = document.getElementById("checkPT");
+    const checkEN = document.getElementById("checkEN");
+    const checkEU = document.getElementById("checkEU");
+
+    function setLangOpen(open){
+      langWrap.classList.toggle("open", open);
+      langBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    langBtn.addEventListener("click", (e) => { e.stopPropagation(); setLangOpen(!langWrap.classList.contains("open")); });
+    document.addEventListener("click", () => setLangOpen(false));
+
+    const T = {
+      mHome: document.getElementById("mHome"),
+      mServices: document.getElementById("mServices"),
+      mAbout: document.getElementById("mAbout"),
+      mCommunity: document.getElementById("mCommunity"),
+      mBlog: document.getElementById("mBlog"),
+      btnSignIn: document.getElementById("btnSignIn"),
+
+      tHeroTitle: document.getElementById("tHeroTitle"),
+      tHeroSub: document.getElementById("tHeroSub"),
+
+      tTitle: document.getElementById("tTitle"),
+      tIntro: document.getElementById("tIntro"),
+
+      tFeatTitle: document.getElementById("tFeatTitle"),
+      tFeatSub: document.getElementById("tFeatSub"),
+
+      tF1: document.getElementById("tF1"),
+      tF1d: document.getElementById("tF1d"),
+      tF2: document.getElementById("tF2"),
+      tF2d: document.getElementById("tF2d"),
+      tF3: document.getElementById("tF3"),
+      tF3d: document.getElementById("tF3d"),
+      tF4: document.getElementById("tF4"),
+      tF4d: document.getElementById("tF4d"),
+      tF5: document.getElementById("tF5"),
+      tF5d: document.getElementById("tF5d"),
+      tF6: document.getElementById("tF6"),
+      tF6d: document.getElementById("tF6d"),
+
+      tHowTitle: document.getElementById("tHowTitle"),
+      tHowSub: document.getElementById("tHowSub"),
+      tStep1: document.getElementById("tStep1"),
+      tStep1d: document.getElementById("tStep1d"),
+      tStep2: document.getElementById("tStep2"),
+      tStep2d: document.getElementById("tStep2d"),
+      tStep3: document.getElementById("tStep3"),
+      tStep3d: document.getElementById("tStep3d"),
+
+      tCtaTitle: document.getElementById("tCtaTitle"),
+      tCtaSub: document.getElementById("tCtaSub"),
+      tCtaBtnText: document.getElementById("tCtaBtnText"),
+
+      tFooter: document.getElementById("tFooter"),
+    };
+
+    const dict = {
+      pt:{
+        ui:{ code:"BR", flag:"images/languages/brasil.png" },
+
+        mHome:"HOME",
+        mServices:"SERVIÇOS",
+        mAbout:"SOBRE MIM",
+        mCommunity:"COMUNIDADE",
+        mBlog:"BLOG",
+        btnSignIn:"Entrar",
+
+        tHeroTitle:"O COVIL",
+        tHeroSub:"Onde os Mestres da Performance se encontram. Suporte, dicas, guias e resultados — tudo em um só lugar.",
+
+        tTitle:"BEM-VINDO À COMUNIDADE",
+        tIntro:"Aqui é onde a guerra contra o lag vira rotina. No Covil você troca ideia com a tropa, pega dica diária, recebe suporte e aprende performance do jeito certo — com método e resultado.",
+
+        tFeatTitle:"O QUE VOCÊ ENCONTRA NO COVIL",
+        tFeatSub:"Um lugar direto, organizado e focado em performance real. Sem papo furado.",
+
+        tF1:"💬 SUPORTE DIRETO",
+        tF1d:"Tira-dúvidas sobre performance com orientação e respostas claras.",
+        tF2:"📈 DICAS DIÁRIAS",
+        tF2d:"Ajustes, boas práticas e dicas que aceleram seu aprendizado.",
+        tF3:"🎮 COMUNIDADE ATIVA",
+        tF3d:"Uma tropa de entusiastas trocando setups, resultados e soluções.",
+        tF4:"🔧 ARSENAL VIP",
+        tF4d:"Conteúdo e recursos extras (quando disponíveis) para membros.",
+        tF5:"⚡ UPDATES EM PRIMEIRA MÃO",
+        tF5d:"Novidades, avisos e spoilers dos próximos projetos.",
+        tF6:"🏆 DESAFIOS & RANKINGS",
+        tF6d:"Eventos e desafios pra medir desempenho e evoluir com a galera.",
+
+        tHowTitle:"COMO ENTRAR",
+        tHowSub:"Simples e rápido:",
+        tStep1:"1) Clique em Entrar",
+        tStep1d:"Você vai direto para o convite oficial do Discord.",
+        tStep2:"2) Leia as regras",
+        tStep2d:"Organização mantém o Covil forte e útil pra todo mundo.",
+        tStep3:"3) Comece pelo básico",
+        tStep3d:"Tem canal pra dúvidas, guias e resultados (antes/depois).",
+
+        tCtaTitle:"ENTRE AGORA",
+        tCtaSub:"A guerra contra o lag é vencida em equipe. Junte-se aos melhores.",
+        tCtaBtnText:"Entrar no Discord",
+
+        tFooter:"© 2025 GuttyTECH — Performance é obsessão."
+      },
+
+      en:{
+        ui:{ code:"EN", flag:"images/languages/en.png" },
+
+        mHome:"HOME",
+        mServices:"SERVICES",
+        mAbout:"ABOUT ME",
+        mCommunity:"COMMUNITY",
+        mBlog:"BLOG",
+        btnSignIn:"Sign in",
+
+        tHeroTitle:"THE CAVE",
+        tHeroSub:"Where performance enthusiasts gather. Support, tips, guides and real results — all in one place.",
+
+        tTitle:"WELCOME TO THE COMMUNITY",
+        tIntro:"This is where the war against lag becomes routine. In the Cave you get daily tips, support, and learn performance the right way — with method and results.",
+
+        tFeatTitle:"WHAT YOU GET INSIDE",
+        tFeatSub:"Direct, organized, and focused on real performance. No fluff.",
+
+        tF1:"💬 DIRECT SUPPORT",
+        tF1d:"Performance Q&A with clear guidance and practical answers.",
+        tF2:"📈 DAILY TIPS",
+        tF2d:"Tweaks, best practices, and tips that speed up your learning.",
+        tF3:"🎮 ACTIVE COMMUNITY",
+        tF3d:"A squad sharing setups, results, and solutions.",
+        tF4:"🔧 VIP TOOLBOX",
+        tF4d:"Extra resources (when available) for members.",
+        tF5:"⚡ FIRST-HAND UPDATES",
+        tF5d:"News, announcements, and project spoilers.",
+        tF6:"🏆 CHALLENGES & RANKINGS",
+        tF6d:"Events and challenges to measure and improve performance.",
+
+        tHowTitle:"HOW TO JOIN",
+        tHowSub:"Fast and simple:",
+        tStep1:"1) Click Sign in",
+        tStep1d:"You’ll go straight to the official Discord invite.",
+        tStep2:"2) Read the rules",
+        tStep2d:"Organization keeps the Cave strong and useful for everyone.",
+        tStep3:"3) Start with the basics",
+        tStep3d:"Channels for Q&A, guides, and before/after results.",
+
+        tCtaTitle:"JOIN NOW",
+        tCtaSub:"The war against lag is won as a team. Join the best.",
+        tCtaBtnText:"Join Discord",
+
+        tFooter:"© 2025 GuttyTECH — Performance is an obsession."
+      },
+
+      eu:{
+        ui:{ code:"EU", flag:"images/languages/eu.png" },
+
+        mHome:"HOME",
+        mServices:"SERVICES",
+        mAbout:"ABOUT ME",
+        mCommunity:"COMMUNITY",
+        mBlog:"BLOG",
+        btnSignIn:"Sign in",
+
+        tHeroTitle:"THE CAVE",
+        tHeroSub:"Where performance enthusiasts gather. Support, tips, guides and real results — all in one place.",
+
+        tTitle:"WELCOME TO THE COMMUNITY",
+        tIntro:"This is where the war against lag becomes routine. In the Cave you get daily tips, support, and learn performance the right way — with method and results.",
+
+        tFeatTitle:"WHAT YOU GET INSIDE",
+        tFeatSub:"Direct, organized, and focused on real performance. No fluff.",
+
+        tF1:"💬 DIRECT SUPPORT",
+        tF1d:"Performance Q&A with clear guidance and practical answers.",
+        tF2:"📈 DAILY TIPS",
+        tF2d:"Tweaks, best practices, and tips that speed up your learning.",
+        tF3:"🎮 ACTIVE COMMUNITY",
+        tF3d:"A squad sharing setups, results, and solutions.",
+        tF4:"🔧 VIP TOOLBOX",
+        tF4d:"Extra resources (when available) for members.",
+        tF5:"⚡ FIRST-HAND UPDATES",
+        tF5d:"News, announcements, and project spoilers.",
+        tF6:"🏆 CHALLENGES & RANKINGS",
+        tF6d:"Events and challenges to measure and improve performance.",
+
+        tHowTitle:"HOW TO JOIN",
+        tHowSub:"Fast and simple:",
+        tStep1:"1) Click Sign in",
+        tStep1d:"You’ll go straight to the official Discord invite.",
+        tStep2:"2) Read the rules",
+        tStep2d:"Organization keeps the Cave strong and useful for everyone.",
+        tStep3:"3) Start with the basics",
+        tStep3d:"Channels for Q&A, guides, and before/after results.",
+
+        tCtaTitle:"JOIN NOW",
+        tCtaSub:"The war against lag is won as a team. Join the best.",
+        tCtaBtnText:"Join Discord",
+
+        tFooter:"© 2025 GuttyTECH — Performance is an obsession."
+      }
+    };
+
+    function applyLang(code){
+      const d = dict[code] || dict.pt;
+      setCookie("gutty_lang", code);
+
+      langCode.textContent = d.ui.code;
+      langFlag.src = d.ui.flag;
+
+      checkPT.classList.toggle("active", code === "pt");
+      checkEN.classList.toggle("active", code === "en");
+      checkEU.classList.toggle("active", code === "eu");
+
+      Object.keys(T).forEach(k => {
+        if (T[k] && d[k]) T[k].textContent = d[k];
+      });
+
+      document.documentElement.lang = (code === "pt") ? "pt-BR" : "en";
+    }
+
+    document.querySelectorAll(".lang-item").forEach(item => {
+      item.addEventListener("click", () => {
+        applyLang(item.getAttribute("data-lang"));
+        setLangOpen(false);
+      });
+    });
+
+    applyLang(getCookie("gutty_lang") || "pt");
+  </script>
+</body>
+</html>

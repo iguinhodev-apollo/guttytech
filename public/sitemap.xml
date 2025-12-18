@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Páginas Principais -->
+  <url>
+    <loc>https://guttytech.com.br/</loc>
+    <lastmod>2025-08-10</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://guttytech.com.br/#/servicos</loc>
+    <lastmod>2025-08-10</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://guttytech.com.br/#/sobre</loc>
+    <lastmod>2025-08-10</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://guttytech.com.br/#/comunidade</loc>
+    <lastmod>2025-08-10</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://guttytech.com.br/#/blog</loc>
+    <lastmod>2025-08-10</lastmod>
+    <priority>0.70</priority>
+  </url>
+  
+  <!-- Posts do Blog (Adicionar novos posts .html aqui e ao app.js) -->
+  <url>
+    <loc>https://guttytech.com.br/#/blog/guia-definitivo-overclock</loc>
+    <lastmod>2025-08-10</lastmod>
+    <priority>0.65</priority>
+  </url>
+</urlset>

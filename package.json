@@ -1,0 +1,41 @@
+{
+  "name": "guttytech-site",
+  "version": "1.0.0",
+  "description": "Script para build do site GuttyTECH",
+  "main": "generate-posts-index.js",
+  "scripts": {
+    "build": "node generate-posts-index.js",
+    "start": "node server.js"
+  },
+  "author": "GuttyTECH",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.1",
+    "connect-mongo": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
+    "jsdom": "^22.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.0.1",
+    "passport": "^0.7.0",
+    "passport-discord": "^0.1.4",
+    "passport-local": "^1.0.0",
+    "sanitize-html": "^2.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cthelegend/guttytech.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/cthelegend/guttytech/issues"
+  },
+  "homepage": "https://github.com/cthelegend/guttytech#readme"
+}

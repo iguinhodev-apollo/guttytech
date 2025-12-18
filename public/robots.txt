@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://guttytech.com.br/sitemap.xml

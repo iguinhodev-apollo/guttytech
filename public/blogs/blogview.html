@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Post | GuttyTECH</title>
+  <meta name="description" content="Blog do Covil GuttyTECH" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+
+  <!-- Security (client-side hardening hints) -->
+  <!-- OBS: o ideal é CSP no server (headers). Aqui é só um fallback visual. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:rgba(18,18,18,.92);
+      --panel2:rgba(12,12,12,.92);
+      --text:#ffffff;
+      --text2:rgba(255,255,255,.80);
+      --border:rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.70);
+
+      --red:#ff0000;
+      --redBorder: rgba(255,0,0,.30);
+
+      --r12:12px;
+      --r16:16px;
+      --r22:22px;
+      --r26:26px;
+    }
+
+    html[data-theme="light"]{
+      --bg:#ffffff;
+      --panel:rgba(245,245,245,.96);
+      --panel2:rgba(250,250,250,.96);
+      --text:#0a0a0a;
+      --text2:rgba(0,0,0,.72);
+      --border:rgba(0,0,0,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.12);
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+    button{ font-family:inherit; }
+    code, pre{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .wrap{ width:min(1120px, calc(100% - 32px)); margin:0 auto; }
+    .divider{
+      height:1px;
+      width:min(1120px, calc(100% - 32px));
+      margin:0 auto;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 18%, transparent), transparent);
+    }
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background: color-mix(in srgb, var(--bg) 84%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .nav-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .brand{
+      font-family:"Bebas Neue", cursive;
+      font-size:30px;
+      letter-spacing:2px;
+      white-space:nowrap;
+    }
+    .nav-menu{ display:flex; align-items:center; gap:18px; margin-left:auto; }
+    .nav-link{
+      color:var(--text2);
+      font-weight:800;
+      font-size:14px;
+      letter-spacing:.6px;
+      padding:10px 12px;
+      border-radius:var(--r12);
+      border:1px solid transparent;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+      white-space:nowrap;
+    }
+    .nav-link:hover{
+      transform: translateY(-1px);
+      border-color: var(--redBorder);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      color:var(--text);
+    }
+    .nav-link.active{
+      color:var(--text);
+      border-color: var(--redBorder);
+      background: color-mix(in srgb, var(--red) 10%, transparent);
+    }
+
+    .nav-right{ display:flex; align-items:center; gap:10px; }
+
+    .icon-btn{
+      width:42px; height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      color:var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .icon-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .icon-btn i{ font-size:18px; }
+
+    .btn{
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:0 14px;
+      border-radius:14px;
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:12px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      color:var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      border-color: var(--redBorder);
+      box-shadow: var(--shadow);
+    }
+    .btn-primary{
+      background: linear-gradient(180deg, rgba(255,0,0,.95), rgba(165,0,0,.95));
+      border-color: rgba(255,0,0,.25);
+      color:#fff;
+    }
+    .btn-soft{
+      background: color-mix(in srgb, var(--panel) 85%, transparent);
+    }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; transform:none !important; box-shadow:none !important; }
+
+    /* Language */
+    .lang{ position:relative; }
+    .lang-btn{
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:0 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease;
+      color:var(--text);
+    }
+    .lang-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .lang-flag{
+      width:20px; height:20px;
+      border-radius:6px;
+      object-fit:cover;
+      border:1px solid color-mix(in srgb, var(--text) 20%, transparent);
+    }
+    .lang-code{ font-weight:900; letter-spacing:1px; font-size:12px; }
+    .lang-menu{
+      position:absolute;
+      right:0;
+      top: calc(100% + 10px);
+      width:190px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:none;
+      z-index:60;
+    }
+    .lang.open .lang-menu{ display:block; }
+    .lang-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px;
+      cursor:pointer;
+      border-bottom:1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      font-weight:800;
+      color:var(--text);
+    }
+    .lang-item:last-child{ border-bottom:0; }
+    .lang-item:hover{ background: color-mix(in srgb, var(--red) 7%, transparent); }
+    .lang-item-left{ display:flex; align-items:center; gap:10px; }
+    .check{ opacity:0; }
+    .check.active{ opacity:1; }
+
+    /* Drawer */
+    .mobile-menu-btn{ display:none; }
+    .drawer{ display:none; position:fixed; inset:0; z-index:70; }
+    .drawer.open{ display:block; }
+    .drawer-backdrop{
+      position:absolute; inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(4px);
+    }
+    .drawer-panel{
+      position:absolute;
+      top:0; right:0;
+      height:100%;
+      width:min(360px, 92vw);
+      padding:18px;
+      background: color-mix(in srgb, var(--panel) 96%, transparent);
+      border-left:1px solid var(--border);
+      box-shadow: var(--shadow);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .drawer-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding-bottom:10px;
+      border-bottom:1px solid var(--border);
+      font-weight:900;
+      letter-spacing:1px;
+    }
+    .drawer-nav{ display:flex; flex-direction:column; gap:10px; padding-top:10px; }
+    .drawer-nav a{
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: var(--panel2);
+      color:var(--text);
+      font-weight:900;
+      letter-spacing:.8px;
+    }
+    .drawer-nav a:hover{
+      border-color: var(--redBorder);
+      background: color-mix(in srgb, var(--red) 8%, transparent);
+    }
+    .drawer-actions{ margin-top:auto; display:flex; flex-direction:column; gap:10px; }
+
+    /* Layout */
+    .section{ padding: 26px 0 46px; }
+
+    .post-shell{
+      margin-top: 24px;
+      border-radius: var(--r26);
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .cover{
+      width:100%;
+      height: 300px;
+      background:#000;
+      position:relative;
+    }
+    .cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .cover::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.72));
+      pointer-events:none;
+    }
+
+    .post-head{ padding: 18px 18px 0; }
+
+    .kicker{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color: var(--text2);
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:11px;
+      margin-bottom: 10px;
+    }
+    .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: rgba(255,0,0,.85);
+      box-shadow: 0 0 0 6px rgba(255,0,0,.08);
+      display:inline-block;
+      margin-right:10px;
+      vertical-align:middle;
+    }
+
+    .title{
+      font-family:"Bebas Neue", cursive;
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      letter-spacing: 2px;
+      margin: 0 0 10px;
+      line-height: 1.05;
+    }
+    .excerpt{
+      color: var(--text2);
+      margin: 0 0 12px;
+      max-width: 90ch;
+      font-weight:600;
+    }
+
+    .meta-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      padding: 0 18px 16px;
+    }
+    .meta-left{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color: var(--text2);
+      font-size: 12px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      font-weight: 900;
+      letter-spacing: .4px;
+    }
+    .chip i{ font-size: 14px; }
+
+    .post-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .post-body{
+      padding: 18px;
+      border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      background: color-mix(in srgb, var(--panel) 65%, transparent);
+    }
+
+    /* Content */
+    .content{
+      max-width: 90ch;
+      margin: 0 auto;
+    }
+    .content h1, .content h2, .content h3{
+      font-family:"Bebas Neue", cursive;
+      letter-spacing: 1.4px;
+      margin: 18px 0 10px;
+      line-height:1.1;
+    }
+    .content p{ margin: 0 0 14px; color: var(--text2); font-weight:600; }
+    .content a{
+      text-decoration: underline;
+      text-decoration-color: color-mix(in srgb, var(--red) 55%, transparent);
+      text-underline-offset: 3px;
+      word-break: break-word;
+    }
+    .content ul, .content ol{ color: var(--text2); font-weight:600; }
+    .content blockquote{
+      margin: 16px 0;
+      padding: 14px 14px;
+      border-left: 3px solid color-mix(in srgb, var(--red) 60%, transparent);
+      background: color-mix(in srgb, var(--red) 7%, transparent);
+      border-radius: 12px;
+      color: var(--text2);
+      font-weight:600;
+    }
+    .content pre{
+      overflow:auto;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #0b0b0b;
+      color: #fff;
+    }
+    html[data-theme="light"] .content pre{ background: #f3f3f3; color: #0a0a0a; }
+
+    /* Comments */
+    .comments-shell{
+      margin-top: 18px;
+      border-radius: var(--r26);
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      box-shadow: 0 12px 30px color-mix(in srgb, #000 35%, transparent);
+      overflow:hidden;
+    }
+    .comments-head{
+      padding: 16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    }
+    .h2{
+      font-family:"Bebas Neue", cursive;
+      letter-spacing: 1.6px;
+      font-size: 2.2rem;
+      margin:0;
+    }
+    .comments-count{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color: var(--text2);
+      font-weight:900;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+      font-size: 12px;
+    }
+
+    .comments-body{ padding: 18px; }
+
+    .note{
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      padding: 14px;
+      color: var(--text2);
+      font-weight:600;
+    }
+    .error{
+      border: 1px solid rgba(255,0,0,.35);
+      background: color-mix(in srgb, #120606 85%, transparent);
+      color: #ffb3b3;
+    }
+
+    .form{ display:grid; gap: 10px; margin-bottom: 16px; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+    .field{ display:flex; flex-direction:column; gap:8px; }
+    label{ font-weight:900; letter-spacing:.4px; font-size: 13px; }
+    textarea{
+      width:100%;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 78%, transparent);
+      color: var(--text);
+      padding: 12px;
+      outline:none;
+      font-size: 14px;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .comment-list{ display:grid; gap: 12px; margin-top: 10px; }
+    .comment{
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      padding: 12px;
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+    }
+    .avatar{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #000;
+      flex: 0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      letter-spacing:.6px;
+      color: var(--text);
+    }
+    .comment-main{ flex: 1; min-width: 0; }
+    .comment-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-bottom: 6px;
+      color: var(--text2);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing:.3px;
+    }
+    .comment-name{ color: var(--text); font-weight: 900; letter-spacing:.3px; }
+    .comment-text{
+      margin:0;
+      color: var(--text2);
+      font-weight: 600;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* Footer */
+    .footer{ padding:26px 0 44px; }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .social{ display:flex; gap:10px; }
+
+    @media (max-width: 860px){
+      .nav-menu{ display:none; }
+      .mobile-menu-btn{ display:inline-flex; }
+      .cover{ height: 220px; }
+      .post-actions{ justify-content:flex-start; }
+    }
+    @media (max-width: 640px){
+      .lang-code{ display:none; }
+      .lang-btn{ gap:8px; padding:0 10px; }
+      .cover{ height: 190px; }
+      .post-body{ padding: 16px; }
+      .comments-body{ padding: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; animation:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="navbar">
+    <div class="wrap nav">
+      <div class="nav-left">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema">
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+        <a class="brand" href="/index.html">GUTTYTECH</a>
+      </div>
+
+      <nav class="nav-menu" aria-label="Menu principal">
+        <a class="nav-link" href="/index.html" id="mHome">HOME</a>
+        <a class="nav-link" href="/servicos.html" id="mServices">SERVIÇOS</a>
+        <a class="nav-link" href="/sobre.html" id="mAbout">SOBRE MIM</a>
+        <a class="nav-link" href="/comunidade.html" id="mCommunity">COMUNIDADE</a>
+        <a class="nav-link active" href="/blog.html" id="mBlog">BLOG</a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="lang" id="lang">
+          <button class="lang-btn" id="langBtn" type="button" aria-label="Idioma" aria-expanded="false">
+            <img class="lang-flag" id="langFlag" src="/images/languages/brasil.png" alt="Idioma">
+            <span class="lang-code" id="langCode">BR</span>
+            <i class="ri-arrow-down-s-line"></i>
+          </button>
+
+          <div class="lang-menu" role="menu" aria-label="Idiomas">
+            <div class="lang-item" data-lang="pt" role="menuitem">
+              <div class="lang-item-left">
+                <img class="lang-flag" src="/images/languages/brasil.png" alt="BR">
+                <span>BR</span>
+              </div>
+              <i class="ri-check-line check active" id="checkPT"></i>
+            </div>
+
+            <div class="lang-item" data-lang="en" role="menuitem">
+              <div class="lang-item-left">
+                <img class="lang-flag" src="/images/languages/en.png" alt="EN">
+                <span>EN</span>
+              </div>
+              <i class="ri-check-line check" id="checkEN"></i>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn-soft" href="/blog.html" id="btnBack">
+          <i class="ri-arrow-left-line"></i>
+          <span id="tBack">Voltar</span>
+        </a>
+
+        <button class="icon-btn mobile-menu-btn" id="openDrawer" type="button" aria-label="Abrir menu">
+          <i class="ri-menu-3-line"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <div class="drawer-panel" role="dialog" aria-label="Menu">
+      <div class="drawer-head">
+        <span id="dMenu">MENU</span>
+        <button class="icon-btn" id="closeDrawer" type="button" aria-label="Fechar menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <nav class="drawer-nav">
+        <a href="/index.html" id="dHome">HOME</a>
+        <a href="/servicos.html" id="dServices">SERVIÇOS</a>
+        <a href="/sobre.html" id="dAbout">SOBRE MIM</a>
+        <a href="/comunidade.html" id="dCommunity">COMUNIDADE</a>
+        <a href="/blog.html" id="dBlog">BLOG</a>
+      </nav>
+
+      <div class="drawer-actions">
+        <button class="btn" id="themeToggle2" type="button">
+          <i class="ri-contrast-2-line"></i>
+          <span id="dTheme">Tema</span>
+        </button>
+
+        <a class="btn btn-soft" href="/blog.html">
+          <i class="ri-arrow-left-line"></i>
+          <span id="dBack">Voltar</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap section">
+    <div id="postRoot" class="post-shell" style="display:none;">
+      <div class="cover" id="cover"></div>
+
+      <div class="post-head">
+        <div class="kicker">
+          <span><span class="dot"></span><span id="author">GuttyTECH</span></span>
+          <span id="kickerRight"></span>
+        </div>
+
+        <h1 class="title" id="title">...</h1>
+        <p class="excerpt" id="excerpt">...</p>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-left">
+          <span class="chip"><i class="ri-calendar-2-line"></i><span id="dateTxt">-</span></span>
+          <span class="chip"><i class="ri-chat-3-line"></i><span id="commentsChip">0</span></span>
+        </div>
+
+        <div class="post-actions">
+          <button class="btn" id="copyLink">
+            <i class="ri-link"></i>
+            <span id="tCopy">Copiar link</span>
+          </button>
+          <a class="btn btn-primary" href="/blog.html">
+            <i class="ri-file-list-2-line"></i>
+            <span id="tAllPosts">Ver posts</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="post-body">
+        <article class="content" id="content"></article>
+      </div>
+    </div>
+
+    <div id="statusBox" class="note">Carregando...</div>
+
+    <!-- COMMENTS -->
+    <section class="comments-shell" aria-label="Comentários">
+      <div class="comments-head">
+        <h2 class="h2" id="tCommentsTitle">COMENTÁRIOS</h2>
+        <div class="comments-count">
+          <i class="ri-chat-3-line"></i>
+          <span id="commentsCountTop">0</span>
+        </div>
+      </div>
+
+      <div class="comments-body">
+        <div id="loginBox" class="note" style="display:none;">
+          <span id="tLoginBox">Para comentar, você precisa estar logado.</span>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+            <a class="btn btn-primary" href="/signin.html">
+              <i class="ri-login-box-line"></i>
+              <span id="tSignIn">Sign in</span>
+            </a>
+          </div>
+        </div>
+
+        <form id="commentForm" class="form" autocomplete="off">
+          <div class="field">
+            <label for="commentText" id="tYourComment">Seu comentário</label>
+            <textarea id="commentText" maxlength="800" placeholder="Escreva algo..." required></textarea>
+          </div>
+
+          <div class="row">
+            <div style="color:var(--text2); font-weight:700; font-size:13px;" id="tLimit">Máximo 800 caracteres.</div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-primary" type="submit" id="btnSend">
+                <i class="ri-send-plane-2-line"></i>
+                <span id="tSend">Enviar</span>
+              </button>
+              <button class="btn" type="button" id="btnRefresh">
+                <i class="ri-refresh-line"></i>
+                <span id="tRefresh">Atualizar</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="commentMsg" class="note" style="display:none;"></div>
+        </form>
+
+        <div id="commentsList" class="comment-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="divider"></div>
+    <div class="wrap footer-row">
+      <p style="margin:0; color: var(--text2); font-size:.92rem;" id="tFooter">© 2025 GuttyTECH — Performance é obsessão.</p>
+      <div class="social">
+        <a class="icon-btn" href="https://www.instagram.com/guttytech/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+        <a class="icon-btn" href="https://www.youtube.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+        <a class="icon-btn" href="https://www.tiktok.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="ri-tiktok-line"></i></a>
+        <a class="icon-btn" href="mailto:Gutty@GuttyTech.com.br" aria-label="Email"><i class="ri-mail-line"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* =========================================================
+       THEME
+    ========================================================= */
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const themeToggle2 = document.getElementById("themeToggle2");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function applyTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      themeIcon.className = theme === "dark" ? "ri-moon-line" : "ri-sun-line";
+    }
+    applyTheme(localStorage.getItem("theme") || "dark");
+    themeToggle.addEventListener("click", () => {
+      applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    });
+    themeToggle2.addEventListener("click", () => themeToggle.click());
+
+    /* =========================================================
+       DRAWER
+    ========================================================= */
+    const drawer = document.getElementById("drawer");
+    const openDrawer = document.getElementById("openDrawer");
+    const closeDrawer = document.getElementById("closeDrawer");
+    const drawerBackdrop = document.getElementById("drawerBackdrop");
+
+    function setDrawerOpen(open){
+      drawer.classList.toggle("open", open);
+      drawer.setAttribute("aria-hidden", open ? "false" : "true");
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+    openDrawer.addEventListener("click", () => setDrawerOpen(true));
+    closeDrawer.addEventListener("click", () => setDrawerOpen(false));
+    drawerBackdrop.addEventListener("click", () => setDrawerOpen(false));
+
+    /* =========================================================
+       LANGUAGE (UI + BLOG CONTENT)
+    ========================================================= */
+    const langWrap = document.getElementById("lang");
+    const langBtn = document.getElementById("langBtn");
+    const langFlag = document.getElementById("langFlag");
+    const langCode = document.getElementById("langCode");
+    const checkPT = document.getElementById("checkPT");
+    const checkEN = document.getElementById("checkEN");
+
+    const T = {
+      mHome: document.getElementById("mHome"),
+      mServices: document.getElementById("mServices"),
+      mAbout: document.getElementById("mAbout"),
+      mCommunity: document.getElementById("mCommunity"),
+      mBlog: document.getElementById("mBlog"),
+      tBack: document.getElementById("tBack"),
+      dMenu: document.getElementById("dMenu"),
+      dHome: document.getElementById("dHome"),
+      dServices: document.getElementById("dServices"),
+      dAbout: document.getElementById("dAbout"),
+      dCommunity: document.getElementById("dCommunity"),
+      dBlog: document.getElementById("dBlog"),
+      dTheme: document.getElementById("dTheme"),
+      dBack: document.getElementById("dBack"),
+
+      tCopy: document.getElementById("tCopy"),
+      tAllPosts: document.getElementById("tAllPosts"),
+
+      tCommentsTitle: document.getElementById("tCommentsTitle"),
+      tLoginBox: document.getElementById("tLoginBox"),
+      tSignIn: document.getElementById("tSignIn"),
+      tYourComment: document.getElementById("tYourComment"),
+      tLimit: document.getElementById("tLimit"),
+      tSend: document.getElementById("tSend"),
+      tRefresh: document.getElementById("tRefresh"),
+      tFooter: document.getElementById("tFooter"),
+    };
+
+    const dict = {
+      pt: {
+        ui: { code:"BR", flag:"/images/languages/brasil.png" },
+        mHome:"HOME", mServices:"SERVIÇOS", mAbout:"SOBRE MIM", mCommunity:"COMUNIDADE", mBlog:"BLOG",
+        tBack:"Voltar",
+        dMenu:"MENU", dHome:"HOME", dServices:"SERVIÇOS", dAbout:"SOBRE MIM", dCommunity:"COMUNIDADE", dBlog:"BLOG",
+        dTheme:"Tema", dBack:"Voltar",
+        tCopy:"Copiar link",
+        tAllPosts:"Ver posts",
+        tCommentsTitle:"COMENTÁRIOS",
+        tLoginBox:"Para comentar, você precisa estar logado.",
+        tSignIn:"Sign in",
+        tYourComment:"Seu comentário",
+        tLimit:"Máximo 800 caracteres.",
+        tSend:"Enviar",
+        tRefresh:"Atualizar",
+        tFooter:"© 2025 GuttyTECH — Performance é obsessão."
+      },
+      en: {
+        ui: { code:"EN", flag:"/images/languages/en.png" },
+        mHome:"HOME", mServices:"SERVICES", mAbout:"ABOUT ME", mCommunity:"COMMUNITY", mBlog:"BLOG",
+        tBack:"Back",
+        dMenu:"MENU", dHome:"HOME", dServices:"SERVICES", dAbout:"ABOUT ME", dCommunity:"COMMUNITY", dBlog:"BLOG",
+        dTheme:"Theme", dBack:"Back",
+        tCopy:"Copy link",
+        tAllPosts:"All posts",
+        tCommentsTitle:"COMMENTS",
+        tLoginBox:"To comment, you must be signed in.",
+        tSignIn:"Sign in",
+        tYourComment:"Your comment",
+        tLimit:"Max 800 characters.",
+        tSend:"Send",
+        tRefresh:"Refresh",
+        tFooter:"© 2025 GuttyTECH — Performance is an obsession."
+      }
+    };
+
+    function getLang(){ return localStorage.getItem("lang") || "pt"; }
+
+    function applyLang(code){
+      const d = dict[code] || dict.pt;
+      localStorage.setItem("lang", code);
+
+      langCode.textContent = d.ui.code;
+      langFlag.src = d.ui.flag;
+
+      checkPT.classList.toggle("active", code === "pt");
+      checkEN.classList.toggle("active", code === "en");
+
+      Object.keys(T).forEach(k => {
+        if (T[k] && d[k]) T[k].textContent = d[k];
+      });
+
+      document.documentElement.lang = code === "en" ? "en" : "pt-BR";
+      renderPostForLang();
+    }
+
+    function setLangOpen(open){
+      langWrap.classList.toggle("open", open);
+      langBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    langBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setLangOpen(!langWrap.classList.contains("open"));
+    });
+    document.addEventListener("click", () => setLangOpen(false));
+    document.querySelectorAll(".lang-item").forEach(item => {
+      item.addEventListener("click", () => {
+        applyLang(item.getAttribute("data-lang"));
+        setLangOpen(false);
+      });
+    });
+    applyLang(getLang());
+
+    /* =========================================================
+       SAFE HTML SANITIZER (strong client-side)
+       - removes script/iframe/object/embed/link/style
+       - strips on* handlers
+       - blocks javascript: and data: (except images if você quiser)
+    ========================================================= */
+    function sanitizeHTML(dirty){
+      const html = String(dirty || "");
+      const tpl = document.createElement("template");
+      tpl.innerHTML = html;
+
+      const blockedTags = new Set([
+        "SCRIPT","IFRAME","OBJECT","EMBED","LINK","STYLE","META","BASE","FORM","INPUT","BUTTON","TEXTAREA","SELECT"
+      ]);
+
+      const walker = document.createTreeWalker(tpl.content, NodeFilter.SHOW_ELEMENT, null);
+
+      const toRemove = [];
+      while(walker.nextNode()){
+        const el = walker.currentNode;
+
+        if(blockedTags.has(el.tagName)){
+          toRemove.push(el);
+          continue;
+        }
+
+        // remove event handlers + dangerous attributes
+        [...el.attributes].forEach(attr => {
+          const name = attr.name.toLowerCase();
+          const val = String(attr.value || "");
+
+          if(name.startsWith("on")) el.removeAttribute(attr.name);
+
+          // block javascript: and vbscript:
+          if((name === "href" || name === "src") && /^\s*(javascript:|vbscript:)/i.test(val)){
+            el.removeAttribute(attr.name);
+          }
+
+          // block data: for links/scripts (keep for img optionally)
+          if((name === "href") && /^\s*data:/i.test(val)){
+            el.removeAttribute(attr.name);
+          }
+
+          // prevent target=_blank without rel
+          if(name === "target" && val === "_blank"){
+            if(!el.getAttribute("rel")){
+              el.setAttribute("rel","noopener noreferrer");
+            }
+          }
+        });
+
+        // harden anchors
+        if(el.tagName === "A"){
+          const href = el.getAttribute("href") || "";
+          if(href && !el.getAttribute("rel")){
+            el.setAttribute("rel","noopener noreferrer");
+          }
+        }
+      }
+
+      toRemove.forEach(n => n.remove());
+      return tpl.innerHTML;
+    }
+
+    /* =========================================================
+       BLOG VIEW
+    ========================================================= */
+    const postRoot = document.getElementById("postRoot");
+    const statusBox = document.getElementById("statusBox");
+
+    const cover = document.getElementById("cover");
+    const titleEl = document.getElementById("title");
+    const excerptEl = document.getElementById("excerpt");
+    const contentEl = document.getElementById("content");
+    const authorEl = document.getElementById("author");
+    const dateTxt = document.getElementById("dateTxt");
+    const kickerRight = document.getElementById("kickerRight");
+
+    const commentsChip = document.getElementById("commentsChip");
+    const commentsCountTop = document.getElementById("commentsCountTop");
+
+    const copyLinkBtn = document.getElementById("copyLink");
+
+    let currentPost = null;
+    let currentSlug = "";
+
+    function setStatus(type, text){
+      statusBox.className = "note" + (type === "error" ? " error" : "");
+      statusBox.textContent = text;
+      statusBox.style.display = "block";
+    }
+
+    function getSlugFromQuery(){
+      const url = new URL(window.location.href);
+      return (url.searchParams.get("slug") || "").trim();
+    }
+
+    function fmtDate(d){
+      const dt = new Date(d);
+      if (Number.isNaN(dt.getTime())) return "-";
+      return dt.toLocaleDateString(getLang() === "en" ? "en-US" : "pt-BR");
+    }
+
+    // suporta string ou {pt,en}
+    function pickLangField(field, fallback=""){
+      const lang = getLang();
+      if (field == null) return fallback;
+      if (typeof field === "string") return field;
+      if (typeof field === "object"){
+        return String(field[lang] ?? field.pt ?? field.en ?? fallback);
+      }
+      return String(field);
+    }
+
+    function setCommentsCount(n){
+      const num = Number(n ?? 0);
+      const safe = Number.isFinite(num) ? num : 0;
+      commentsChip.textContent = safe;
+      commentsCountTop.textContent = safe;
+    }
+
+    function setDocumentTitle(t){
+      const base = "GuttyTECH";
+      document.title = t ? `${t} | ${base}` : `Post | ${base}`;
+    }
+
+    function renderPostForLang(){
+      if(!currentPost) return;
+
+      const t = pickLangField(currentPost.title, "");
+      const ex = pickLangField(currentPost.excerpt, "");
+      const raw = pickLangField(currentPost.content, "");
+      const safe = sanitizeHTML(raw);
+
+      setDocumentTitle(t);
+      titleEl.textContent = t || "";
+      excerptEl.textContent = ex || "";
+
+      // IMPORTANT: safe render
+      contentEl.innerHTML = safe;
+
+      authorEl.textContent = String(currentPost.author || "GuttyTECH");
+      dateTxt.textContent = fmtDate(currentPost.createdAt);
+
+      kickerRight.textContent = (getLang()==="en") ? "REAL RESULTS ONLY" : "SÓ RESULTADO REAL";
+    }
+
+    async function loadPost(){
+      currentSlug = getSlugFromQuery();
+      if(!currentSlug){
+        setStatus("error", getLang()==="en"
+          ? "Missing slug. Use: /blogs/blogview.html?slug=my-post"
+          : "Faltou o slug. Use: /blogs/blogview.html?slug=meu-post"
+        );
+        return;
+      }
+
+      setStatus("info", getLang()==="en" ? "Loading post..." : "Carregando post...");
+
+      try{
+        const res = await fetch(`/api/posts/${encodeURIComponent(currentSlug)}`, {
+          headers: { "Accept":"application/json" },
+          cache: "no-store"
+        });
+        const post = await res.json().catch(()=> ({}));
+
+        if(!res.ok){
+          setStatus("error", post.error || (getLang()==="en" ? "Post not found." : "Post não encontrado."));
+          return;
+        }
+
+        currentPost = post;
+
+        // cover
+        const img = (post.coverImage || "").trim();
+        if(img){
+          cover.innerHTML = `<img src="${img}" alt="">`;
+          cover.style.display = "block";
+        }else{
+          cover.innerHTML = "";
+          cover.style.display = "none";
+        }
+
+        setCommentsCount(post.commentsCount ?? post.commentCount ?? 0);
+        renderPostForLang();
+
+        statusBox.style.display = "none";
+        postRoot.style.display = "block";
+
+        await loadComments();
+
+      }catch(e){
+        setStatus("error", getLang()==="en"
+          ? "Server connection error. Check if server.js is running."
+          : "Erro ao conectar no servidor. Veja se o server.js está rodando."
+        );
+      }
+    }
+
+    copyLinkBtn.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(window.location.href);
+        copyLinkBtn.innerHTML = `<i class="ri-check-line"></i><span>${getLang()==="en" ? "Copied" : "Copiado"}</span>`;
+        setTimeout(() => {
+          copyLinkBtn.innerHTML = `<i class="ri-link"></i><span>${getLang()==="en" ? "Copy link" : "Copiar link"}</span>`;
+        }, 1200);
+      }catch{
+        alert(getLang()==="en" ? "Could not copy." : "Não foi possível copiar.");
+      }
+    });
+
+    /* =========================================================
+       COMMENTS
+       Needs server routes:
+         GET  /api/posts/:slug/comments
+         POST /api/posts/:slug/comments  (Authorization: Bearer userToken)
+    ========================================================= */
+    const commentForm = document.getElementById("commentForm");
+    const commentText = document.getElementById("commentText");
+    const commentsList = document.getElementById("commentsList");
+    const commentMsg = document.getElementById("commentMsg");
+    const btnRefresh = document.getElementById("btnRefresh");
+    const btnSend = document.getElementById("btnSend");
+    const loginBox = document.getElementById("loginBox");
+
+    function getUserToken(){ return localStorage.getItem("userToken") || ""; }
+
+    function showCommentMsg(type, text){
+      commentMsg.style.display = "block";
+      commentMsg.className = "note" + (type === "error" ? " error" : "");
+      commentMsg.textContent = text;
+    }
+    function clearCommentMsg(){
+      commentMsg.style.display = "none";
+      commentMsg.textContent = "";
+    }
+
+    function avatarText(name){
+      const n = String(name || "").trim();
+      if(!n) return "??";
+      const parts = n.split(/\s+/).slice(0,2);
+      const letters = parts.map(p => p[0]).join("").toUpperCase();
+      return letters.slice(0,2);
+    }
+
+    function renderComments(items){
+      commentsList.innerHTML = "";
+
+      if(!items.length){
+        const empty = document.createElement("div");
+        empty.className = "note";
+        empty.textContent = (getLang()==="en")
+          ? "No comments yet. Be the first."
+          : "Nenhum comentário ainda. Seja o primeiro.";
+        commentsList.appendChild(empty);
+        return;
+      }
+
+      items.forEach(c => {
+        const box = document.createElement("div");
+        box.className = "comment";
+
+        const name = c.userName || c.name || "User";
+        const when = c.createdAt ? fmtDate(c.createdAt) : "-";
+        const text = String(c.text || c.comment || "").slice(0, 800);
+
+        box.innerHTML = `
+          <div class="avatar">${avatarText(name)}</div>
+          <div class="comment-main">
+            <div class="comment-head">
+              <span class="comment-name"></span>
+              <span>${when}</span>
+            </div>
+            <p class="comment-text"></p>
+          </div>
+        `;
+
+        box.querySelector(".comment-name").textContent = name;
+        box.querySelector(".comment-text").textContent = text;
+        commentsList.appendChild(box);
+      });
+    }
+
+    async function loadComments(){
+      clearCommentMsg();
+
+      const hasToken = !!getUserToken();
+      loginBox.style.display = hasToken ? "none" : "block";
+      commentForm.style.display = hasToken ? "grid" : "none";
+
+      try{
+        const res = await fetch(`/api/posts/${encodeURIComponent(currentSlug)}/comments`, {
+          headers: { "Accept":"application/json" },
+          cache: "no-store"
+        });
+
+        if(res.status === 404){
+          renderComments([]);
+          setCommentsCount(0);
+          return;
+        }
+
+        if(!res.ok) throw new Error("HTTP " + res.status);
+
+        const data = await res.json();
+        const list = Array.isArray(data) ? data : (data.items || []);
+        renderComments(list);
+        setCommentsCount(list.length);
+
+      }catch(e){
+        commentsList.innerHTML = "";
+        const err = document.createElement("div");
+        err.className = "note error";
+        err.textContent = (getLang()==="en")
+          ? "Failed to load comments. Check server routes."
+          : "Falha ao carregar comentários. Verifique as rotas no server.";
+        commentsList.appendChild(err);
+      }
+    }
+
+    btnRefresh.addEventListener("click", loadComments);
+
+    commentForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearCommentMsg();
+
+      const token = getUserToken();
+      if(!token){
+        showCommentMsg("error", getLang()==="en" ? "You must be signed in." : "Você precisa estar logado.");
+        return;
+      }
+
+      const text = (commentText.value || "").trim();
+      if(text.length < 2){
+        showCommentMsg("error", getLang()==="en" ? "Write a comment." : "Escreva um comentário.");
+        return;
+      }
+
+      // basic anti-spam: block repeated same text
+      const last = localStorage.getItem("lastCommentText") || "";
+      if(last && last === text){
+        showCommentMsg("error", getLang()==="en" ? "Duplicate comment blocked." : "Comentário repetido bloqueado.");
+        return;
+      }
+
+      btnSend.disabled = true;
+      btnSend.innerHTML = `<i class="ri-loader-4-line"></i><span>${getLang()==="en" ? "Sending..." : "Enviando..."}</span>`;
+
+      try{
+        const res = await fetch(`/api/posts/${encodeURIComponent(currentSlug)}/comments`, {
+          method: "POST",
+          headers: {
+            "Content-Type":"application/json",
+            "Accept":"application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify({ text })
+        });
+
+        const j = await res.json().catch(()=> ({}));
+
+        if(res.status === 401){
+          showCommentMsg("error", getLang()==="en"
+            ? "Invalid session. Sign in again."
+            : "Sessão inválida. Faça login novamente."
+          );
+          return;
+        }
+
+        if(!res.ok){
+          throw new Error(j.error || ("HTTP " + res.status));
+        }
+
+        localStorage.setItem("lastCommentText", text);
+        commentText.value = "";
+        showCommentMsg("info", getLang()==="en" ? "Comment posted." : "Comentário enviado.");
+        await loadComments();
+
+      }catch(err){
+        showCommentMsg("error", (getLang()==="en" ? "Failed: " : "Falha: ") + String(err.message || err));
+      }finally{
+        btnSend.disabled = false;
+        btnSend.innerHTML = `<i class="ri-send-plane-2-line"></i><span>${getLang()==="en" ? "Send" : "Enviar"}</span>`;
+      }
+    });
+
+    /* =========================================================
+       START
+    ========================================================= */
+    loadPost();
+  </script>
+</body>
+</html>

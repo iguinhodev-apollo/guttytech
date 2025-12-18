@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sobre - GuttyTECH</title>
+  <meta name="description" content="Conheça a mente por trás da performance. A história do Campeão Mundial de Overclock.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+
+  <style>
+    :root{
+      --bg:#050505;
+      --panel: rgba(18,18,18,.92);
+      --panel2: rgba(12,12,12,.92);
+      --text:#ffffff;
+      --text2:rgba(255,255,255,.80);
+      --border:rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.70);
+
+      --red:#ff0000;
+      --redBorder: rgba(255,0,0,.30);
+
+      --r12:12px; --r16:16px; --r18:18px; --r26:26px;
+      --max:1120px;
+
+      --icon: rgba(255,255,255,.92);
+      --iconSoft: rgba(255,255,255,.82);
+
+      --drawerW: min(86vw, 380px);
+    }
+
+    html[data-theme="light"]{
+      --bg:#ffffff;
+      --panel: rgba(245,245,245,.96);
+      --panel2: rgba(250,250,250,.96);
+      --text:#0a0a0a;
+      --text2:rgba(0,0,0,.72);
+      --border:rgba(0,0,0,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.12);
+
+      --icon: rgba(0,0,0,.85);
+      --iconSoft: rgba(0,0,0,.70);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+    button{ font-family:inherit; }
+    :focus-visible{ outline: 2px solid rgba(255,0,0,.55); outline-offset: 3px; border-radius: 14px; }
+
+    .wrap{ width:min(var(--max), calc(100% - 32px)); margin:0 auto; }
+    .divider{
+      height:1px;
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 18%, transparent), transparent);
+    }
+
+    /* NAVBAR */
+    .navbar{
+      position: sticky;
+      top:0;
+      z-index:50;
+      background: color-mix(in srgb, var(--bg) 84%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .nav-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+    .brand{
+      font-family:"Bebas Neue", cursive;
+      font-size:30px;
+      letter-spacing:2px;
+      white-space:nowrap;
+    }
+
+    .nav-menu{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-left:auto;
+    }
+    .nav-link{
+      color:var(--text2);
+      font-weight:800;
+      font-size:14px;
+      letter-spacing:.6px;
+      padding:10px 12px;
+      border-radius:var(--r12);
+      border:1px solid transparent;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+      white-space:nowrap;
+    }
+    .nav-link:hover{
+      transform: translateY(-1px);
+      border-color: var(--redBorder);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      color: var(--text);
+    }
+    .nav-link.active{
+      color: var(--text);
+      border-color: var(--redBorder);
+      background: color-mix(in srgb, var(--red) 10%, transparent);
+    }
+
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .icon-btn{
+      width:42px; height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .icon-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .icon-btn i{ font-size:18px; color: var(--icon); }
+
+    .btn{
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:0 14px;
+      border-radius:14px;
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:12px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      border-color: var(--redBorder);
+      box-shadow: var(--shadow);
+    }
+    .btn-primary{
+      background: linear-gradient(180deg, rgba(255,0,0,.95), rgba(165,0,0,.95));
+      border-color: rgba(255,0,0,.25);
+      color:#fff;
+    }
+
+    /* Language (DESKTOP) */
+    .lang{ position: relative; }
+    .lang-btn{
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:0 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease;
+      color: var(--text);
+    }
+    .lang-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+
+    .lang-flag{
+      width:20px; height:20px;
+      border-radius:6px;
+      object-fit:cover;
+      border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+      background: transparent;
+    }
+    .lang-code{
+      font-weight:900;
+      letter-spacing:1px;
+      font-size:12px;
+      color: var(--text);
+    }
+
+    .lang-menu{
+      position:absolute;
+      right:0;
+      top: calc(100% + 10px);
+      width:210px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:none;
+      z-index:60;
+    }
+    .lang.open .lang-menu{ display:block; }
+
+    .lang-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px;
+      cursor:pointer;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      font-weight:800;
+      color: var(--text);
+    }
+    .lang-item:last-child{ border-bottom:0; }
+    .lang-item:hover{ background: color-mix(in srgb, var(--red) 7%, transparent); }
+    .lang-item-left{ display:flex; align-items:center; gap:10px; }
+    .check{ opacity:0; }
+    .check.active{ opacity:1; }
+
+    /* HERO */
+    .hero{
+      width:min(var(--max), calc(100% - 32px));
+      margin: 26px auto 0;
+      border-radius: var(--r26);
+      overflow:hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background:#000;
+      position:relative;
+    }
+    .hero img{
+      width:100%;
+      aspect-ratio: 16 / 6;
+      object-fit:cover;
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 360px at 18% 22%, rgba(255,0,0,.10), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.68));
+      pointer-events:none;
+    }
+    .hero-content{
+      position:absolute;
+      left:18px; right:18px; bottom:18px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .hero-title{
+      font-family:"Bebas Neue", cursive;
+      font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+      letter-spacing:2px;
+      margin:0 0 6px;
+      line-height:1.02;
+      color:#fff;
+      text-shadow: 0 10px 30px rgba(0,0,0,.85);
+    }
+    .hero-sub{
+      margin:0;
+      color: rgba(255,255,255,.92);
+      font-weight:600;
+      max-width: 72ch;
+      text-shadow: 0 10px 30px rgba(0,0,0,.85);
+    }
+
+    /* CONTENT */
+    .section{ padding: 54px 0; }
+    .h2{
+      font-family:"Bebas Neue", cursive;
+      font-size: clamp(1.9rem, 2.3vw, 2.6rem);
+      letter-spacing: 1.5px;
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+    .muted{
+      margin:0 0 18px;
+      max-width: 85ch;
+      color: var(--text2);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:18px;
+      align-items:start;
+      margin-top: 18px;
+    }
+
+    .panel{
+      border:1px solid var(--border);
+      background: var(--panel2);
+      border-radius: var(--r26);
+      padding: 18px;
+      box-shadow: 0 12px 30px color-mix(in srgb, #000 35%, transparent);
+    }
+    html[data-theme="light"] .panel{
+      box-shadow: 0 12px 30px rgba(0,0,0,.10);
+    }
+
+    .about-top{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+    }
+    .photo{
+      width:110px; height:110px;
+      border-radius: 18px;
+      object-fit: cover;
+      border:1px solid var(--border);
+      background:#000;
+      flex: 0 0 auto;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,0,0,.55);
+      background: rgba(255,0,0,.22);
+      color:#fff;
+      font-weight:900;
+      letter-spacing:.9px;
+      text-transform:uppercase;
+      font-size:11px;
+      margin-top: 10px;
+      width: fit-content;
+      box-shadow:
+        0 10px 26px rgba(255,0,0,.14),
+        inset 0 0 0 1px rgba(255,255,255,.06);
+      text-shadow: 0 8px 18px rgba(0,0,0,.35);
+    }
+    .badge i{ color:#fff; opacity:.95; }
+
+    .list{
+      margin: 12px 0 0;
+      padding: 0 0 0 18px;
+      color: var(--text2);
+    }
+    .list li{ margin: 8px 0; }
+
+    .cards{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      margin-top: 12px;
+    }
+    .card{
+      border:1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--r18);
+      padding: 14px;
+    }
+    .card h3{
+      font-family:"Bebas Neue", cursive;
+      letter-spacing: 1.1px;
+      font-size: 1.55rem;
+      margin:0 0 6px;
+      color: var(--text);
+    }
+    .card p{ margin:0; color: var(--text2); }
+
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      margin-top: 12px;
+    }
+    .step{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding: 12px;
+      border-radius: var(--r18);
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 85%, transparent);
+    }
+    .step .n{
+      width:34px; height:34px;
+      border-radius: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      border:1px solid var(--redBorder);
+      background: color-mix(in srgb, var(--red) 10%, transparent);
+      flex: 0 0 auto;
+    }
+    .step strong{ display:block; margin-bottom:2px; color: var(--text); }
+    .step span{ color: var(--text2); }
+
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top: 12px;
+    }
+    .stat{
+      border:1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--r18);
+      padding: 14px;
+    }
+    .stat span{
+      display:block;
+      color: var(--text2);
+      font-weight:700;
+      font-size:12px;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+    }
+    .stat strong{
+      display:block;
+      font-size:20px;
+      font-weight:900;
+      margin-top:4px;
+      color: var(--text);
+    }
+
+    /* FOOTER */
+    .footer{ padding: 26px 0 44px; }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .social{ display:flex; gap:10px; }
+    .social a{
+      width:42px; height:42px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: var(--panel);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--icon);
+    }
+
+    /* ===== MOBILE (layout) ===== */
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .stats{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 860px){
+      .nav-menu{ display:none; }
+      .hero img{ aspect-ratio: 16 / 9; }
+      .hero-content{
+        position: static;
+        padding: 16px;
+        background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.78));
+      }
+      .hero-sub{ max-width: unset; }
+
+      /* mobile: esconder idioma/discord/tema do header */
+      #lang{ display:none !important; }
+      #themeToggle{ display:none !important; }
+      #btnDiscordDesktop{ display:none !important; }
+
+      /* mobile: mostrar 3 pontos */
+      #mobileMenuBtn{ display:inline-flex !important; }
+    }
+    @media (max-width: 520px){
+      .wrap{ width: calc(100% - 22px); }
+      .brand{ font-size: 28px; }
+      .about-top{ gap:12px; }
+      .photo{ width:96px; height:96px; border-radius: 16px; }
+      .panel{ padding: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; animation:none !important; }
+    }
+
+    /* ===== MOBILE DRAWER ===== */
+    #mobileMenuBtn{ display:none; }
+
+    .drawer-overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease;
+      z-index: 100;
+    }
+
+    .drawer{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100%;
+      width: var(--drawerW);
+      background: color-mix(in srgb, var(--bg) 86%, transparent);
+      border-left: 1px solid var(--border);
+      box-shadow: 0 30px 80px rgba(0,0,0,.65);
+      transform: translateX(100%);
+      transition: transform .22s ease;
+      z-index: 110;
+      display:flex;
+      flex-direction:column;
+      padding: 18px;
+      gap: 14px;
+    }
+
+    .drawer.open{ transform: translateX(0); }
+    .drawer-overlay.open{ opacity:1; pointer-events:auto; }
+
+    .drawer-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .drawer-title{
+      font-family:"Bebas Neue", cursive;
+      letter-spacing: 2px;
+      font-size: 26px;
+      margin:0;
+    }
+    .drawer-close{
+      width:44px; height:44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,0,0,.35);
+      background: color-mix(in srgb, var(--panel) 65%, transparent);
+      color: var(--text);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .drawer-close i{ font-size:18px; color: var(--icon); }
+
+    .drawer-nav{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      padding-top: 4px;
+    }
+    .drawer-link{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 16px 16px;
+      border-radius: 18px;
+      border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      font-weight: 1000;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .drawer-link i{ color: var(--iconSoft); font-size:18px; }
+    .drawer-link.active{
+      border-color: rgba(255,0,0,.35);
+      box-shadow: inset 0 0 0 1px rgba(255,0,0,.12);
+    }
+
+    .drawer-section{
+      margin-top: 6px;
+      border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      padding-top: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+    .drawer-hint{
+      margin:0;
+      color: var(--text2);
+      font-weight: 800;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .drawer-row{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+    }
+    .drawer-row strong{
+      font-size: 13px;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .drawer-actions{ display:flex; gap: 10px; align-items:center; }
+
+    .mini-btn{
+      width:44px; height:44px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 78%, transparent);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .mini-btn i{ font-size:18px; color: var(--icon); }
+
+    /* Mobile language: botão -> abre modal central */
+    .lang-modal-overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.60);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+      z-index: 200;
+    }
+    .lang-modal-overlay.open{ opacity:1; pointer-events:auto; }
+
+    .lang-modal{
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(.98);
+      width: min(92vw, 420px);
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--panel2) 92%, transparent);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 210;
+    }
+    .lang-modal.open{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .lang-modal-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 10px;
+    }
+    .lang-modal-top h4{
+      margin:0;
+      font-family:"Bebas Neue", cursive;
+      letter-spacing: 1.6px;
+      font-size: 24px;
+      color: var(--text);
+    }
+    .lang-modal-list{
+      display:grid;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .lang-choice{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      cursor:pointer;
+    }
+    .lang-choice-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 900;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .lang-choice-left img{
+      width:22px; height:22px;
+      border-radius: 7px;
+      border:1px solid color-mix(in srgb, var(--text) 20%, transparent);
+      object-fit: cover;
+    }
+    .lang-choice i{ opacity:.25; color: var(--icon); }
+    .lang-choice.active{
+      border-color: rgba(255,0,0,.35);
+      box-shadow: inset 0 0 0 1px rgba(255,0,0,.12);
+    }
+    .lang-choice.active i{ opacity:1; color: color-mix(in srgb, var(--red) 86%, var(--text)); }
+
+    .no-scroll{ overflow:hidden; }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="navbar">
+    <div class="wrap nav">
+      <div class="nav-left">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema">
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+
+        <a class="brand" href="index.html" aria-label="Ir para início">GUTTYTECH</a>
+      </div>
+
+      <nav class="nav-menu" aria-label="Menu principal">
+        <a class="nav-link" href="index.html" id="mHome">HOME</a>
+        <a class="nav-link" href="servicos.html" id="mServices">SERVIÇOS</a>
+        <a class="nav-link active" href="sobre.html" id="mAbout">SOBRE MIM</a>
+        <a class="nav-link" href="comunidade.html" id="mCommunity">COMUNIDADE</a>
+        <a class="nav-link" href="blog.html" id="mBlog">BLOG</a>
+      </nav>
+
+      <div class="nav-right">
+        <!-- Language desktop -->
+        <div class="lang" id="lang">
+          <button class="lang-btn" id="langBtn" type="button" aria-label="Idioma" aria-expanded="false">
+            <img class="lang-flag" id="langFlag" src="images/languages/brasil.png" alt="Idioma">
+            <span class="lang-code" id="langCode">BR</span>
+            <i class="ri-arrow-down-s-line" style="color:var(--iconSoft)"></i>
+          </button>
+
+          <div class="lang-menu" role="menu" aria-label="Idiomas">
+            <div class="lang-item" data-lang="pt" role="menuitem">
+              <div class="lang-item-left">
+                <img class="lang-flag" src="images/languages/brasil.png" alt="BR">
+                <span>BR</span>
+              </div>
+              <i class="ri-check-line check active" id="checkPT"></i>
+            </div>
+
+            <div class="lang-item" data-lang="en" role="menuitem">
+              <div class="lang-item-left">
+                <img class="lang-flag" src="images/languages/en.png" alt="EN">
+                <span>EN</span>
+              </div>
+              <i class="ri-check-line check" id="checkEN"></i>
+            </div>
+
+            <div class="lang-item" data-lang="eu" role="menuitem">
+              <div class="lang-item-left">
+                <img class="lang-flag" src="images/languages/eu.png" alt="EU">
+                <span>EU</span>
+              </div>
+              <i class="ri-check-line check" id="checkEU"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discord desktop (mobile hide) -->
+        <a class="btn btn-primary" id="btnDiscordDesktop"
+           href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer" aria-label="Entrar">
+          <i class="ri-discord-fill"></i>
+          <span id="btnSignIn">Entrar</span>
+        </a>
+
+        <!-- Mobile: 3 pontos -->
+        <button class="icon-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menu">
+          <i class="ri-more-2-fill"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Sobre">
+    <img src="images/banners/banner-sobre.gif" alt="A mente por trás da performance - Campeão Mundial de Overclock">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div>
+        <h1 class="hero-title" id="tHeroTitle">A MENTE POR TRÁS DA PERFORMANCE</h1>
+        <p class="hero-sub" id="tHeroSub">
+          Teste, método, consistência e obsessão por estabilidade — é assim que eu tiro performance real do seu PC.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top:22px;"></div>
+
+  <main>
+    <section class="wrap section" aria-labelledby="tAboutTitle">
+      <h2 class="h2" id="tAboutTitle">SOBRE MIM</h2>
+      <p class="muted" id="tAboutIntro">
+        Sou GuttyTECH. Desde moleque eu vivo performance: testei, errei, aprendi e refinei até virar método.
+        Hoje aplico o padrão de competição em cada máquina — focando no que importa: estabilidade, resposta e consistência.
+      </p>
+
+      <div class="grid">
+        <!-- LEFT -->
+        <div class="panel">
+          <div class="about-top">
+            <img class="photo" src="images/users/gutty.gif" alt="Foto do GuttyTECH">
+            <div style="min-width:0;">
+              <h3 style="margin:0; font-weight:900; letter-spacing:.6px;" id="tName">GuttyTECH</h3>
+              <p style="margin:6px 0 0; color:var(--text2); font-weight:700;" id="tRole">
+                Campeão Mundial de Overclock • Otimização • BIOS • Latência • Consistência
+              </p>
+              <div class="badge"><i class="ri-trophy-fill"></i><span id="tBadge">CAMPEÃO MUNDIAL DE OVERCLOCK</span></div>
+            </div>
+          </div>
+
+          <p class="muted" style="margin-top:14px;" id="tStory">
+            Minha missão é simples: transformar a sensação do seu PC. Não é só “mais FPS”, é reduzir stutter, melhorar frame time,
+            eliminar conflitos e deixar a máquina responder na hora. Cada ajuste tem motivo, teste e validação.
+          </p>
+
+          <ul class="list" id="tBullets">
+            <li id="b1"><strong>Diagnóstico real</strong> do gargalo (sem chute).</li>
+            <li id="b2"><strong>Windows + drivers</strong> ajustados para reduzir conflito e travamento.</li>
+            <li id="b3"><strong>BIOS e latências</strong> (RAM/CPU) para consistência.</li>
+            <li id="b4"><strong>Antes/depois</strong> com testes para provar o resultado.</li>
+          </ul>
+
+          <div class="divider" style="margin:16px 0;"></div>
+
+          <h3 style="margin:0 0 8px; font-weight:900; letter-spacing:.6px;" id="tProcessTitle">MEU PROCESSO</h3>
+          <div class="steps">
+            <div class="step">
+              <div class="n">1</div>
+              <div>
+                <strong id="tP1">Diagnóstico</strong>
+                <span id="tP1d">Mapeio gargalos, conflitos e o comportamento do frame time.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="n">2</div>
+              <div>
+                <strong id="tP2">Otimização</strong>
+                <span id="tP2d">Ajusto Windows, drivers e configurações pra reduzir stutter e aumentar resposta.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="n">3</div>
+              <div>
+                <strong id="tP3">Validação</strong>
+                <span id="tP3d">Testes finais + estabilidade. O que não é estável, não fica.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="panel">
+          <h3 style="margin:0 0 8px; font-weight:900; letter-spacing:.6px;" id="tExpertTitle">MINHA ESPECIALIZAÇÃO</h3>
+
+          <div class="cards">
+            <div class="card">
+              <h3 id="tE1">OVERCLOCK</h3>
+              <p id="tE1d">Do ajuste fino ao limite estável: metodologia de competição aplicada no mundo real.</p>
+            </div>
+            <div class="card">
+              <h3 id="tE2">OTIMIZAÇÃO</h3>
+              <p id="tE2d">Windows, drivers, BIOS e latências: caçando o gargalo até sumir.</p>
+            </div>
+            <div class="card">
+              <h3 id="tE3">CONSISTÊNCIA</h3>
+              <p id="tE3d">Menos stutter, frame time mais liso, sensação de PC “na mão”.</p>
+            </div>
+          </div>
+
+          <div class="divider" style="margin:16px 0;"></div>
+
+          <h3 style="margin:0 0 8px; font-weight:900; letter-spacing:.6px;" id="tStatsTitle">EM UMA FRASE</h3>
+          <p class="muted" style="margin:0;" id="tStatsSub">
+            Performance real é estabilidade + resposta + consistência.
+          </p>
+
+          <div class="stats" aria-label="Destaques">
+            <div class="stat"><span id="tS1l">Foco</span><strong id="tS1v">Frame time</strong></div>
+            <div class="stat"><span id="tS2l">Meta</span><strong id="tS2v">Sem stutter</strong></div>
+            <div class="stat"><span id="tS3l">Entrega</span><strong id="tS3v">Estável</strong></div>
+            <div class="stat"><span id="tS4l">Método</span><strong id="tS4v">Teste</strong></div>
+          </div>
+
+          <div class="divider" style="margin:16px 0;"></div>
+
+          <h3 style="margin:0 0 8px; font-weight:900; letter-spacing:.6px;" id="tProofTitle">PROVAS</h3>
+          <p class="muted" style="margin:0 0 12px;" id="tProofSub">
+            Eu não prometo. Eu mostro. Veja os resultados e avaliações:
+          </p>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="https://www.tiktok.com/@guttytech" target="_blank" rel="noopener noreferrer" style="box-shadow:none;">
+              <i class="ri-tiktok-line"></i> <span id="tProofTik">Ver TikTok</span>
+            </a>
+            <a class="btn btn-primary" href="https://g.page/r/CRRkhqpSjsUCEAE/review" target="_blank" rel="noopener noreferrer" style="box-shadow:none;">
+              <i class="ri-google-fill"></i> <span id="tProofGoogle">Avaliar no Google</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="divider"></div>
+    <div class="wrap footer-row" style="padding-top:22px;">
+      <p style="margin:0; color:var(--text2); font-size:.92rem;" id="tFooter">© 2025 GuttyTECH — Performance é obsessão.</p>
+      <div class="social">
+        <a href="https://www.instagram.com/guttytech/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+        <a href="https://www.youtube.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+        <a href="https://www.tiktok.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="ri-tiktok-line"></i></a>
+        <a href="mailto:Gutty@GuttyTech.com.br" aria-label="Email"><i class="ri-mail-line"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+
+  <aside class="drawer" id="drawer" aria-label="Menu">
+    <div class="drawer-top">
+      <h3 class="drawer-title" id="tDrawerTitle">MENU</h3>
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Fechar menu">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Links">
+      <a class="drawer-link" href="index.html"><span id="tDHome">HOME</span><i class="ri-arrow-right-s-line"></i></a>
+      <a class="drawer-link" href="servicos.html"><span id="tDServices">SERVIÇOS</span><i class="ri-arrow-right-s-line"></i></a>
+      <a class="drawer-link active" href="sobre.html"><span id="tDAbout">SOBRE MIM</span><i class="ri-arrow-right-s-line"></i></a>
+      <a class="drawer-link" href="comunidade.html"><span id="tDCommunity">COMUNIDADE</span><i class="ri-arrow-right-s-line"></i></a>
+      <a class="drawer-link" href="blog.html"><span id="tDBlog">BLOG</span><i class="ri-arrow-right-s-line"></i></a>
+    </nav>
+
+    <div class="drawer-section" aria-label="Preferências">
+      <p class="drawer-hint" id="tDrawerPrefs">PREFERÊNCIAS</p>
+
+      <div class="drawer-row">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <strong id="tDrawerTheme">Tema</strong>
+          <span style="color:var(--text2); font-weight:700; font-size:12px;" id="tDrawerThemeSub">Claro/Escuro</span>
+        </div>
+        <div class="drawer-actions">
+          <button class="mini-btn" id="drawerThemeBtn" type="button" aria-label="Alternar tema">
+            <i class="ri-moon-line" id="drawerThemeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="drawer-row">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <strong id="tDrawerLang">Idioma</strong>
+          <span style="color:var(--text2); font-weight:700; font-size:12px;" id="tDrawerLangSub">Trocar idioma</span>
+        </div>
+        <div class="drawer-actions">
+          <button class="mini-btn" id="openLangModal" type="button" aria-label="Trocar idioma">
+            <i class="ri-translate-2"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="drawer-row">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <strong id="tDrawerDiscord">Discord</strong>
+          <span style="color:var(--text2); font-weight:700; font-size:12px;" id="tDrawerDiscordSub">Entrar</span>
+        </div>
+        <div class="drawer-actions">
+          <a class="mini-btn" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer" aria-label="Abrir Discord">
+            <i class="ri-discord-fill"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- LANG MODAL (mobile) -->
+  <div class="lang-modal-overlay" id="langModalOverlay" aria-hidden="true"></div>
+  <div class="lang-modal" id="langModal" role="dialog" aria-modal="true" aria-label="Selecionar idioma">
+    <div class="lang-modal-top">
+      <h4 id="tLangModalTitle">IDIOMA</h4>
+      <button class="drawer-close" id="langModalClose" type="button" aria-label="Fechar">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+
+    <div class="lang-modal-list">
+      <button class="lang-choice" type="button" data-lang="pt" id="mLangPT">
+        <div class="lang-choice-left">
+          <img src="images/languages/brasil.png" alt="BR">
+          <span>BR</span>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
+
+      <button class="lang-choice" type="button" data-lang="en" id="mLangEN">
+        <div class="lang-choice-left">
+          <img src="images/languages/en.png" alt="EN">
+          <span>EN</span>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
+
+      <button class="lang-choice" type="button" data-lang="eu" id="mLangEU">
+        <div class="lang-choice-left">
+          <img src="images/languages/eu.png" alt="EU">
+          <span>EU</span>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    /* COOKIE HELPERS */
+    function setCookie(name, value, days=365){
+      const maxAge = days * 24 * 60 * 60;
+      document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; Max-Age=${maxAge}; Path=/; SameSite=Lax`;
+    }
+    function getCookie(name){
+      const target = encodeURIComponent(name) + "=";
+      const parts = document.cookie.split(";").map(s => s.trim());
+      for(const p of parts){
+        if(p.startsWith(target)) return decodeURIComponent(p.slice(target.length));
+      }
+      return "";
+    }
+
+    /* THEME */
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const drawerThemeBtn = document.getElementById("drawerThemeBtn");
+    const drawerThemeIcon = document.getElementById("drawerThemeIcon");
+
+    function applyTheme(theme){
+      root.setAttribute("data-theme", theme);
+      setCookie("gutty_theme", theme);
+      const isDark = theme === "dark";
+      if(themeIcon) themeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
+      if(drawerThemeIcon) drawerThemeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
+    }
+    applyTheme(getCookie("gutty_theme") || "dark");
+
+    if(themeToggle){
+      themeToggle.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme") || "dark";
+        applyTheme(current === "dark" ? "light" : "dark");
+      });
+    }
+    if(drawerThemeBtn){
+      drawerThemeBtn.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme") || "dark";
+        applyTheme(current === "dark" ? "light" : "dark");
+      });
+    }
+
+    /* DESKTOP LANGUAGE DROPDOWN */
+    const langWrap = document.getElementById("lang");
+    const langBtn = document.getElementById("langBtn");
+    const langFlag = document.getElementById("langFlag");
+    const langCode = document.getElementById("langCode");
+    const checkPT = document.getElementById("checkPT");
+    const checkEN = document.getElementById("checkEN");
+    const checkEU = document.getElementById("checkEU");
+
+    function setLangOpen(open){
+      if(!langWrap || !langBtn) return;
+      langWrap.classList.toggle("open", open);
+      langBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    if(langBtn){
+      langBtn.addEventListener("click", (e) => { e.stopPropagation(); setLangOpen(!langWrap.classList.contains("open")); });
+      document.addEventListener("click", () => setLangOpen(false));
+    }
+
+    /* MOBILE DRAWER */
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const drawer = document.getElementById("drawer");
+    const drawerOverlay = document.getElementById("drawerOverlay");
+    const drawerClose = document.getElementById("drawerClose");
+
+    function openDrawer(){
+      drawer.classList.add("open");
+      drawerOverlay.classList.add("open");
+      drawerOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+    }
+    function closeDrawer(){
+      drawer.classList.remove("open");
+      drawerOverlay.classList.remove("open");
+      drawerOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+    }
+
+    if(mobileMenuBtn) mobileMenuBtn.addEventListener("click", openDrawer);
+    if(drawerClose) drawerClose.addEventListener("click", closeDrawer);
+    if(drawerOverlay) drawerOverlay.addEventListener("click", closeDrawer);
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape"){
+        closeDrawer();
+        closeLangModal();
+      }
+    });
+
+    /* MOBILE LANG MODAL */
+    const openLangModalBtn = document.getElementById("openLangModal");
+    const langModal = document.getElementById("langModal");
+    const langModalOverlay = document.getElementById("langModalOverlay");
+    const langModalClose = document.getElementById("langModalClose");
+
+    function openLangModal(){
+      langModal.classList.add("open");
+      langModalOverlay.classList.add("open");
+      langModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+    }
+    function closeLangModal(){
+      langModal.classList.remove("open");
+      langModalOverlay.classList.remove("open");
+      langModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+    }
+
+    if(openLangModalBtn) openLangModalBtn.addEventListener("click", openLangModal);
+    if(langModalClose) langModalClose.addEventListener("click", closeLangModal);
+    if(langModalOverlay) langModalOverlay.addEventListener("click", closeLangModal);
+
+    /* TRANSLATIONS */
+    const T = {
+      btnSignIn: document.getElementById("btnSignIn"),
+      tHeroTitle: document.getElementById("tHeroTitle"),
+      tHeroSub: document.getElementById("tHeroSub"),
+      tAboutTitle: document.getElementById("tAboutTitle"),
+      tAboutIntro: document.getElementById("tAboutIntro"),
+      tRole: document.getElementById("tRole"),
+      tBadge: document.getElementById("tBadge"),
+      tStory: document.getElementById("tStory"),
+      b1: document.getElementById("b1"),
+      b2: document.getElementById("b2"),
+      b3: document.getElementById("b3"),
+      b4: document.getElementById("b4"),
+      tProcessTitle: document.getElementById("tProcessTitle"),
+      tP1: document.getElementById("tP1"),
+      tP1d: document.getElementById("tP1d"),
+      tP2: document.getElementById("tP2"),
+      tP2d: document.getElementById("tP2d"),
+      tP3: document.getElementById("tP3"),
+      tP3d: document.getElementById("tP3d"),
+      tExpertTitle: document.getElementById("tExpertTitle"),
+      tE1: document.getElementById("tE1"),
+      tE1d: document.getElementById("tE1d"),
+      tE2: document.getElementById("tE2"),
+      tE2d: document.getElementById("tE2d"),
+      tE3: document.getElementById("tE3"),
+      tE3d: document.getElementById("tE3d"),
+      tStatsTitle: document.getElementById("tStatsTitle"),
+      tStatsSub: document.getElementById("tStatsSub"),
+      tS1l: document.getElementById("tS1l"),
+      tS1v: document.getElementById("tS1v"),
+      tS2l: document.getElementById("tS2l"),
+      tS2v: document.getElementById("tS2v"),
+      tS3l: document.getElementById("tS3l"),
+      tS3v: document.getElementById("tS3v"),
+      tS4l: document.getElementById("tS4l"),
+      tS4v: document.getElementById("tS4v"),
+      tProofTitle: document.getElementById("tProofTitle"),
+      tProofSub: document.getElementById("tProofSub"),
+      tProofTik: document.getElementById("tProofTik"),
+      tProofGoogle: document.getElementById("tProofGoogle"),
+      tFooter: document.getElementById("tFooter"),
+
+      // drawer labels
+      tDrawerTitle: document.getElementById("tDrawerTitle"),
+      tDrawerPrefs: document.getElementById("tDrawerPrefs"),
+      tDrawerTheme: document.getElementById("tDrawerTheme"),
+      tDrawerThemeSub: document.getElementById("tDrawerThemeSub"),
+      tDrawerLang: document.getElementById("tDrawerLang"),
+      tDrawerLangSub: document.getElementById("tDrawerLangSub"),
+      tDrawerDiscord: document.getElementById("tDrawerDiscord"),
+      tDrawerDiscordSub: document.getElementById("tDrawerDiscordSub"),
+
+      tDHome: document.getElementById("tDHome"),
+      tDServices: document.getElementById("tDServices"),
+      tDAbout: document.getElementById("tDAbout"),
+      tDCommunity: document.getElementById("tDCommunity"),
+      tDBlog: document.getElementById("tDBlog"),
+
+      tLangModalTitle: document.getElementById("tLangModalTitle"),
+    };
+
+    const dict = {
+      pt:{
+        ui:{ code:"BR", flag:"images/languages/brasil.png" },
+        btnSignIn:"Entrar",
+        tHeroTitle:"A MENTE POR TRÁS DA PERFORMANCE",
+        tHeroSub:"Teste, método, consistência e obsessão por estabilidade — é assim que eu tiro performance real do seu PC.",
+        tAboutTitle:"SOBRE MIM",
+        tAboutIntro:"Sou GuttyTECH. Desde moleque eu vivo performance: testei, errei, aprendi e refinei até virar método. Hoje aplico o padrão de competição em cada máquina — focando no que importa: estabilidade, resposta e consistência.",
+        tRole:"Campeão Mundial de Overclock • Otimização • BIOS • Latência • Consistência",
+        tBadge:"CAMPEÃO MUNDIAL DE OVERCLOCK",
+        tStory:"Minha missão é simples: transformar a sensação do seu PC. Não é só “mais FPS”, é reduzir stutter, melhorar frame time, eliminar conflitos e deixar a máquina responder na hora. Cada ajuste tem motivo, teste e validação.",
+        b1:'<strong>Diagnóstico real</strong> do gargalo (sem chute).',
+        b2:'<strong>Windows + drivers</strong> ajustados para reduzir conflito e travamento.',
+        b3:'<strong>BIOS e latências</strong> (RAM/CPU) para consistência.',
+        b4:'<strong>Antes/depois</strong> com testes para provar o resultado.',
+        tProcessTitle:"MEU PROCESSO",
+        tP1:"Diagnóstico", tP1d:"Mapeio gargalos, conflitos e o comportamento do frame time.",
+        tP2:"Otimização", tP2d:"Ajusto Windows, drivers e configurações pra reduzir stutter e aumentar resposta.",
+        tP3:"Validação", tP3d:"Testes finais + estabilidade. O que não é estável, não fica.",
+        tExpertTitle:"MINHA ESPECIALIZAÇÃO",
+        tE1:"OVERCLOCK", tE1d:"Do ajuste fino ao limite estável: metodologia de competição aplicada no mundo real.",
+        tE2:"OTIMIZAÇÃO", tE2d:"Windows, drivers, BIOS e latências: caçando o gargalo até sumir.",
+        tE3:"CONSISTÊNCIA", tE3d:"Menos stutter, frame time mais liso, sensação de PC “na mão”.",
+        tStatsTitle:"EM UMA FRASE",
+        tStatsSub:"Performance real é estabilidade + resposta + consistência.",
+        tS1l:"Foco", tS1v:"Frame time",
+        tS2l:"Meta", tS2v:"Sem stutter",
+        tS3l:"Entrega", tS3v:"Estável",
+        tS4l:"Método", tS4v:"Teste",
+        tProofTitle:"PROVAS",
+        tProofSub:"Eu não prometo. Eu mostro. Veja os resultados e avaliações:",
+        tProofTik:"Ver TikTok",
+        tProofGoogle:"Avaliar no Google",
+        tFooter:"© 2025 GuttyTECH — Performance é obsessão.",
+
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERÊNCIAS",
+        tDrawerTheme:"Tema",
+        tDrawerThemeSub:"Claro/Escuro",
+        tDrawerLang:"Idioma",
+        tDrawerLangSub:"Trocar idioma",
+        tDrawerDiscord:"Discord",
+        tDrawerDiscordSub:"Entrar",
+
+        tDHome:"HOME",
+        tDServices:"SERVIÇOS",
+        tDAbout:"SOBRE MIM",
+        tDCommunity:"COMUNIDADE",
+        tDBlog:"BLOG",
+
+        tLangModalTitle:"IDIOMA"
+      },
+
+      en:{
+        ui:{ code:"EN", flag:"images/languages/en.png" },
+        btnSignIn:"Sign in",
+        tHeroTitle:"THE MIND BEHIND PERFORMANCE",
+        tHeroSub:"Testing, method, consistency and obsession with stability — that’s how I deliver real performance for your PC.",
+        tAboutTitle:"ABOUT ME",
+        tAboutIntro:"I’m GuttyTECH. Since I was a kid I’ve lived for performance: tested, failed, learned and refined until it became a method. Today I apply competition-level standards to every machine — focusing on what matters: stability, responsiveness and consistency.",
+        tRole:"World Champion Overclocker • Optimization • BIOS • Latency • Consistency",
+        tBadge:"WORLD CHAMPION OVERCLOCKER",
+        tStory:"My mission is simple: transform how your PC feels. It’s not only “more FPS” — it’s less stutter, better frame time, fewer conflicts and instant responsiveness. Every tweak has a reason, a test and a validation.",
+        b1:"<strong>Real diagnosis</strong> of the bottleneck (no guessing).",
+        b2:"<strong>Windows + drivers</strong> tuned to reduce conflicts and crashes.",
+        b3:"<strong>BIOS and latencies</strong> (RAM/CPU) for consistency.",
+        b4:"<strong>Before/after</strong> tests to prove results.",
+        tProcessTitle:"MY PROCESS",
+        tP1:"Diagnosis", tP1d:"I map bottlenecks, conflicts and frame-time behavior.",
+        tP2:"Optimization", tP2d:"I tune Windows, drivers and settings to reduce stutter and increase responsiveness.",
+        tP3:"Validation", tP3d:"Final tests + stability. If it’s not stable, it doesn’t stay.",
+        tExpertTitle:"MY EXPERTISE",
+        tE1:"OVERCLOCK", tE1d:"From fine tuning to stable limits: competition methodology applied to real-life usage.",
+        tE2:"OPTIMIZATION", tE2d:"Windows, drivers, BIOS and latency — hunting bottlenecks until they’re gone.",
+        tE3:"CONSISTENCY", tE3d:"Less stutter, smoother frame time, a PC that feels “in your hands”.",
+        tStatsTitle:"IN ONE LINE",
+        tStatsSub:"Real performance is stability + responsiveness + consistency.",
+        tS1l:"Focus", tS1v:"Frame time",
+        tS2l:"Goal", tS2v:"No stutter",
+        tS3l:"Delivery", tS3v:"Stable",
+        tS4l:"Method", tS4v:"Testing",
+        tProofTitle:"PROOF",
+        tProofSub:"No promises — only results. See reviews and real-world outcomes:",
+        tProofTik:"View TikTok",
+        tProofGoogle:"Review on Google",
+        tFooter:"© 2025 GuttyTECH — Performance is an obsession.",
+
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERENCES",
+        tDrawerTheme:"Theme",
+        tDrawerThemeSub:"Light/Dark",
+        tDrawerLang:"Language",
+        tDrawerLangSub:"Change language",
+        tDrawerDiscord:"Discord",
+        tDrawerDiscordSub:"Open",
+
+        tDHome:"HOME",
+        tDServices:"SERVICES",
+        tDAbout:"ABOUT ME",
+        tDCommunity:"COMMUNITY",
+        tDBlog:"BLOG",
+
+        tLangModalTitle:"LANGUAGE"
+      },
+
+      eu:{
+        ui:{ code:"EU", flag:"images/languages/eu.png" },
+        btnSignIn:"Sign in",
+        tHeroTitle:"THE MIND BEHIND PERFORMANCE",
+        tHeroSub:"Testing, method, consistency and obsession with stability — that’s how I deliver real performance for your PC.",
+        tAboutTitle:"ABOUT ME",
+        tAboutIntro:"I’m GuttyTECH. I’ve lived for performance for years: tested, failed, learned and refined until it became a method. Today I apply competition-level standards to every machine — focusing on stability, responsiveness and consistency.",
+        tRole:"World Champion Overclocker • Optimization • BIOS • Latency • Consistency",
+        tBadge:"WORLD CHAMPION OVERCLOCKER",
+        tStory:"My mission is simple: transform how your PC feels. It’s not only “more FPS” — it’s less stutter, better frame time, fewer conflicts and instant responsiveness. Every tweak has a reason, a test and a validation.",
+        b1:"<strong>Real diagnosis</strong> of the bottleneck (no guessing).",
+        b2:"<strong>Windows + drivers</strong> tuned to reduce conflicts and crashes.",
+        b3:"<strong>BIOS and latencies</strong> (RAM/CPU) for consistency.",
+        b4:"<strong>Before/after</strong> tests to prove results.",
+        tProcessTitle:"MY PROCESS",
+        tP1:"Diagnosis", tP1d:"I map bottlenecks, conflicts and frame-time behavior.",
+        tP2:"Optimization", tP2d:"I tune Windows, drivers and settings to reduce stutter and increase responsiveness.",
+        tP3:"Validation", tP3d:"Final tests + stability. If it’s not stable, it doesn’t stay.",
+        tExpertTitle:"MY EXPERTISE",
+        tE1:"OVERCLOCK", tE1d:"From fine tuning to stable limits: competition methodology applied to real-life usage.",
+        tE2:"OPTIMIZATION", tE2d:"Windows, drivers, BIOS and latency — hunting bottlenecks until they’re gone.",
+        tE3:"CONSISTENCY", tE3d:"Less stutter, smoother frame time, a PC that feels “in your hands”.",
+        tStatsTitle:"IN ONE LINE",
+        tStatsSub:"Real performance is stability + responsiveness + consistency.",
+        tS1l:"Focus", tS1v:"Frame time",
+        tS2l:"Goal", tS2v:"No stutter",
+        tS3l:"Delivery", tS3v:"Stable",
+        tS4l:"Method", tS4v:"Testing",
+        tProofTitle:"PROOF",
+        tProofSub:"No promises — only results. See reviews and real-world outcomes:",
+        tProofTik:"View TikTok",
+        tProofGoogle:"Review on Google",
+        tFooter:"© 2025 GuttyTECH — Performance is an obsession.",
+
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERENCES",
+        tDrawerTheme:"Theme",
+        tDrawerThemeSub:"Light/Dark",
+        tDrawerLang:"Language",
+        tDrawerLangSub:"Change language",
+        tDrawerDiscord:"Discord",
+        tDrawerDiscordSub:"Open",
+
+        tDHome:"HOME",
+        tDServices:"SERVICES",
+        tDAbout:"ABOUT ME",
+        tDCommunity:"COMMUNITY",
+        tDBlog:"BLOG",
+
+        tLangModalTitle:"LANGUAGE"
+      }
+    };
+
+    function getLang(){ return getCookie("gutty_lang") || "pt"; }
+
+    function syncLangUI(code){
+      // desktop dropdown
+      if(langCode) langCode.textContent = (dict[code] || dict.pt).ui.code;
+      if(langFlag) langFlag.src = (dict[code] || dict.pt).ui.flag;
+
+      if(checkPT) checkPT.classList.toggle("active", code === "pt");
+      if(checkEN) checkEN.classList.toggle("active", code === "en");
+      if(checkEU) checkEU.classList.toggle("active", code === "eu");
+
+      // mobile modal active
+      document.querySelectorAll(".lang-choice").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang") === code);
+      });
+    }
+
+    function applyLang(code){
+      const d = dict[code] || dict.pt;
+      setCookie("gutty_lang", code);
+
+      syncLangUI(code);
+
+      // update texts
+      Object.keys(T).forEach(k => {
+        if(!T[k] || !d[k]) return;
+        if(k === "b1" || k === "b2" || k === "b3" || k === "b4"){
+          T[k].innerHTML = d[k];
+          return;
+        }
+        T[k].textContent = d[k];
+      });
+
+      document.documentElement.lang = (code === "pt") ? "pt-BR" : "en";
+    }
+
+    // desktop lang click
+    document.querySelectorAll(".lang-item").forEach(item => {
+      item.addEventListener("click", () => {
+        applyLang(item.getAttribute("data-lang"));
+        setLangOpen(false);
+      });
+    });
+
+    // mobile modal click
+    document.querySelectorAll(".lang-choice").forEach(btn => {
+      btn.addEventListener("click", () => {
+        applyLang(btn.getAttribute("data-lang"));
+        closeLangModal();
+      });
+    });
+
+    // open modal
+    if(openLangModalBtn) openLangModalBtn.addEventListener("click", () => {
+      openLangModal();
+      // garante “active” correto ao abrir
+      syncLangUI(getLang());
+    });
+
+    /* INIT */
+    applyTheme(getCookie("gutty_theme") || "dark");
+    applyLang(getLang());
+  </script>
+
+</body>
+</html>

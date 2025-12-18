@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Em Construção - GuttyTECH</title>
+  <meta name="description" content="Página em construção. Volte mais tarde ou aproveite nossos serviços de otimização." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:rgba(18,18,18,.92);
+      --panel2:rgba(12,12,12,.92);
+      --text:#ffffff;
+      --text2:rgba(255,255,255,.80);
+      --border:rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.70);
+
+      --red:#ff0000;
+      --redBorder: rgba(255,0,0,.30);
+
+      --r12:12px; --r16:16px; --r22:22px; --r26:26px;
+      --max:1120px;
+
+      --icon: rgba(255,255,255,.92);
+      --iconSoft: rgba(255,255,255,.82);
+
+      --pad: 18px;
+      --gap: 18px;
+
+      --drawerW: min(86vw, 380px);
+    }
+
+    html[data-theme="light"]{
+      --bg:#ffffff;
+      --panel:rgba(245,245,245,.96);
+      --panel2:rgba(250,250,250,.96);
+      --text:#0a0a0a;
+      --text2:rgba(0,0,0,.72);
+      --border:rgba(0,0,0,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.12);
+
+      --icon: rgba(0,0,0,.85);
+      --iconSoft: rgba(0,0,0,.70);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.6;
+      overflow-x:hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+    button{ font-family:inherit; }
+    :focus-visible{ outline:2px solid rgba(255,0,0,.45); outline-offset:2px; border-radius:12px; }
+
+    .wrap{ width:min(var(--max), calc(100% - 32px)); margin:0 auto; }
+    .divider{
+      height:1px;
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 18%, transparent), transparent);
+    }
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky; top:0; z-index:50;
+      background: color-mix(in srgb, var(--bg) 84%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      min-height:78px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+    }
+    .nav-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .brand{
+      font-family:"Bebas Neue", cursive;
+      font-size:30px; letter-spacing:2px; white-space:nowrap;
+    }
+    .nav-right{ display:flex; align-items:center; gap:10px; }
+
+    .icon-btn{
+      width:42px; height:42px;
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      color:var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .icon-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .icon-btn i{ font-size:18px; color: var(--icon); }
+
+    .btn{
+      height:42px;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; padding:0 14px;
+      border-radius:14px;
+      font-weight:900; letter-spacing:1px;
+      text-transform:uppercase; font-size:12px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 72%, transparent);
+      color:var(--text);
+      cursor:pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      border-color: var(--redBorder);
+      box-shadow: var(--shadow);
+    }
+    .btn-primary{
+      background: linear-gradient(180deg, rgba(255,0,0,.95), rgba(165,0,0,.95));
+      border-color: rgba(255,0,0,.25);
+      color:#fff;
+    }
+
+    /* MAIN */
+    .main{
+      min-height: calc(100vh - 78px);
+      display:flex;
+      align-items:center;
+      padding: 34px 0 54px;
+    }
+
+    .panel{
+      border:1px solid var(--border);
+      background: var(--panel2);
+      border-radius: var(--r26);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .topbar{
+      position:relative;
+      padding: 18px;
+      border-bottom:1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      background:
+        radial-gradient(900px 400px at 15% 20%, rgba(255,0,0,.14), transparent 60%),
+        radial-gradient(520px 220px at 85% 25%, rgba(255,0,0,.10), transparent 60%),
+        color-mix(in srgb, var(--panel2) 85%, transparent);
+    }
+
+    .headline{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    .stamp{
+      width:54px; height:54px;
+      border-radius: 18px;
+      border:1px solid rgba(255,0,0,.35);
+      background: rgba(255,0,0,.14);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 18px 44px rgba(255,0,0,.12), inset 0 0 0 1px rgba(255,255,255,.06);
+      flex: 0 0 auto;
+    }
+    .stamp i{ font-size:24px; color:#fff; opacity:.95; }
+
+    .title{
+      font-family:"Bebas Neue", cursive;
+      letter-spacing: 2px;
+      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+      margin:0;
+      line-height: 1;
+    }
+    .subtitle{
+      margin:8px 0 0;
+      color: var(--text2);
+      font-weight: 700;
+      max-width: 80ch;
+    }
+
+    .content{
+      padding: 18px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      align-items:stretch;
+    }
+
+    .card{
+      border:1px solid color-mix(in srgb, var(--border) 80%, transparent);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 12px 30px color-mix(in srgb, #000 30%, transparent);
+    }
+    html[data-theme="light"] .card{ box-shadow: 0 12px 30px rgba(0,0,0,.08); }
+
+    .card h3{
+      margin:0 0 8px;
+      font-weight: 1000;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--text2);
+    }
+
+    .message{
+      margin:0;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .message .soft{
+      color: var(--text2);
+      font-weight: 700;
+    }
+
+    .list{
+      margin: 12px 0 0;
+      padding: 0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: var(--text2);
+      font-weight: 700;
+    }
+    .list i{
+      margin-top: 2px;
+      color: color-mix(in srgb, var(--red) 86%, var(--text));
+      font-size: 18px;
+      flex: 0 0 auto;
+    }
+
+    .actions{
+      margin-top: 14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .status{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap: 12px;
+    }
+
+    .progress{
+      width:100%;
+      height: 12px;
+      border-radius: 999px;
+      border:1px solid color-mix(in srgb, var(--border) 80%, transparent);
+      background: color-mix(in srgb, var(--panel2) 80%, transparent);
+      overflow:hidden;
+    }
+    .bar{
+      height:100%;
+      width: 72%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,0,0,.95), rgba(255,90,90,.85));
+      box-shadow: 0 14px 30px rgba(255,0,0,.18);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ filter: brightness(1); }
+      50%{ filter: brightness(1.22); }
+    }
+
+    .tiny{
+      margin:0;
+      color: var(--text2);
+      font-weight: 800;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border:1px solid color-mix(in srgb, var(--border) 85%, transparent);
+      background: color-mix(in srgb, var(--panel2) 70%, transparent);
+      color: var(--text);
+      font-weight: 900;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    .pill span{ color: var(--text2); font-weight: 800; text-transform:none; letter-spacing:0; }
+
+    /* Footer */
+    .footer{ padding:26px 0 44px; }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .social{ display:flex; gap:10px; }
+    .social a{
+      width:42px; height:42px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: var(--panel);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--icon);
+    }
+
+    /* MOBILE */
+    @media (max-width: 980px){
+      :root{ --pad: 14px; --gap: 12px; }
+      .content{ grid-template-columns: 1fr; }
+      #btnDiscordDesktop{ display:none !important; }
+      #themeToggle{ display:none !important; }
+      .brand{ font-size: 28px; }
+    }
+
+    @media (max-width: 420px){
+      .wrap{ width: calc(100% - 22px); }
+      .stamp{ width:50px; height:50px; border-radius: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; animation:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="wrap nav">
+      <div class="nav-left">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema">
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
+        <a class="brand" href="index.html">GUTTYTECH</a>
+      </div>
+
+      <div class="nav-right">
+        <a class="btn btn-primary" id="btnDiscordDesktop" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer">
+          <i class="ri-discord-fill"></i>
+          <span>Entrar</span>
+        </a>
+
+        <a class="btn" href="servicos.html">
+          <i class="ri-settings-3-line"></i>
+          <span>Serviços</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="wrap">
+      <section class="panel" aria-label="Página em construção">
+        <div class="topbar">
+          <div class="headline">
+            <div class="stamp" aria-hidden="true"><i class="ri-hammer-line"></i></div>
+            <div>
+              <h1 class="title">TÔ TRABALHANDO AQUI!</h1>
+              <p class="subtitle">
+                Essa página tá no forno — e não é micro-ondas, é <strong>forja</strong>. 🔥
+                <span style="display:block; margin-top:6px;">Volta daqui a pouco… ou já aproveita nossos serviços e sai na frente.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="card">
+            <h3>Mensagem do mestre da otimização</h3>
+            <p class="message">
+              <strong>Estamos construindo isso aqui ainda.</strong>
+              <span class="soft">Por enquanto, a página tá tomando aquele “tuning de BIOS”:</span>
+              sem pressa, sem gambiarra e com performance de verdade. 😈
+            </p>
+
+            <ul class="list">
+              <li><i class="ri-check-line"></i><span>Conteúdo chegando com layout bonito e sem travar.</span></li>
+              <li><i class="ri-check-line"></i><span>Sem promessas vazias: só coisa que funciona.</span></li>
+              <li><i class="ri-check-line"></i><span>Se você leu até aqui, já ganhou +3 FPS moral.</span></li>
+            </ul>
+
+            <div class="actions">
+              <a class="btn btn-primary" href="servicos.html">
+                <i class="ri-settings-3-line"></i>
+                <span>Ver serviços</span>
+              </a>
+              <a class="btn" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer">
+                <i class="ri-discord-fill"></i>
+                <span>Fechar no Discord</span>
+              </a>
+              <a class="btn" href="index.html">
+                <i class="ri-home-4-line"></i>
+                <span>Voltar pra Home</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="status">
+            <div class="card">
+              <h3>Status da obra</h3>
+              <p class="tiny">Progresso estimado (mentira… mas tá indo)</p>
+              <div class="progress" aria-label="Progresso">
+                <div class="bar"></div>
+              </div>
+              <div style="margin-top:12px; display:flex; flex-direction:column; gap:10px;">
+                <div class="pill">
+                  <div>Modo</div>
+                  <span>Construção Brutal</span>
+                </div>
+                <div class="pill">
+                  <div>Ferramenta</div>
+                  <span>Martelo + Café</span>
+                </div>
+                <div class="pill">
+                  <div>Prioridade</div>
+                  <span>Performance & Visual</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Dica rápida</h3>
+              <p class="message" style="margin:0;">
+                Quer resultado <strong>agora</strong>? Clica em <strong>Serviços</strong> e escolhe seu loadout.
+                <span class="soft">O resto é história (e FPS).</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider" style="margin:22px auto 0;"></div>
+
+      <footer class="footer">
+        <div class="wrap footer-row" style="padding-top:22px;">
+          <p style="margin:0; color:var(--text2); font-size:.92rem;">© 2025 GuttyTECH — Performance é obsessão.</p>
+          <div class="social">
+            <a href="https://www.instagram.com/guttytech/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+            <a href="https://www.youtube.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+            <a href="https://www.tiktok.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="ri-tiktok-line"></i></a>
+            <a href="mailto:Gutty@GuttyTech.com.br" aria-label="Email"><i class="ri-mail-line"></i></a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    /* COOKIE HELPERS */
+    function setCookie(name, value, days=365){
+      const maxAge = days * 24 * 60 * 60;
+      document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; Max-Age=${maxAge}; Path=/; SameSite=Lax`;
+    }
+    function getCookie(name){
+      const target = encodeURIComponent(name) + "=";
+      const parts = document.cookie.split(";").map(s => s.trim());
+      for(const p of parts){
+        if(p.startsWith(target)) return decodeURIComponent(p.slice(target.length));
+      }
+      return "";
+    }
+
+    /* THEME */
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function applyTheme(theme){
+      root.setAttribute("data-theme", theme);
+      setCookie("gutty_theme", theme);
+      const isDark = theme === "dark";
+      if(themeIcon) themeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
+      document.body.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text');
+      document.body.style.background = getComputedStyle(document.documentElement).getPropertyValue('--bg');
+    }
+
+    themeToggle?.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "dark";
+      applyTheme(current === "dark" ? "light" : "dark");
+    });
+
+    (function init(){
+      applyTheme(getCookie("gutty_theme") || "dark");
+    })();
+  </script>
+</body>
+</html>

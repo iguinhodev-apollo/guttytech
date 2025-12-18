@@ -1,0 +1,21 @@
+# Arquivo de Configuração do Netlify CMS
+
+backend:
+  name: git-gateway # Usa o Git Gateway que habilitamos no Netlify
+  branch: main # ou master, dependendo do nome do seu branch principal no GitHub
+
+media_folder: "images/blog" # Onde as imagens dos posts serão salvas
+public_folder: "/images/blog" # Como o site irá acessar essas imagens
+
+collections:
+  - name: "blog" # Nome da coleção de conteúdo
+    label: "Blog" # Rótulo que aparece no painel
+    folder: "blog/posts" # Pasta onde os novos arquivos de post serão criados
+    create: true # Permite criar novos posts
+    slug: "{{slug}}" # Gera o nome do arquivo a partir do título
+    extension: "html" # Cria arquivos .html
+    fields: # Os campos que o seu cliente irá preencher
+      - { label: "Título do Post", name: "title", widget: "string" }
+      - { label: "Resumo (para a listagem)", name: "excerpt", widget: "string" }
+      - { label: "Imagem de Capa", name: "image", widget: "image" }
+      - { label: "Conteúdo do Post", name: "body", widget: "markdown" }
