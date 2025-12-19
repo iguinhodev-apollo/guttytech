@@ -1,57 +1,68 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GuttyTECH - A Forja da Performance</title>
   <meta name="description" content="Performance de elite para jogos e trabalho. Otimização profissional, BIOS e consistência real." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" />
 
   <style>
     :root{
-      --bg:#050505;
-      --panel:rgba(18,18,18,.92);
-      --panel2:rgba(12,12,12,.92);
-      --text:#ffffff;
-      --text2:rgba(255,255,255,.80);
-      --border:rgba(255,255,255,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.70);
-
       --red:#ff0000;
       --redBorder: rgba(255,0,0,.30);
 
-      --r12:12px; --r16:16px; --r22:22px; --r26:26px;
+      --r12:12px; --r16:16px; --r18:18px; --r26:26px;
       --max:1120px;
 
-      --icon: rgba(255,255,255,.92);
-      --iconSoft: rgba(255,255,255,.82);
+      /* HERO (igual sobre.html) */
+      --heroBorderRadius: var(--r26);
+      --heroBorder: 1px solid var(--border);
+      --heroMarginTop: 26px;
+      --heroWidth: min(var(--max), calc(100% - 32px));
+      --heroHeightDesktop: auto;
+      --heroAspectDesktop: 16/6;
 
-      --pad: 18px;
-      --gap: 18px;
-
-      /* HERO control */
-      --heroMediaRatio: 16/6;       /* desktop */
-      --heroMediaMaxH: none;        /* mobile overrides */
-      --heroPosY: 50%;
-
-      --drawerW: min(86vw, 380px);
+      /* MOBILE hero sizing */
+      --heroMobileHeight: clamp(240px, 38vh, 420px);
     }
 
-    html[data-theme="light"]{
+    /* ====== AUTOMÁTICO: segue o tema do sistema ====== */
+    :root{
       --bg:#ffffff;
-      --panel:rgba(245,245,245,.96);
-      --panel2:rgba(250,250,250,.96);
-      --text:#0a0a0a;
-      --text2:rgba(0,0,0,.72);
+      --panel: rgba(245,245,245,.96);
+      --panel2: rgba(250,250,250,.96);
+      --text:#000000;
+      --text2:rgba(0,0,0,.78);
       --border:rgba(0,0,0,.12);
       --shadow: 0 18px 60px rgba(0,0,0,.12);
 
-      --icon: rgba(0,0,0,.85);
-      --iconSoft: rgba(0,0,0,.70);
+      --icon: rgba(0,0,0,.98);
+      --iconSoft: rgba(0,0,0,.80);
+
+      --pad: 18px;
+      --gap: 18px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#050505;
+        --panel: rgba(18,18,18,.92);
+        --panel2: rgba(12,12,12,.92);
+        --text:#ffffff;
+        --text2:rgba(255,255,255,.80);
+        --border:rgba(255,255,255,.12);
+        --shadow: 0 18px 60px rgba(0,0,0,.70);
+
+        --icon: rgba(255,255,255,.98);
+        --iconSoft: rgba(255,255,255,.86);
+      }
     }
 
     *{ box-sizing:border-box; }
@@ -60,15 +71,15 @@
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      line-height:1.6;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.65;
       overflow-x:hidden;
       -webkit-tap-highlight-color: transparent;
     }
     a{ color:inherit; text-decoration:none; }
     img{ max-width:100%; display:block; }
     button{ font-family:inherit; }
-    :focus-visible{ outline:2px solid rgba(255,0,0,.45); outline-offset:2px; border-radius:12px; }
+    :focus-visible{ outline: 2px solid rgba(255,0,0,.55); outline-offset: 3px; border-radius: 14px; }
 
     .wrap{ width:min(var(--max), calc(100% - 32px)); margin:0 auto; }
     .divider{
@@ -80,28 +91,46 @@
 
     /* NAVBAR */
     .navbar{
-      position:sticky; top:0; z-index:50;
+      position: sticky;
+      top:0;
+      z-index:50;
       background: color-mix(in srgb, var(--bg) 84%, transparent);
       backdrop-filter: blur(14px);
-      border-bottom:1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
     .nav{
       min-height:78px;
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap:12px;
     }
-    .nav-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .nav-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
     .brand{
       font-family:"Bebas Neue", cursive;
-      font-size:30px; letter-spacing:2px; white-space:nowrap;
+      font-size:30px;
+      letter-spacing:2px;
+      white-space:nowrap;
     }
+
     .nav-menu{
-      display:flex; align-items:center; gap:18px; margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-left:auto;
     }
     .nav-link{
       color:var(--text2);
-      font-weight:800; font-size:14px; letter-spacing:.6px;
-      padding:10px 12px; border-radius:var(--r12);
+      font-weight:800;
+      font-size:14px;
+      letter-spacing:.6px;
+      padding:10px 12px;
+      border-radius:var(--r12);
       border:1px solid transparent;
       transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
       white-space:nowrap;
@@ -110,38 +139,51 @@
       transform: translateY(-1px);
       border-color: var(--redBorder);
       background: color-mix(in srgb, var(--panel) 70%, transparent);
-      color:var(--text);
+      color: var(--text);
     }
     .nav-link.active{
-      color:var(--text);
+      color: var(--text);
       border-color: var(--redBorder);
       background: color-mix(in srgb, var(--red) 10%, transparent);
     }
-    .nav-right{ display:flex; align-items:center; gap:10px; }
+
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
 
     .icon-btn{
       width:42px; height:42px;
-      display:inline-flex; align-items:center; justify-content:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       border-radius:14px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
-      color:var(--text);
+      color: var(--text);
       cursor:pointer;
-      transition: transform .18s ease, border-color .18s ease;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+      user-select:none;
     }
-    .icon-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .icon-btn:hover{ border-color: var(--redBorder); transform: translateY(-2px); }
     .icon-btn i{ font-size:18px; color: var(--icon); }
 
     .btn{
       height:42px;
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px; padding:0 14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:0 14px;
       border-radius:14px;
-      font-weight:900; letter-spacing:1px;
-      text-transform:uppercase; font-size:12px;
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:12px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
-      color:var(--text);
+      color: var(--text);
       cursor:pointer;
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
       white-space:nowrap;
@@ -157,7 +199,7 @@
       color:#fff;
     }
 
-    /* LANGUAGE (DESKTOP dropdown) */
+    /* Language (desktop) */
     .lang{ position: relative; }
     .lang-btn{
       height:42px;
@@ -173,11 +215,13 @@
       color: var(--text);
     }
     .lang-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+
     .lang-flag{
       width:20px; height:20px;
       border-radius:6px;
       object-fit:cover;
       border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+      background: transparent;
     }
     .lang-code{
       font-weight:900;
@@ -189,7 +233,7 @@
       position:absolute;
       right:0;
       top: calc(100% + 10px);
-      width:210px;
+      width:260px;
       border-radius:16px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 92%, transparent);
@@ -199,6 +243,7 @@
       z-index:60;
     }
     .lang.open .lang-menu{ display:block; }
+
     .lang-item{
       display:flex;
       align-items:center;
@@ -213,99 +258,78 @@
     .lang-item:last-child{ border-bottom:0; }
     .lang-item:hover{ background: color-mix(in srgb, var(--red) 7%, transparent); }
     .lang-item-left{ display:flex; align-items:center; gap:10px; }
-    .check{ opacity:0; }
-    .check.active{ opacity:1; }
-
-    /* HERO (rebuild: media + content) */
-    .hero{
-      width:min(var(--max), calc(100% - 32px));
-      margin:26px auto 0;
-      border-radius:var(--r26);
-      overflow:hidden;
-      border:1px solid var(--border);
-      box-shadow: var(--shadow);
-      background: var(--panel2);
-    }
-
-    .hero-media{
-      position:relative;
-      background:#000;
-    }
-    .hero-media img{
-      width:100%;
-      aspect-ratio: var(--heroMediaRatio);
-      object-fit:cover;
-      object-position: center var(--heroPosY);
-      max-height: var(--heroMediaMaxH);
-    }
-
-    /* Overlay só no GIF (não cobre texto/botões) */
-    .hero-overlay{
-      position:absolute; inset:0; pointer-events:none;
-      background:
-        radial-gradient(900px 350px at 20% 20%, rgba(255,0,0,.10), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.62));
-    }
-    html[data-theme="light"] .hero-overlay{
-      background:
-        radial-gradient(900px 350px at 20% 20%, rgba(255,0,0,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.65));
-    }
-
-    .hero-content{
-      padding: 18px;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 16px;
-      flex-wrap:wrap;
-      background: color-mix(in srgb, var(--panel2) 78%, transparent);
-      border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    }
-
-    .hero-title{
-      font-family:"Bebas Neue", cursive;
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      letter-spacing:2px;
-      margin:0 0 6px;
-      line-height:1.02;
-      color: var(--text);
-    }
-    .hero-sub{
-      margin:0;
+    .lang-item small{
+      display:block;
       color: var(--text2);
-      font-weight:600;
-      max-width: 78ch;
+      font-weight:700;
+      margin-top:2px;
+      letter-spacing:.2px;
+    }
+    .check{ opacity:0; }
+    .check.active{ opacity:1; color: var(--icon); }
+
+    /* ================= HERO =================
+       Igual sobre.html:
+       - Desktop: cover com aspect 16/6
+       - Mobile: altura fixa + contain (não corta)
+       - Fundo blur com a mesma imagem
+    */
+    .hero{
+      width: var(--heroWidth);
+      margin: var(--heroMarginTop) auto 0;
+      border-radius: var(--heroBorderRadius);
+      overflow:hidden;
+      border: var(--heroBorder);
+      box-shadow: var(--shadow);
+      background:#000;
+      position: relative;
+      line-height:0;
+    }
+    .hero .hero-bg{
+      position:absolute;
+      inset:0;
+      background: url("images/banners/banner-home.gif") center/cover no-repeat;
+      filter: blur(18px) brightness(.75);
+      transform: scale(1.15);
+      opacity:.85;
+    }
+    .hero img{
+      position:relative;
+      z-index:1;
+      width:100%;
+      height: var(--heroHeightDesktop);
+      aspect-ratio: var(--heroAspectDesktop);
+      object-fit: cover;   /* desktop */
+      object-position: center;
     }
 
-    .hero-cta{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    /* SECTION */
-    .section{ padding:54px 0; }
+    /* CONTENT */
+    .section{ padding: 54px 0; }
     .h2{
       font-family:"Bebas Neue", cursive;
       font-size: clamp(1.9rem, 2.3vw, 2.6rem);
-      letter-spacing:1.5px;
-      margin:0 0 10px;
+      letter-spacing: 1.5px;
+      margin: 0 0 10px;
+      color: var(--text);
     }
     .muted{
       margin:0 0 18px;
       max-width: 85ch;
       color: var(--text2);
+      font-weight:700;
     }
 
-    /* GRID */
+    /* DESTAQUES: sempre colunas (sem lista)
+       Desktop: 3
+       Tablet: 2 (lado a lado)
+       Mobile: 2 (lado a lado) -> se ficar muito apertado, ele quebra pra 1 abaixo de 360px
+    */
     .grid{
       display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: var(--gap);
-      margin-top: 16px;
       align-items:stretch;
+      margin-top: 18px;
     }
 
     .card{
@@ -321,7 +345,6 @@
       position:relative;
       will-change: transform;
     }
-    html[data-theme="light"] .card{ box-shadow: 0 12px 30px rgba(0,0,0,.10); }
     .card:hover{
       transform: translateY(-6px);
       border-color: var(--redBorder);
@@ -376,7 +399,6 @@
       color: var(--icon);
       opacity:.95;
     }
-
     .kicker{
       display:flex;
       flex-direction:column;
@@ -385,7 +407,7 @@
     }
     .kicker small{
       color: var(--text2);
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.8px;
       text-transform:uppercase;
       font-size:11px;
@@ -396,10 +418,10 @@
       font-size:1.9rem;
       margin:0;
       line-height:1.05;
+      color: var(--text);
     }
-
     .card-mid{ padding:0 var(--pad) 14px; }
-    .desc{ margin:6px 0 0; color: var(--text2); }
+    .desc{ margin:6px 0 0; color: var(--text2); font-weight:700; }
 
     .card-bot{
       margin-top:auto;
@@ -420,17 +442,35 @@
     .mini-stat span{
       color: var(--text2);
       font-size:11px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.8px;
       text-transform:uppercase;
     }
     .mini-stat strong{
       font-size:16px;
       letter-spacing:.4px;
+      color: var(--text);
+      font-weight:900;
     }
 
-    /* Footer */
-    .footer{ padding:26px 0 44px; }
+    /* CTA */
+    .cta{
+      border:1px solid var(--border);
+      background: var(--panel2);
+      border-radius: var(--r26);
+      padding: 18px;
+      box-shadow: 0 12px 30px color-mix(in srgb, #000 35%, transparent);
+    }
+    .cta-row{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 16px;
+      flex-wrap:wrap;
+    }
+
+    /* FOOTER */
+    .footer{ padding: 26px 0 44px; }
     .footer-row{
       display:flex;
       align-items:center;
@@ -438,67 +478,79 @@
       gap:18px;
       flex-wrap:wrap;
     }
-    .social{ display:flex; gap:10px; }
+    .social{ display:flex; gap:12px; }
     .social a{
-      width:42px; height:42px;
-      border-radius:14px;
+      width:52px; height:52px;
+      border-radius:18px;
       border:1px solid var(--border);
       background: var(--panel);
       display:flex;
       align-items:center;
       justify-content:center;
       color: var(--icon);
+      transition: transform .16s ease, border-color .16s ease;
     }
+    .social a:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .social i{ font-size: 24px; color: var(--icon); }
 
-    /* ===== MOBILE ===== */
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 980px){
       :root{
         --pad: 14px;
         --gap: 12px;
-
-        /* GIF menor e mais compacto no celular */
-        --heroMediaRatio: 16/9;
-        --heroMediaMaxH: 260px;
-        --heroPosY: 32%;
       }
-
-      .grid{ grid-template-columns: 1fr; }
-      .nav-menu{ display:none; }
-
-      /* Mobile: esconder botões do topo */
-      #btnDiscordDesktop{ display:none !important; }
-      #themeToggle{ display:none !important; }
-      #lang{ display:none !important; }
-
-      #mobileMenuBtn{ display:inline-flex !important; }
-
-      .hero-content{
-        padding: 16px;
-      }
-
-      .hero-cta{ width:100%; }
-      .hero-cta .btn{ width:100%; justify-content:center; }
-      .card-title{ font-size: 1.75rem; }
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } /* tablet: lado a lado */
+      .card-title{ font-size: 1.7rem; }
     }
 
-    @media (max-width: 420px){
+    @media (max-width: 860px){
+      .nav-menu{ display:none; }
+      #lang{ display:none !important; }
+      #btnDiscordDesktop{ display:none !important; }
+      #mobileMenuBtn{ display:inline-flex !important; }
+
+      /* HERO MOBILE: borda a borda, sem cortar (contain) */
       :root{
-        --heroMediaMaxH: 235px;
-        --heroPosY: 30%;
+        --heroWidth: 100vw;
+        --heroMarginTop: 0px;
+        --heroBorderRadius: 0px;
+        --heroBorder: none;
       }
+      .hero{
+        height: var(--heroMobileHeight);
+        box-shadow:none;
+      }
+      .hero img{
+        height: 100%;
+        width: 100%;
+        aspect-ratio: auto;
+        object-fit: contain;     /* NÃO CORTA */
+        object-position: center; /* centraliza */
+      }
+      .divider.mobile-after-hero{
+        width: calc(100% - 32px);
+        margin-top: 18px;
+      }
+    }
+
+    /* Mobile pequeno: se ficar apertado, cai pra 1 coluna */
+    @media (max-width: 380px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px){
       .wrap{ width: calc(100% - 22px); }
       .brand{ font-size: 28px; }
-      .icon{ width:48px; height:48px; }
-      .hero-title{ letter-spacing:1.6px; }
+      .social a{ width:54px; height:54px; border-radius:20px; }
+      .social i{ font-size: 26px; }
     }
 
     @media (prefers-reduced-motion: reduce){
       *{ transition:none !important; animation:none !important; }
     }
 
-    /* ===== DRAWER ===== */
+    /* ===== MOBILE DRAWER ===== */
     #mobileMenuBtn{ display:none; }
-
     .drawer-overlay{
       position:fixed;
       inset:0;
@@ -509,13 +561,12 @@
       transition: opacity .18s ease;
       z-index: 100;
     }
-
     .drawer{
       position:fixed;
       top:0;
       right:0;
       height:100%;
-      width: var(--drawerW);
+      width: min(86vw, 380px);
       background: color-mix(in srgb, var(--bg) 86%, transparent);
       border-left: 1px solid var(--border);
       box-shadow: 0 30px 80px rgba(0,0,0,.65);
@@ -527,7 +578,6 @@
       padding: 18px;
       gap: 14px;
     }
-
     .drawer.open{ transform: translateX(0); }
     .drawer-overlay.open{ opacity:1; pointer-events:auto; }
 
@@ -615,7 +665,11 @@
       text-transform: uppercase;
       color: var(--text);
     }
-    .drawer-row span{ color: var(--text2) !important; font-weight:700; font-size:12px; }
+    .drawer-row span{
+      color: var(--text2);
+      font-weight:700;
+      font-size:12px;
+    }
     .drawer-actions{ display:flex; gap: 10px; align-items:center; }
 
     .mini-btn{
@@ -630,125 +684,121 @@
     }
     .mini-btn i{ font-size:18px; color: var(--icon); }
 
-    .no-scroll{ overflow:hidden; }
-
-    /* ===== CENTER MODAL (LANG) ===== */
-    .modal-overlay{
-      position:fixed;
-      inset:0;
+    /* Mobile language modal (igual sobre.html) */
+    .lang-modal-overlay{
+      position: fixed;
+      inset: 0;
       background: rgba(0,0,0,.60);
-      backdrop-filter: blur(12px);
-      opacity:0;
-      pointer-events:none;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
       transition: opacity .18s ease;
       z-index: 200;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
     }
-    .modal-overlay.open{ opacity:1; pointer-events:auto; }
+    .lang-modal-overlay.open{ opacity:1; pointer-events:auto; }
 
-    .modal{
-      width: min(520px, 100%);
+    .lang-modal{
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(.98);
+      width: min(92vw, 420px);
       border-radius: 22px;
       border: 1px solid var(--border);
       background: color-mix(in srgb, var(--panel2) 92%, transparent);
       box-shadow: var(--shadow);
-      overflow:hidden;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 210;
     }
-    .modal-head{
+    .lang-modal.open{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .lang-modal-top{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
-      padding: 14px 14px;
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      gap:10px;
+      margin-bottom: 10px;
     }
-    .modal-head h4{
+    .lang-modal-top h4{
       margin:0;
-      font-weight: 1000;
-      letter-spacing:.9px;
-      text-transform: uppercase;
-      font-size: 12px;
-      color: var(--text2);
-    }
-    .modal-close{
-      width:42px; height:42px;
-      border-radius: 14px;
-      border:1px solid rgba(255,0,0,.35);
-      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      font-family:"Bebas Neue", cursive;
+      letter-spacing: 1.6px;
+      font-size: 24px;
       color: var(--text);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
     }
-    .modal-close i{ color: var(--icon); font-size:18px; }
-
-    .modal-body{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
+    .lang-modal-list{
+      display:grid;
+      gap:10px;
+      margin-top: 10px;
     }
-
-    .lang-option{
-      width:100%;
+    .lang-choice{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
       padding: 14px;
       border-radius: 18px;
-      border:1px solid color-mix(in srgb, var(--border) 85%, transparent);
+      border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
       cursor:pointer;
-      color: var(--text);
-      text-align:left;
     }
-    .lang-left{
+    .lang-choice-left{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      font-weight: 900;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .lang-choice-left .row{
       display:flex;
       align-items:center;
-      gap: 10px;
-      font-weight: 900;
-      letter-spacing: .8px;
-      text-transform: uppercase;
+      gap:10px;
     }
-    .lang-left img{
+    .lang-choice-left img{
       width:22px; height:22px;
       border-radius: 7px;
       border:1px solid color-mix(in srgb, var(--text) 20%, transparent);
       object-fit: cover;
     }
-    .lang-option i{ opacity:.25; }
-    .lang-option.active{
+    .lang-choice-left small{
+      color: var(--text2);
+      font-weight:800;
+      letter-spacing:.2px;
+      text-transform:none;
+    }
+    .lang-choice i{ opacity:.25; color: var(--icon); }
+    .lang-choice.active{
       border-color: rgba(255,0,0,.35);
       box-shadow: inset 0 0 0 1px rgba(255,0,0,.12);
     }
-    .lang-option.active i{
-      opacity:1;
-      color: color-mix(in srgb, var(--red) 86%, var(--text));
-    }
+    .lang-choice.active i{ opacity:1; color: color-mix(in srgb, var(--red) 86%, var(--text)); }
+
+    .no-scroll{ overflow:hidden; }
   </style>
 </head>
 
 <body>
+  <!-- HEADER -->
   <header class="navbar">
     <div class="wrap nav">
       <div class="nav-left">
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema">
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
         <a class="brand" href="index.html" aria-label="Ir para início">GUTTYTECH</a>
       </div>
 
       <nav class="nav-menu" aria-label="Menu principal">
-        <a class="nav-link active" href="index.html">HOME</a>
-        <a class="nav-link" href="servicos.html">SERVIÇOS</a>
-        <a class="nav-link" href="sobre.html">SOBRE MIM</a>
-        <a class="nav-link" href="comunidade.html">COMUNIDADE</a>
-        <a class="nav-link" href="blog.html">BLOG</a>
+        <a class="nav-link active" href="index.html" id="mHome">HOME</a>
+        <a class="nav-link" href="servicos.html" id="mServices">SERVIÇOS</a>
+        <a class="nav-link" href="sobre.html" id="mAbout">SOBRE MIM</a>
+        <a class="nav-link" href="comunidade.html" id="mCommunity">COMUNIDADE</a>
+        <a class="nav-link" href="blog.html" id="mBlog">BLOG</a>
       </nav>
 
       <div class="nav-right">
@@ -756,42 +806,55 @@
         <div class="lang" id="lang">
           <button class="lang-btn" id="langBtn" type="button" aria-label="Idioma" aria-expanded="false">
             <img class="lang-flag" id="langFlag" src="images/languages/brasil.png" alt="Idioma">
-            <span class="lang-code" id="langCode">BR</span>
+            <span class="lang-code" id="langCode">PT-BR</span>
             <i class="ri-arrow-down-s-line" style="color:var(--iconSoft)"></i>
           </button>
 
           <div class="lang-menu" role="menu" aria-label="Idiomas">
             <div class="lang-item" data-lang="pt" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/brasil.png" alt="BR">
-                <span>BR</span>
+                <img class="lang-flag" src="images/languages/brasil.png" alt="Português (Brasil)">
+                <div>
+                  <span>PT-BR</span>
+                  <small>Português (Brasil)</small>
+                </div>
               </div>
               <i class="ri-check-line check active" id="checkPT"></i>
             </div>
 
             <div class="lang-item" data-lang="en" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/en.png" alt="EN">
-                <span>EN</span>
+                <img class="lang-flag" src="images/languages/en.png" alt="English">
+                <div>
+                  <span>EN</span>
+                  <small>English</small>
+                </div>
               </div>
               <i class="ri-check-line check" id="checkEN"></i>
             </div>
 
             <div class="lang-item" data-lang="eu" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/eu.png" alt="EU">
-                <span>EU</span>
+                <img class="lang-flag" src="images/languages/eu.png" alt="Português (Portugal)">
+                <div>
+                  <span>PT-PT</span>
+                  <small>Português (Portugal)</small>
+                </div>
               </div>
               <i class="ri-check-line check" id="checkEU"></i>
             </div>
           </div>
         </div>
 
-        <a class="btn btn-primary" id="btnDiscordDesktop" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer" aria-label="Entrar">
+        <!-- Discord desktop (link atualizado) -->
+        <a class="btn btn-primary" id="btnDiscordDesktop"
+           href="https://discord.com/channels/1368385324950097960/1370430612179255364"
+           target="_blank" rel="noopener noreferrer" aria-label="Entrar">
           <i class="ri-discord-fill"></i>
           <span id="btnSignIn">Entrar</span>
         </a>
 
+        <!-- Mobile: menu -->
         <button class="icon-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menu">
           <i class="ri-more-2-fill"></i>
         </button>
@@ -799,39 +862,22 @@
     </div>
   </header>
 
+  <!-- HERO (igual sobre.html) -->
   <section class="hero" aria-label="GuttyTECH">
-    <div class="hero-media">
-      <img src="images/banners/banner-home.gif" alt="GuttyTECH - A Forja da Performance">
-      <div class="hero-overlay"></div>
-    </div>
-
-    <div class="hero-content">
-      <div>
-        <h1 class="hero-title" id="tHeroTitle">A FORJA DA PERFORMANCE</h1>
-        <p class="hero-sub" id="tHeroSub">Otimização profissional para elevar FPS, estabilidade e resposta — sem promessas vazias.</p>
-      </div>
-
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="servicos.html">
-          <i class="ri-settings-3-line"></i>
-          <span id="tHeroCta1">Serviços</span>
-        </a>
-        <a class="btn" href="sobre.html">
-          <i class="ri-user-3-line"></i>
-          <span id="tHeroCta2">Sobre mim</span>
-        </a>
-      </div>
-    </div>
+    <div class="hero-bg" aria-hidden="true"></div>
+    <img src="images/banners/banner-home.gif" alt="GuttyTECH - A Forja da Performance" />
   </section>
 
-  <div class="divider" style="margin-top:22px;"></div>
+  <div class="divider mobile-after-hero" style="margin-top:22px;"></div>
 
   <main>
+    <!-- DESTAQUES -->
     <section class="wrap section" aria-labelledby="tCardsTitle">
       <h2 class="h2" id="tCardsTitle">DESTAQUES</h2>
       <p class="muted" id="tCardsSub">Escolha um caminho rápido ou vá em Serviços para ver todos os loadouts.</p>
 
       <div class="grid">
+        <!-- Card 1 -->
         <article class="card">
           <div class="card-top">
             <div class="icon"><i class="ri-windows-line"></i></div>
@@ -855,6 +901,7 @@
           </div>
         </article>
 
+        <!-- Card 2 -->
         <article class="card featured">
           <div class="badge"><i class="ri-fire-fill"></i><span id="tBadge">Mais pedido</span></div>
           <div class="card-top">
@@ -872,13 +919,16 @@
               <span id="tC2S1">Resultado</span>
               <strong id="tC2S2">Máximo</strong>
             </div>
-            <a class="btn btn-primary" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer">
+            <a class="btn btn-primary"
+               href="https://discord.com/channels/1368385324950097960/1370430612179255364"
+               target="_blank" rel="noopener noreferrer">
               <i class="ri-discord-fill"></i>
               <span id="tC2B">Fechar no Discord</span>
             </a>
           </div>
         </article>
 
+        <!-- Card 3 -->
         <article class="card">
           <div class="card-top">
             <div class="icon"><i class="ri-cpu-line"></i></div>
@@ -906,16 +956,27 @@
 
     <div class="divider"></div>
 
+    <!-- CTA -->
     <section class="wrap section" aria-labelledby="tCtaTitle">
-      <h2 class="h2" id="tCtaTitle">ENTRE NO DISCORD</h2>
-      <p class="muted" id="tCtaSub">No Discord: guias, dicas, suporte e uma comunidade que vive performance.</p>
-      <a class="btn btn-primary" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer">
-        <i class="ri-discord-fill"></i>
-        <span id="tCtaDiscord">Entrar no Discord</span>
-      </a>
+      <div class="cta">
+        <div class="cta-row">
+          <div>
+            <h2 class="h2" id="tCtaTitle" style="margin-bottom:8px;">ENTRE NO DISCORD</h2>
+            <p class="muted" id="tCtaSub" style="margin-bottom:0;">No Discord: guias, dicas, suporte e uma comunidade que vive performance.</p>
+          </div>
+
+          <a class="btn btn-primary"
+             href="https://discord.com/channels/1368385324950097960/1370430612179255364"
+             target="_blank" rel="noopener noreferrer">
+            <i class="ri-discord-fill"></i>
+            <span id="tCtaDiscord">Entrar no Discord</span>
+          </a>
+        </div>
+      </div>
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="divider"></div>
     <div class="wrap footer-row" style="padding-top:22px;">
@@ -925,12 +986,15 @@
         <a href="https://www.youtube.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
         <a href="https://www.tiktok.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="ri-tiktok-line"></i></a>
         <a href="mailto:Gutty@GuttyTech.com.br" aria-label="Email"><i class="ri-mail-line"></i></a>
+        <a href="https://discord.com/channels/1368385324950097960/1370430612179255364"
+           target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="ri-discord-fill"></i></a>
       </div>
     </div>
   </footer>
 
-  <!-- DRAWER (mobile) -->
+  <!-- MOBILE DRAWER -->
   <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+
   <aside class="drawer" id="drawer" aria-label="Menu">
     <div class="drawer-top">
       <h3 class="drawer-title" id="tDrawerTitle">MENU</h3>
@@ -947,20 +1011,8 @@
       <a class="drawer-link" href="blog.html"><span id="tDBlog">BLOG</span><i class="ri-arrow-right-s-line"></i></a>
     </nav>
 
-    <div class="drawer-section">
+    <div class="drawer-section" aria-label="Preferências">
       <p class="drawer-hint" id="tDrawerPrefs">PREFERÊNCIAS</p>
-
-      <div class="drawer-row">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-          <strong id="tDrawerTheme">Tema</strong>
-          <span id="tDrawerThemeSub">Claro/Escuro</span>
-        </div>
-        <div class="drawer-actions">
-          <button class="mini-btn" id="drawerThemeBtn" type="button" aria-label="Alternar tema">
-            <i class="ri-moon-line" id="drawerThemeIcon"></i>
-          </button>
-        </div>
-      </div>
 
       <div class="drawer-row">
         <div style="display:flex; flex-direction:column; gap:2px;">
@@ -968,50 +1020,71 @@
           <span id="tDrawerLangSub">Trocar idioma</span>
         </div>
         <div class="drawer-actions">
-          <!-- só ícone (sem texto "Abrir") -->
-          <button class="mini-btn" id="openLangModal" type="button" aria-label="Abrir idiomas">
+          <button class="mini-btn" id="openLangModal" type="button" aria-label="Trocar idioma">
             <i class="ri-translate-2"></i>
           </button>
         </div>
       </div>
 
+      <div class="drawer-row">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <strong id="tDrawerDiscord">Discord</strong>
+          <span id="tDrawerDiscordSub">Entrar agora</span>
+        </div>
+        <div class="drawer-actions">
+          <a class="mini-btn"
+             href="https://discord.com/channels/1368385324950097960/1370430612179255364"
+             target="_blank" rel="noopener noreferrer" aria-label="Entrar no Discord">
+            <i class="ri-discord-fill"></i>
+          </a>
+        </div>
+      </div>
     </div>
   </aside>
 
-  <!-- LANGUAGE CENTER MODAL (mobile) -->
-  <div class="modal-overlay" id="langModalOverlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Selecionar idioma">
-      <div class="modal-head">
-        <h4 id="tLangModalTitle">Selecionar idioma</h4>
-        <button class="modal-close" id="langModalClose" type="button" aria-label="Fechar">
-          <i class="ri-close-line"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <button class="lang-option" type="button" data-lang="pt">
-          <div class="lang-left">
-            <img src="images/languages/brasil.png" alt="BR">
-            <span>BR</span>
-          </div>
-          <i class="ri-check-line"></i>
-        </button>
+  <!-- LANG MODAL (mobile) -->
+  <div class="lang-modal-overlay" id="langModalOverlay" aria-hidden="true"></div>
+  <div class="lang-modal" id="langModal" role="dialog" aria-modal="true" aria-label="Selecionar idioma">
+    <div class="lang-modal-top">
+      <h4 id="tLangModalTitle">IDIOMA</h4>
+      <button class="drawer-close" id="langModalClose" type="button" aria-label="Fechar">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
 
-        <button class="lang-option" type="button" data-lang="en">
-          <div class="lang-left">
-            <img src="images/languages/en.png" alt="EN">
+    <div class="lang-modal-list">
+      <button class="lang-choice" type="button" data-lang="pt" id="mLangPT">
+        <div class="lang-choice-left">
+          <div class="row">
+            <img src="images/languages/brasil.png" alt="Português (Brasil)" />
+            <span>PT-BR</span>
+          </div>
+          <small>Português (Brasil)</small>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
+
+      <button class="lang-choice" type="button" data-lang="en" id="mLangEN">
+        <div class="lang-choice-left">
+          <div class="row">
+            <img src="images/languages/en.png" alt="English" />
             <span>EN</span>
           </div>
-          <i class="ri-check-line"></i>
-        </button>
+          <small>English</small>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
 
-        <button class="lang-option" type="button" data-lang="eu">
-          <div class="lang-left">
-            <img src="images/languages/eu.png" alt="EU">
-            <span>EU</span>
+      <button class="lang-choice" type="button" data-lang="eu" id="mLangEU">
+        <div class="lang-choice-left">
+          <div class="row">
+            <img src="images/languages/eu.png" alt="Português (Portugal)" />
+            <span>PT-PT</span>
           </div>
-          <i class="ri-check-line"></i>
-        </button>
-      </div>
+          <small>Português (Portugal)</small>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
     </div>
   </div>
 
@@ -1030,121 +1103,139 @@
       return "";
     }
 
-    /* THEME */
-    const root = document.documentElement;
-    const themeToggle = document.getElementById("themeToggle");
-    const themeIcon = document.getElementById("themeIcon");
-    const drawerThemeBtn = document.getElementById("drawerThemeBtn");
-    const drawerThemeIcon = document.getElementById("drawerThemeIcon");
-
-    function applyTheme(theme){
-      root.setAttribute("data-theme", theme);
-      setCookie("gutty_theme", theme);
-      const isDark = theme === "dark";
-      if(themeIcon) themeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
-      if(drawerThemeIcon) drawerThemeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
-    }
-
-    /* LANG */
+    /* =========================
+       LANGUAGE (mesmo padrão do sobre.html)
+       ========================= */
     function getLang(){ return getCookie("gutty_lang") || "pt"; }
 
     const dict = {
       pt:{
-        ui:{ code:"BR", flag:"images/languages/brasil.png" },
-        btn:"Entrar",
-        heroTitle:"A FORJA DA PERFORMANCE",
-        heroSub:"Otimização profissional para elevar FPS, estabilidade e resposta — sem promessas vazias.",
-        heroCta1:"Serviços",
-        heroCta2:"Sobre mim",
-        cardsTitle:"DESTAQUES",
-        cardsSub:"Escolha um caminho rápido ou vá em Serviços para ver todos os loadouts.",
-        badge:"Mais pedido",
-        c1k:"SISTEMA", c1t:"Windows no Talo", c1d:"Windows mais limpo e responsivo: menos travamento, mais consistência e resposta.", c1s1:"Foco", c1s2:"Fluidez", c1b:"Ver detalhes",
-        c2k:"COMPLETO", c2t:"Tratamento Ômega", c2d:"Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.", c2s1:"Resultado", c2s2:"Máximo", c2b:"Fechar no Discord",
-        c3k:"BIOS / LATÊNCIA", c3t:"Coração da Besta", c3d:"Ajuste de RAM/CPU pra reduzir latência e melhorar estabilidade e consistência.", c3s1:"Foco", c3s2:"Latência", c3b:"Ver detalhes",
-        ctaTitle:"ENTRE NO DISCORD",
-        ctaSub:"No Discord: guias, dicas, suporte e uma comunidade que vive performance.",
-        ctaDiscord:"Entrar no Discord",
-        footer:"© 2025 GuttyTECH — Performance é obsessão.",
-
-        drawerTitle:"MENU",
-        drawerPrefs:"PREFERÊNCIAS",
-        drawerTheme:"Tema",
-        drawerThemeSub:"Claro/Escuro",
-        drawerLang:"Idioma",
-        drawerLangSub:"Trocar idioma",
-        dHome:"HOME",
-        dServices:"SERVIÇOS",
-        dAbout:"SOBRE MIM",
-        dCommunity:"COMUNIDADE",
-        dBlog:"BLOG",
-        langModalTitle:"Selecionar idioma"
+        ui:{ code:"PT-BR", flag:"images/languages/brasil.png", htmlLang:"pt-BR" },
+        btnSignIn:"Entrar",
+        tCardsTitle:"DESTAQUES",
+        tCardsSub:"Escolha um caminho rápido ou vá em Serviços para ver todos os loadouts.",
+        tBadge:"Mais pedido",
+        tC1K:"SISTEMA", tC1T:"Windows no Talo", tC1D:"Windows mais limpo e responsivo: menos travamento, mais consistência e resposta.", tC1S1:"Foco", tC1S2:"Fluidez", tC1B:"Ver detalhes",
+        tC2K:"COMPLETO", tC2T:"Tratamento Ômega", tC2D:"Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.", tC2S1:"Resultado", tC2S2:"Máximo", tC2B:"Fechar no Discord",
+        tC3K:"BIOS / LATÊNCIA", tC3T:"Coração da Besta", tC3D:"Ajuste de RAM/CPU pra reduzir latência e melhorar estabilidade e consistência.", tC3S1:"Foco", tC3S2:"Latência", tC3B:"Ver detalhes",
+        tCtaTitle:"ENTRE NO DISCORD",
+        tCtaSub:"No Discord: guias, dicas, suporte e uma comunidade que vive performance.",
+        tCtaDiscord:"Entrar no Discord",
+        tFooter:"© 2025 GuttyTECH — Performance é obsessão.",
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERÊNCIAS",
+        tDHome:"HOME",
+        tDServices:"SERVIÇOS",
+        tDAbout:"SOBRE MIM",
+        tDCommunity:"COMUNIDADE",
+        tDBlog:"BLOG",
+        tLangModalTitle:"IDIOMA",
+        tDrawerLang:"Idioma",
+        tDrawerLangSub:"Trocar idioma",
+        tDrawerDiscord:"Discord",
+        tDrawerDiscordSub:"Entrar agora"
       },
       en:{
-        ui:{ code:"EN", flag:"images/languages/en.png" },
-        btn:"Sign in",
-        heroTitle:"THE FORGE OF PERFORMANCE",
-        heroSub:"Professional optimization to boost FPS, stability and responsiveness — no empty promises.",
-        heroCta1:"Services",
-        heroCta2:"About me",
-        cardsTitle:"HIGHLIGHTS",
-        cardsSub:"Pick a quick path or go to Services to see all loadouts.",
-        badge:"Most wanted",
-        c1k:"SYSTEM", c1t:"Windows Boost", c1d:"Cleaner and faster Windows: fewer freezes, more consistency and responsiveness.", c1s1:"Focus", c1s2:"Smoothness", c1b:"View details",
-        c2k:"FULL", c2t:"Omega Treatment", c2d:"Full package for real consistency: less stutter, better frame-times and sharper feel.", c2s1:"Result", c2s2:"Maximum", c2b:"Close on Discord",
-        c3k:"BIOS / LATENCY", c3t:"Heart of the Beast", c3d:"RAM/CPU tuning to reduce latency and improve stability and consistency.", c3s1:"Focus", c3s2:"Latency", c3b:"View details",
-        ctaTitle:"JOIN DISCORD",
-        ctaSub:"On Discord: guides, tips, support and a community obsessed with performance.",
-        ctaDiscord:"Join Discord",
-        footer:"© 2025 GuttyTECH — Performance is an obsession.",
-
-        drawerTitle:"MENU",
-        drawerPrefs:"PREFERENCES",
-        drawerTheme:"Theme",
-        drawerThemeSub:"Light/Dark",
-        drawerLang:"Language",
-        drawerLangSub:"Change language",
-        dHome:"HOME",
-        dServices:"SERVICES",
-        dAbout:"ABOUT ME",
-        dCommunity:"COMMUNITY",
-        dBlog:"BLOG",
-        langModalTitle:"Select language"
+        ui:{ code:"EN", flag:"images/languages/en.png", htmlLang:"en" },
+        btnSignIn:"Sign in",
+        tCardsTitle:"HIGHLIGHTS",
+        tCardsSub:"Pick a quick path or go to Services to see all loadouts.",
+        tBadge:"Most wanted",
+        tC1K:"SYSTEM", tC1T:"Windows Boost", tC1D:"Cleaner and faster Windows: fewer freezes, more consistency and responsiveness.", tC1S1:"Focus", tC1S2:"Smoothness", tC1B:"View details",
+        tC2K:"FULL", tC2T:"Omega Treatment", tC2D:"Full package for real consistency: less stutter, better frame-times and sharper feel.", tC2S1:"Result", tC2S2:"Maximum", tC2B:"Close on Discord",
+        tC3K:"BIOS / LATENCY", tC3T:"Heart of the Beast", tC3D:"RAM/CPU tuning to reduce latency and improve stability and consistency.", tC3S1:"Focus", tC3S2:"Latency", tC3B:"View details",
+        tCtaTitle:"JOIN DISCORD",
+        tCtaSub:"On Discord: guides, tips, support and a community obsessed with performance.",
+        tCtaDiscord:"Join Discord",
+        tFooter:"© 2025 GuttyTECH — Performance is an obsession.",
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERENCES",
+        tDHome:"HOME",
+        tDServices:"SERVICES",
+        tDAbout:"ABOUT ME",
+        tDCommunity:"COMMUNITY",
+        tDBlog:"BLOG",
+        tLangModalTitle:"LANGUAGE",
+        tDrawerLang:"Language",
+        tDrawerLangSub:"Change language",
+        tDrawerDiscord:"Discord",
+        tDrawerDiscordSub:"Join now"
       },
       eu:{
-        ui:{ code:"EU", flag:"images/languages/eu.png" },
-        btn:"Sign in",
-        heroTitle:"THE FORGE OF PERFORMANCE",
-        heroSub:"Optimization focused on consistency, stability and responsiveness.",
-        heroCta1:"Services",
-        heroCta2:"About me",
-        cardsTitle:"HIGHLIGHTS",
-        cardsSub:"Pick a quick path or go to Services to see all loadouts.",
-        badge:"Most wanted",
-        c1k:"SYSTEM", c1t:"Windows Boost", c1d:"Cleaner and faster Windows: fewer freezes, more consistency and responsiveness.", c1s1:"Focus", c1s2:"Smoothness", c1b:"View details",
-        c2k:"FULL", c2t:"Omega Treatment", c2d:"Full package for real consistency: less stutter, better frame-times and sharper feel.", c2s1:"Result", c2s2:"Maximum", c2b:"Close on Discord",
-        c3k:"BIOS / LATENCY", c3t:"Heart of the Beast", c3d:"RAM/CPU tuning to reduce latency and improve stability and consistency.", c3s1:"Focus", c3s2:"Latency", c3b:"View details",
-        ctaTitle:"JOIN DISCORD",
-        ctaSub:"On Discord: guides, tips, support and a community obsessed with performance.",
-        ctaDiscord:"Join Discord",
-        footer:"© 2025 GuttyTECH — Performance is an obsession.",
-
-        drawerTitle:"MENU",
-        drawerPrefs:"PREFERENCES",
-        drawerTheme:"Theme",
-        drawerThemeSub:"Light/Dark",
-        drawerLang:"Language",
-        drawerLangSub:"Change language",
-        dHome:"HOME",
-        dServices:"SERVICES",
-        dAbout:"ABOUT ME",
-        dCommunity:"COMMUNITY",
-        dBlog:"BLOG",
-        langModalTitle:"Select language"
+        ui:{ code:"PT-PT", flag:"images/languages/eu.png", htmlLang:"pt-PT" },
+        btnSignIn:"Entrar",
+        tCardsTitle:"DESTAQUES",
+        tCardsSub:"Escolhe um caminho rápido ou vai a Serviços para ver todos os loadouts.",
+        tBadge:"Mais pedido",
+        tC1K:"SISTEMA", tC1T:"Windows no Talo", tC1D:"Windows mais limpo e responsivo: menos bloqueios, mais consistência e resposta.", tC1S1:"Foco", tC1S2:"Fluidez", tC1B:"Ver detalhes",
+        tC2K:"COMPLETO", tC2T:"Tratamento Ômega", tC2D:"Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.", tC2S1:"Resultado", tC2S2:"Máximo", tC2B:"Fechar no Discord",
+        tC3K:"BIOS / LATÊNCIA", tC3T:"Coração da Besta", tC3D:"Ajuste de RAM/CPU para reduzir latência e melhorar estabilidade e consistência.", tC3S1:"Foco", tC3S2:"Latência", tC3B:"Ver detalhes",
+        tCtaTitle:"ENTRA NO DISCORD",
+        tCtaSub:"No Discord: guias, dicas, suporte e uma comunidade que vive performance.",
+        tCtaDiscord:"Entrar no Discord",
+        tFooter:"© 2025 GuttyTECH — Performance é obsessão.",
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERÊNCIAS",
+        tDHome:"HOME",
+        tDServices:"SERVIÇOS",
+        tDAbout:"SOBRE MIM",
+        tDCommunity:"COMUNIDADE",
+        tDBlog:"BLOG",
+        tLangModalTitle:"IDIOMA",
+        tDrawerLang:"Idioma",
+        tDrawerLangSub:"Mudar idioma",
+        tDrawerDiscord:"Discord",
+        tDrawerDiscordSub:"Entrar agora"
       }
     };
 
-    /* DESKTOP dropdown */
+    const T = {
+      btnSignIn: document.getElementById("btnSignIn"),
+      tCardsTitle: document.getElementById("tCardsTitle"),
+      tCardsSub: document.getElementById("tCardsSub"),
+      tBadge: document.getElementById("tBadge"),
+
+      tC1K: document.getElementById("tC1K"),
+      tC1T: document.getElementById("tC1T"),
+      tC1D: document.getElementById("tC1D"),
+      tC1S1: document.getElementById("tC1S1"),
+      tC1S2: document.getElementById("tC1S2"),
+      tC1B: document.getElementById("tC1B"),
+
+      tC2K: document.getElementById("tC2K"),
+      tC2T: document.getElementById("tC2T"),
+      tC2D: document.getElementById("tC2D"),
+      tC2S1: document.getElementById("tC2S1"),
+      tC2S2: document.getElementById("tC2S2"),
+      tC2B: document.getElementById("tC2B"),
+
+      tC3K: document.getElementById("tC3K"),
+      tC3T: document.getElementById("tC3T"),
+      tC3D: document.getElementById("tC3D"),
+      tC3S1: document.getElementById("tC3S1"),
+      tC3S2: document.getElementById("tC3S2"),
+      tC3B: document.getElementById("tC3B"),
+
+      tCtaTitle: document.getElementById("tCtaTitle"),
+      tCtaSub: document.getElementById("tCtaSub"),
+      tCtaDiscord: document.getElementById("tCtaDiscord"),
+      tFooter: document.getElementById("tFooter"),
+
+      tDrawerTitle: document.getElementById("tDrawerTitle"),
+      tDrawerPrefs: document.getElementById("tDrawerPrefs"),
+      tDHome: document.getElementById("tDHome"),
+      tDServices: document.getElementById("tDServices"),
+      tDAbout: document.getElementById("tDAbout"),
+      tDCommunity: document.getElementById("tDCommunity"),
+      tDBlog: document.getElementById("tDBlog"),
+
+      tLangModalTitle: document.getElementById("tLangModalTitle"),
+      tDrawerLang: document.getElementById("tDrawerLang"),
+      tDrawerLangSub: document.getElementById("tDrawerLangSub"),
+      tDrawerDiscord: document.getElementById("tDrawerDiscord"),
+      tDrawerDiscordSub: document.getElementById("tDrawerDiscordSub"),
+    };
+
     const langWrap = document.getElementById("lang");
     const langBtn = document.getElementById("langBtn");
     const langFlag = document.getElementById("langFlag");
@@ -1158,36 +1249,11 @@
       langWrap.classList.toggle("open", open);
       langBtn.setAttribute("aria-expanded", open ? "true" : "false");
     }
-    langBtn?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      setLangOpen(!langWrap.classList.contains("open"));
-    });
+    langBtn?.addEventListener("click", (e) => { e.stopPropagation(); setLangOpen(!langWrap.classList.contains("open")); });
     document.addEventListener("click", () => setLangOpen(false));
-
-    /* Mobile modal */
-    const langModalOverlay = document.getElementById("langModalOverlay");
-    const openLangModalBtn = document.getElementById("openLangModal");
-    const langModalClose = document.getElementById("langModalClose");
-
-    function openLang(){
-      langModalOverlay.classList.add("open");
-      langModalOverlay.setAttribute("aria-hidden", "false");
-      document.body.classList.add("no-scroll");
-    }
-    function closeLang(){
-      langModalOverlay.classList.remove("open");
-      langModalOverlay.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("no-scroll");
-    }
-    openLangModalBtn?.addEventListener("click", openLang);
-    langModalClose?.addEventListener("click", closeLang);
-    langModalOverlay?.addEventListener("click", (e) => {
-      if(e.target === langModalOverlay) closeLang();
-    });
 
     function syncLangUI(code){
       const d = dict[code] || dict.pt;
-
       if(langCode) langCode.textContent = d.ui.code;
       if(langFlag) langFlag.src = d.ui.flag;
 
@@ -1195,88 +1261,27 @@
       checkEN?.classList.toggle("active", code === "en");
       checkEU?.classList.toggle("active", code === "eu");
 
-      document.querySelectorAll(".lang-option").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang") === code);
-      });
+      document.querySelectorAll(".lang-choice").forEach(btn => btn.classList.toggle("active", btn.getAttribute("data-lang") === code));
     }
 
     function applyLang(code){
       const d = dict[code] || dict.pt;
       setCookie("gutty_lang", code);
-
-      document.getElementById("btnSignIn").textContent = d.btn;
-
-      document.getElementById("tHeroTitle").textContent = d.heroTitle;
-      document.getElementById("tHeroSub").textContent = d.heroSub;
-      document.getElementById("tHeroCta1").textContent = d.heroCta1;
-      document.getElementById("tHeroCta2").textContent = d.heroCta2;
-
-      document.getElementById("tCardsTitle").textContent = d.cardsTitle;
-      document.getElementById("tCardsSub").textContent = d.cardsSub;
-
-      document.getElementById("tBadge").textContent = d.badge;
-
-      document.getElementById("tC1K").textContent = d.c1k;
-      document.getElementById("tC1T").textContent = d.c1t;
-      document.getElementById("tC1D").textContent = d.c1d;
-      document.getElementById("tC1S1").textContent = d.c1s1;
-      document.getElementById("tC1S2").textContent = d.c1s2;
-      document.getElementById("tC1B").textContent = d.c1b;
-
-      document.getElementById("tC2K").textContent = d.c2k;
-      document.getElementById("tC2T").textContent = d.c2t;
-      document.getElementById("tC2D").textContent = d.c2d;
-      document.getElementById("tC2S1").textContent = d.c2s1;
-      document.getElementById("tC2S2").textContent = d.c2s2;
-      document.getElementById("tC2B").textContent = d.c2b;
-
-      document.getElementById("tC3K").textContent = d.c3k;
-      document.getElementById("tC3T").textContent = d.c3t;
-      document.getElementById("tC3D").textContent = d.c3d;
-      document.getElementById("tC3S1").textContent = d.c3s1;
-      document.getElementById("tC3S2").textContent = d.c3s2;
-      document.getElementById("tC3B").textContent = d.c3b;
-
-      document.getElementById("tCtaTitle").textContent = d.ctaTitle;
-      document.getElementById("tCtaSub").textContent = d.ctaSub;
-      document.getElementById("tCtaDiscord").textContent = d.ctaDiscord;
-
-      document.getElementById("tFooter").textContent = d.footer;
-
-      document.getElementById("tDrawerTitle").textContent = d.drawerTitle;
-      document.getElementById("tDrawerPrefs").textContent = d.drawerPrefs;
-      document.getElementById("tDrawerTheme").textContent = d.drawerTheme;
-      document.getElementById("tDrawerThemeSub").textContent = d.drawerThemeSub;
-      document.getElementById("tDrawerLang").textContent = d.drawerLang;
-      document.getElementById("tDrawerLangSub").textContent = d.drawerLangSub;
-
-      document.getElementById("tDHome").textContent = d.dHome;
-      document.getElementById("tDServices").textContent = d.dServices;
-      document.getElementById("tDAbout").textContent = d.dAbout;
-      document.getElementById("tDCommunity").textContent = d.dCommunity;
-      document.getElementById("tDBlog").textContent = d.dBlog;
-
-      document.getElementById("tLangModalTitle").textContent = d.langModalTitle;
-
-      document.documentElement.lang = (code === "pt") ? "pt-BR" : "en";
       syncLangUI(code);
+
+      Object.keys(T).forEach(k => {
+        if(!T[k] || d[k] == null) return;
+        T[k].textContent = d[k];
+      });
+
+      document.documentElement.lang = d.ui.htmlLang;
     }
 
     document.querySelectorAll(".lang-item").forEach(item => {
-      item.addEventListener("click", () => {
-        applyLang(item.getAttribute("data-lang"));
-        setLangOpen(false);
-      });
+      item.addEventListener("click", () => { applyLang(item.getAttribute("data-lang")); setLangOpen(false); });
     });
 
-    document.querySelectorAll(".lang-option").forEach(btn => {
-      btn.addEventListener("click", () => {
-        applyLang(btn.getAttribute("data-lang"));
-        closeLang();
-      });
-    });
-
-    /* DRAWER */
+    /* Drawer */
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const drawer = document.getElementById("drawer");
     const drawerOverlay = document.getElementById("drawerOverlay");
@@ -1299,28 +1304,39 @@
     drawerClose?.addEventListener("click", closeDrawer);
     drawerOverlay?.addEventListener("click", closeDrawer);
 
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape"){
-        closeDrawer();
-        closeLang();
-      }
+    /* Lang modal (mobile) */
+    const openLangModalBtn = document.getElementById("openLangModal");
+    const langModal = document.getElementById("langModal");
+    const langModalOverlay = document.getElementById("langModalOverlay");
+    const langModalClose = document.getElementById("langModalClose");
+
+    function openLangModal(){
+      langModal.classList.add("open");
+      langModalOverlay.classList.add("open");
+      langModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+    }
+    function closeLangModal(){
+      langModal.classList.remove("open");
+      langModalOverlay.classList.remove("open");
+      langModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+    }
+
+    openLangModalBtn?.addEventListener("click", () => { openLangModal(); syncLangUI(getLang()); });
+    langModalClose?.addEventListener("click", closeLangModal);
+    langModalOverlay?.addEventListener("click", closeLangModal);
+
+    document.querySelectorAll(".lang-choice").forEach(btn => {
+      btn.addEventListener("click", () => { applyLang(btn.getAttribute("data-lang")); closeLangModal(); });
     });
 
-    /* THEME click */
-    themeToggle?.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme") || "dark";
-      applyTheme(current === "dark" ? "light" : "dark");
-    });
-    drawerThemeBtn?.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme") || "dark";
-      applyTheme(current === "dark" ? "light" : "dark");
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape"){ closeDrawer(); closeLangModal(); }
     });
 
     /* INIT */
-    (function init(){
-      applyTheme(getCookie("gutty_theme") || "dark");
-      applyLang(getLang());
-    })();
+    applyLang(getLang());
   </script>
 </body>
 </html>

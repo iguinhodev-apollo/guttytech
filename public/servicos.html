@@ -1,57 +1,68 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Serviços - GuttyTECH</title>
   <meta name="description" content="Serviços de otimização profissional. Escolha seu loadout e feche pelo Discord." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" />
 
   <style>
     :root{
-      --bg:#050505;
-      --panel:rgba(18,18,18,.92);
-      --panel2:rgba(12,12,12,.92);
-      --text:#ffffff;
-      --text2:rgba(255,255,255,.80);
-      --border:rgba(255,255,255,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.70);
-
       --red:#ff0000;
       --redBorder: rgba(255,0,0,.30);
 
-      --r12:12px; --r16:16px; --r22:22px; --r26:26px;
+      --r12:12px; --r16:16px; --r18:18px; --r22:22px; --r26:26px;
       --max:1120px;
 
-      --icon: rgba(255,255,255,.92);
-      --iconSoft: rgba(255,255,255,.82);
+      --shadow: 0 18px 60px rgba(0,0,0,.70);
 
+      /* Layout */
       --pad: 18px;
       --gap: 18px;
 
-      /* HERO control */
-      --heroMediaRatio: 16/6;       /* desktop */
-      --heroMediaMaxH: none;        /* mobile overrides */
-      --heroPosY: 50%;
-
-      --drawerW: min(86vw, 380px);
+      /* HERO */
+      --heroBorderRadius: var(--r26);
+      --heroBorder: 1px solid var(--border);
+      --heroMarginTop: 26px;
+      --heroWidth: min(var(--max), calc(100% - 32px));
+      --heroAspectDesktop: 16/6;
+      --heroMobileHeight: clamp(240px, 38vh, 420px);
     }
 
-    html[data-theme="light"]{
+    /* ====== AUTOMÁTICO: segue o tema do sistema ====== */
+    :root{
       --bg:#ffffff;
-      --panel:rgba(245,245,245,.96);
-      --panel2:rgba(250,250,250,.96);
-      --text:#0a0a0a;
-      --text2:rgba(0,0,0,.72);
+      --panel: rgba(245,245,245,.96);
+      --panel2: rgba(250,250,250,.96);
+      --text:#000000;
+      --text2:rgba(0,0,0,.78);
       --border:rgba(0,0,0,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.12);
+      --shadowSoft: 0 12px 30px rgba(0,0,0,.10);
 
-      --icon: rgba(0,0,0,.85);
-      --iconSoft: rgba(0,0,0,.70);
+      --icon: rgba(0,0,0,.98);
+      --iconSoft: rgba(0,0,0,.80);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#050505;
+        --panel: rgba(18,18,18,.92);
+        --panel2: rgba(12,12,12,.92);
+        --text:#ffffff;
+        --text2:rgba(255,255,255,.80);
+        --border:rgba(255,255,255,.12);
+        --shadowSoft: 0 12px 30px rgba(0,0,0,.55);
+
+        --icon: rgba(255,255,255,.98);
+        --iconSoft: rgba(255,255,255,.86);
+      }
     }
 
     *{ box-sizing:border-box; }
@@ -60,15 +71,15 @@
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      line-height:1.6;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.65;
       overflow-x:hidden;
       -webkit-tap-highlight-color: transparent;
     }
     a{ color:inherit; text-decoration:none; }
     img{ max-width:100%; display:block; }
     button{ font-family:inherit; }
-    :focus-visible{ outline:2px solid rgba(255,0,0,.45); outline-offset:2px; border-radius:12px; }
+    :focus-visible{ outline: 2px solid rgba(255,0,0,.55); outline-offset: 3px; border-radius: 14px; }
 
     .wrap{ width:min(var(--max), calc(100% - 32px)); margin:0 auto; }
     .divider{
@@ -78,30 +89,48 @@
       background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 18%, transparent), transparent);
     }
 
-    /* NAVBAR */
+    /* NAVBAR (igual padrão do sobre) */
     .navbar{
-      position:sticky; top:0; z-index:50;
+      position: sticky;
+      top:0;
+      z-index:50;
       background: color-mix(in srgb, var(--bg) 84%, transparent);
       backdrop-filter: blur(14px);
-      border-bottom:1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
     .nav{
       min-height:78px;
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap:12px;
     }
-    .nav-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .nav-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
     .brand{
       font-family:"Bebas Neue", cursive;
-      font-size:30px; letter-spacing:2px; white-space:nowrap;
+      font-size:30px;
+      letter-spacing:2px;
+      white-space:nowrap;
     }
+
     .nav-menu{
-      display:flex; align-items:center; gap:18px; margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-left:auto;
     }
     .nav-link{
       color:var(--text2);
-      font-weight:800; font-size:14px; letter-spacing:.6px;
-      padding:10px 12px; border-radius:var(--r12);
+      font-weight:800;
+      font-size:14px;
+      letter-spacing:.6px;
+      padding:10px 12px;
+      border-radius:var(--r12);
       border:1px solid transparent;
       transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
       white-space:nowrap;
@@ -110,38 +139,51 @@
       transform: translateY(-1px);
       border-color: var(--redBorder);
       background: color-mix(in srgb, var(--panel) 70%, transparent);
-      color:var(--text);
+      color: var(--text);
     }
     .nav-link.active{
-      color:var(--text);
+      color: var(--text);
       border-color: var(--redBorder);
       background: color-mix(in srgb, var(--red) 10%, transparent);
     }
-    .nav-right{ display:flex; align-items:center; gap:10px; }
+
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
 
     .icon-btn{
       width:42px; height:42px;
-      display:inline-flex; align-items:center; justify-content:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       border-radius:14px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
-      color:var(--text);
+      color: var(--text);
       cursor:pointer;
-      transition: transform .18s ease, border-color .18s ease;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+      user-select:none;
     }
-    .icon-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .icon-btn:hover{ border-color: var(--redBorder); transform: translateY(-2px); }
     .icon-btn i{ font-size:18px; color: var(--icon); }
 
     .btn{
       height:42px;
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px; padding:0 14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:0 14px;
       border-radius:14px;
-      font-weight:900; letter-spacing:1px;
-      text-transform:uppercase; font-size:12px;
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:12px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
-      color:var(--text);
+      color: var(--text);
       cursor:pointer;
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
       white-space:nowrap;
@@ -149,7 +191,7 @@
     .btn:hover{
       transform: translateY(-2px);
       border-color: var(--redBorder);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadowSoft);
     }
     .btn-primary{
       background: linear-gradient(180deg, rgba(255,0,0,.95), rgba(165,0,0,.95));
@@ -157,7 +199,7 @@
       color:#fff;
     }
 
-    /* LANGUAGE (DESKTOP dropdown) - IGUAL AO INDEX */
+    /* Language (desktop) igual ao sobre */
     .lang{ position: relative; }
     .lang-btn{
       height:42px;
@@ -173,11 +215,13 @@
       color: var(--text);
     }
     .lang-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+
     .lang-flag{
       width:20px; height:20px;
       border-radius:6px;
       object-fit:cover;
       border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+      background: transparent;
     }
     .lang-code{
       font-weight:900;
@@ -189,7 +233,7 @@
       position:absolute;
       right:0;
       top: calc(100% + 10px);
-      width:210px;
+      width:260px;
       border-radius:16px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 92%, transparent);
@@ -199,6 +243,7 @@
       z-index:60;
     }
     .lang.open .lang-menu{ display:block; }
+
     .lang-item{
       display:flex;
       align-items:center;
@@ -213,107 +258,68 @@
     .lang-item:last-child{ border-bottom:0; }
     .lang-item:hover{ background: color-mix(in srgb, var(--red) 7%, transparent); }
     .lang-item-left{ display:flex; align-items:center; gap:10px; }
+    .lang-item small{
+      display:block;
+      color: var(--text2);
+      font-weight:700;
+      margin-top:2px;
+      letter-spacing:.2px;
+    }
     .check{ opacity:0; }
-    .check.active{ opacity:1; }
+    .check.active{ opacity:1; color: var(--icon); }
 
-    /* HERO (media + content) */
+    /* ================= HERO (igual sobre.html / sem fade) ================= */
     .hero{
-      width:min(var(--max), calc(100% - 32px));
-      margin:26px auto 0;
-      border-radius:var(--r26);
+      width: var(--heroWidth);
+      margin: var(--heroMarginTop) auto 0;
+      border-radius: var(--heroBorderRadius);
       overflow:hidden;
-      border:1px solid var(--border);
+      border: var(--heroBorder);
       box-shadow: var(--shadow);
-      background: var(--panel2);
-    }
-
-    .hero-media{
-      position:relative;
       background:#000;
+      position: relative;
+      line-height:0;
     }
-
-    /* PC: GIF | Mobile: PNG (picture) */
-    .hero-media picture,
-    .hero-media img{
+    .hero img{
+      position:relative;
+      z-index:1;
       width:100%;
+      height:auto;
+      aspect-ratio: var(--heroAspectDesktop);
+      object-fit: cover;
+      object-position: center;
       display:block;
     }
 
-    .hero-media img{
-      width:100%;
-      aspect-ratio: var(--heroMediaRatio);
-      object-fit:cover;
-      object-position: center var(--heroPosY);
-      max-height: var(--heroMediaMaxH);
-    }
-
-    .hero-overlay{
-      position:absolute; inset:0; pointer-events:none;
-      background:
-        radial-gradient(900px 350px at 20% 20%, rgba(255,0,0,.10), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.62));
-    }
-    html[data-theme="light"] .hero-overlay{
-      background:
-        radial-gradient(900px 350px at 20% 20%, rgba(255,0,0,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.65));
-    }
-
-    .hero-content{
-      padding: 18px;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 16px;
-      flex-wrap:wrap;
-      background: color-mix(in srgb, var(--panel2) 78%, transparent);
-      border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    }
-
-    .hero-title{
-      font-family:"Bebas Neue", cursive;
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      letter-spacing:2px;
-      margin:0 0 6px;
-      line-height:1.02;
-      color: var(--text);
-    }
-    .hero-sub{
-      margin:0;
-      color: var(--text2);
-      font-weight:600;
-      max-width: 78ch;
-    }
-
-    /* SECTION */
-    .section{ padding:54px 0; }
+    /* CONTENT */
+    .section{ padding: 54px 0; }
     .h2{
       font-family:"Bebas Neue", cursive;
       font-size: clamp(1.9rem, 2.3vw, 2.6rem);
-      letter-spacing:1.5px;
-      margin:0 0 10px;
+      letter-spacing: 1.5px;
+      margin: 0 0 10px;
+      color: var(--text);
     }
     .muted{
       margin:0 0 18px;
-      max-width: 85ch;
+      max-width: 90ch;
       color: var(--text2);
     }
 
-    /* ExitLag */
+    /* ExitLag bloco (troca logo no claro/escuro) */
     .exitlag{
       margin-top: 14px;
       padding: 16px;
       border-radius: var(--r26);
       border: 1px solid var(--border);
       background: var(--panel2);
-      box-shadow: 0 12px 30px color-mix(in srgb, #000 28%, transparent);
+      box-shadow: var(--shadowSoft);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:14px;
       flex-wrap:wrap;
     }
-    html[data-theme="light"] .exitlag{ box-shadow: 0 12px 30px rgba(0,0,0,.08); }
     .exitlag-left{
       display:flex;
       align-items:center;
@@ -341,7 +347,7 @@
     .exitlag-text strong{ color: var(--text); }
     .exitlag-btn{ flex:0 0 auto; white-space:nowrap; }
 
-    /* Toolbar */
+    /* Toolbar (chips + search) */
     .toolbar{
       display:flex;
       align-items:center;
@@ -353,9 +359,8 @@
       border-radius: var(--r26);
       border: 1px solid var(--border);
       background: var(--panel2);
-      box-shadow: 0 12px 30px color-mix(in srgb, #000 28%, transparent);
+      box-shadow: var(--shadowSoft);
     }
-    html[data-theme="light"] .toolbar{ box-shadow: 0 12px 30px rgba(0,0,0,.08); }
     .tool-left{
       display:flex;
       align-items:center;
@@ -378,15 +383,16 @@
       font-size:11px;
       cursor:pointer;
       user-select:none;
-      transition: transform .16s ease, border-color .16s ease;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
       white-space:nowrap;
     }
     .chip:hover{ transform: translateY(-1px); border-color: var(--redBorder); }
     .chip.active{
       border-color: rgba(255,0,0,.45);
-      background: rgba(255,0,0,.18);
+      background: rgba(255,0,0,.16);
     }
     .chip i{ color: var(--icon); font-size:16px; }
+
     .tool-right{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
     .search{
       position:relative;
@@ -414,72 +420,53 @@
       pointer-events:none;
     }
 
-    /* GRID */
+    /* GRID: sempre em colunas no PC (até resolução menor) */
     .grid{
       display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: var(--gap);
       margin-top: 16px;
       align-items:stretch;
     }
 
-    .card[data-key="omega"]{ order:2; }
-    .card[data-key="software"]{ order:1; }
-    .card[data-key="bios"]{ order:3; }
-    .card[data-key="architect"]{ order:4; }
-    .card[data-key="install"]{ order:5; }
-    .card[data-key="security"]{ order:6; }
-    .card[data-key="rescue"]{ order:7; }
-    .card[data-key="masterclass"]{ order:8; }
-
+    /* Cards */
     .card{
       border:1px solid var(--border);
       background: var(--panel2);
       border-radius: var(--r26);
       overflow:hidden;
-      box-shadow: 0 12px 30px color-mix(in srgb, #000 35%, transparent);
+      box-shadow: var(--shadowSoft);
       transition: transform .18s ease, border-color .18s ease, background .18s ease;
       display:flex;
       flex-direction:column;
       min-height: 100%;
-      position:relative;
       will-change: transform;
+      position:relative;
     }
-    html[data-theme="light"] .card{ box-shadow: 0 12px 30px rgba(0,0,0,.10); }
     .card:hover{
       transform: translateY(-6px);
       border-color: var(--redBorder);
       background: var(--panel);
     }
 
-    .featured{
-      border-color: rgba(255,0,0,.32);
-      background:
-        radial-gradient(720px 320px at 20% 10%, rgba(255,0,0,.12), transparent 65%),
-        var(--panel2);
-    }
-
-    .badge{
-      position:absolute;
-      top:14px; right:14px;
+    /* "Recomendado" sem bolha em cima: vira um "pino" discreto no topo */
+    .pin{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:7px 11px;
-      border-radius:999px;
-      border:1px solid rgba(255,0,0,.65);
-      background: rgba(255,0,0,.30);
-      color:#fff;
-      font-weight:900;
-      letter-spacing:.9px;
-      text-transform:uppercase;
-      font-size:11px;
-      box-shadow:
-        0 14px 34px rgba(255,0,0,.18),
-        inset 0 0 0 1px rgba(255,255,255,.08);
-      text-shadow: 0 8px 18px rgba(0,0,0,.35);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,0,0,.38);
+      background: rgba(255,0,0,.12);
+      color: var(--text);
+      font-weight: 900;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      font-size: 11px;
+      width: fit-content;
+      margin-bottom: 10px;
     }
-    .badge i{ color:#fff; opacity:.95; }
+    .pin i{ color: color-mix(in srgb, var(--red) 88%, var(--text)); }
 
     .card-top{
       padding: var(--pad) var(--pad) 12px;
@@ -544,9 +531,6 @@
       font-size:16px;
       flex:0 0 auto;
     }
-    html[data-theme="light"] .features i{
-      color: color-mix(in srgb, var(--red) 70%, #000);
-    }
 
     .card-bot{
       margin-top:auto;
@@ -576,8 +560,8 @@
       letter-spacing:.6px;
     }
 
-    /* Footer */
-    .footer{ padding:26px 0 44px; }
+    /* FOOTER */
+    .footer{ padding: 26px 0 44px; }
     .footer-row{
       display:flex;
       align-items:center;
@@ -585,73 +569,107 @@
       gap:18px;
       flex-wrap:wrap;
     }
-    .social{ display:flex; gap:10px; }
+    .social{ display:flex; gap:12px; }
     .social a{
-      width:42px; height:42px;
-      border-radius:14px;
+      width:52px; height:52px;
+      border-radius:18px;
       border:1px solid var(--border);
       background: var(--panel);
       display:flex;
       align-items:center;
       justify-content:center;
       color: var(--icon);
+      transition: transform .16s ease, border-color .16s ease;
+    }
+    .social a:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
+    .social i{ font-size: 24px; color: var(--icon); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px){
+      /* mantém lado a lado em telas menores: 2 colunas, não vira lista */
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    /* ===== MOBILE ===== */
-    @media (max-width: 980px){
-      :root{
-        --pad: 14px;
-        --gap: 12px;
-
-        --heroMediaRatio: 16/9;
-        --heroMediaMaxH: 260px;
-        --heroPosY: 32%;
-      }
-
-      .grid{ grid-template-columns: 1fr; }
+    /* MOBILE: hero igual sobre (contain), e cards em 3+3 (3 colunas) com tamanho menor */
+    @media (max-width: 860px){
       .nav-menu{ display:none; }
-
-      /* Mobile: esconder botões do topo */
-      #btnDiscordDesktop{ display:none !important; }
-      #themeToggle{ display:none !important; }
       #lang{ display:none !important; }
-
+      #btnDiscordDesktop{ display:none !important; }
       #mobileMenuBtn{ display:inline-flex !important; }
 
-      .hero-content{ padding: 16px; }
-      .toolbar{ padding: 12px; gap:10px; }
-      .tool-right{ width:100%; }
-      .search{ min-width: 100%; flex: 1 1 100%; }
+      :root{
+        --heroWidth: 100vw;
+        --heroMarginTop: 0px;
+        --heroBorderRadius: 0px;
+        --heroBorder: none;
 
-      /* Featured first */
-      .card[data-key="omega"]{ order:1; }
-      .card[data-key="software"]{ order:2; }
-      .card[data-key="bios"]{ order:3; }
+        --pad: 10px;
+        --gap: 10px;
+      }
 
-      /* ExitLag stack */
-      .exitlag{ padding: 14px; align-items:flex-start; }
-      .exitlag-left{ flex: 1 1 100%; }
+      .hero{
+        height: var(--heroMobileHeight);
+        box-shadow:none;
+      }
+      .hero img{
+        height: 100%;
+        width: 100%;
+        aspect-ratio: auto;
+        object-fit: contain;
+        object-position: center;
+      }
+
+      .divider.mobile-after-hero{
+        width: calc(100% - 32px);
+        margin-top: 18px;
+      }
+
+      /* 3 colunas no celular (3 em cima + 3 embaixo) */
+      .grid{
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      /* “diminuir os layouts” no mobile */
+      .card-top{ padding: 12px 12px 10px; gap:10px; }
+      .icon{ width:42px; height:42px; border-radius: 14px; }
+      .icon i{ font-size:18px; }
+      .card-title{ font-size: 1.35rem; }
+      .kicker small{ font-size: 10px; }
+      .card-mid{ padding: 0 12px 10px; }
+      .desc{ font-size: 12px; margin: 4px 0 8px; }
+      .features{ gap: 8px; }
+      .features li{ font-size: 12px; }
+      .card-bot{
+        padding: 12px 12px 12px;
+        gap: 10px;
+      }
+      .price{ min-width: 0; }
+      .price strong{ font-size: 16px; }
+      .btn{ height:38px; padding: 0 10px; font-size: 11px; border-radius: 12px; }
+      .pin{ padding: 6px 10px; font-size: 10px; margin-bottom: 8px; }
+      .toolbar{ padding: 12px; }
+      .search input{ height: 40px; }
+      .exitlag{ padding: 14px; }
       .exitlag-btn{ width:100%; justify-content:center; }
     }
 
-    @media (max-width: 420px){
-      :root{
-        --heroMediaMaxH: 235px;
-        --heroPosY: 30%;
-      }
+    @media (max-width: 520px){
       .wrap{ width: calc(100% - 22px); }
       .brand{ font-size: 28px; }
-      .icon{ width:48px; height:48px; }
-      .hero-title{ letter-spacing:1.6px; }
+
+      /* garante que ainda caiba: reduz um pouco */
+      .grid{ gap: 8px; }
+      .desc{ display:none; } /* no mobile fica mais clean; features + preço seguram tudo */
+      .features{ gap: 7px; }
+      .features li{ font-size: 11.5px; }
     }
 
     @media (prefers-reduced-motion: reduce){
       *{ transition:none !important; animation:none !important; }
     }
 
-    /* ===== DRAWER ===== */
+    /* ===== MOBILE DRAWER (igual sobre) ===== */
     #mobileMenuBtn{ display:none; }
-
     .drawer-overlay{
       position:fixed;
       inset:0;
@@ -662,13 +680,12 @@
       transition: opacity .18s ease;
       z-index: 100;
     }
-
     .drawer{
       position:fixed;
       top:0;
       right:0;
       height:100%;
-      width: var(--drawerW);
+      width: min(86vw, 380px);
       background: color-mix(in srgb, var(--bg) 86%, transparent);
       border-left: 1px solid var(--border);
       box-shadow: 0 30px 80px rgba(0,0,0,.65);
@@ -680,7 +697,6 @@
       padding: 18px;
       gap: 14px;
     }
-
     .drawer.open{ transform: translateX(0); }
     .drawer-overlay.open{ opacity:1; pointer-events:auto; }
 
@@ -768,7 +784,11 @@
       text-transform: uppercase;
       color: var(--text);
     }
-    .drawer-row span{ color: var(--text2) !important; font-weight:700; font-size:12px; }
+    .drawer-row span{
+      color: var(--text2);
+      font-weight:700;
+      font-size:12px;
+    }
     .drawer-actions{ display:flex; gap: 10px; align-items:center; }
 
     .mini-btn{
@@ -783,125 +803,121 @@
     }
     .mini-btn i{ font-size:18px; color: var(--icon); }
 
-    .no-scroll{ overflow:hidden; }
-
-    /* ===== CENTER MODAL (LANG) ===== */
-    .modal-overlay{
-      position:fixed;
-      inset:0;
+    /* Mobile language modal */
+    .lang-modal-overlay{
+      position: fixed;
+      inset: 0;
       background: rgba(0,0,0,.60);
-      backdrop-filter: blur(12px);
-      opacity:0;
-      pointer-events:none;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
       transition: opacity .18s ease;
       z-index: 200;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
     }
-    .modal-overlay.open{ opacity:1; pointer-events:auto; }
+    .lang-modal-overlay.open{ opacity:1; pointer-events:auto; }
 
-    .modal{
-      width: min(520px, 100%);
+    .lang-modal{
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(.98);
+      width: min(92vw, 420px);
       border-radius: 22px;
       border: 1px solid var(--border);
       background: color-mix(in srgb, var(--panel2) 92%, transparent);
       box-shadow: var(--shadow);
-      overflow:hidden;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 210;
     }
-    .modal-head{
+    .lang-modal.open{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .lang-modal-top{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
-      padding: 14px 14px;
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      gap:10px;
+      margin-bottom: 10px;
     }
-    .modal-head h4{
+    .lang-modal-top h4{
       margin:0;
-      font-weight: 1000;
-      letter-spacing:.9px;
-      text-transform: uppercase;
-      font-size: 12px;
-      color: var(--text2);
-    }
-    .modal-close{
-      width:42px; height:42px;
-      border-radius: 14px;
-      border:1px solid rgba(255,0,0,.35);
-      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      font-family:"Bebas Neue", cursive;
+      letter-spacing: 1.6px;
+      font-size: 24px;
       color: var(--text);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
     }
-    .modal-close i{ color: var(--icon); font-size:18px; }
-
-    .modal-body{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
+    .lang-modal-list{
+      display:grid;
+      gap:10px;
+      margin-top: 10px;
     }
-
-    .lang-option{
-      width:100%;
+    .lang-choice{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
       padding: 14px;
       border-radius: 18px;
-      border:1px solid color-mix(in srgb, var(--border) 85%, transparent);
+      border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
       cursor:pointer;
-      color: var(--text);
-      text-align:left;
     }
-    .lang-left{
+    .lang-choice-left{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      font-weight: 900;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .lang-choice-left .row{
       display:flex;
       align-items:center;
-      gap: 10px;
-      font-weight: 900;
-      letter-spacing: .8px;
-      text-transform: uppercase;
+      gap:10px;
     }
-    .lang-left img{
+    .lang-choice-left img{
       width:22px; height:22px;
       border-radius: 7px;
       border:1px solid color-mix(in srgb, var(--text) 20%, transparent);
       object-fit: cover;
     }
-    .lang-option i{ opacity:.25; }
-    .lang-option.active{
+    .lang-choice-left small{
+      color: var(--text2);
+      font-weight:800;
+      letter-spacing:.2px;
+      text-transform:none;
+    }
+    .lang-choice i{ opacity:.25; color: var(--icon); }
+    .lang-choice.active{
       border-color: rgba(255,0,0,.35);
       box-shadow: inset 0 0 0 1px rgba(255,0,0,.12);
     }
-    .lang-option.active i{
-      opacity:1;
-      color: color-mix(in srgb, var(--red) 86%, var(--text));
-    }
+    .lang-choice.active i{ opacity:1; color: color-mix(in srgb, var(--red) 86%, var(--text)); }
+
+    .no-scroll{ overflow:hidden; }
   </style>
 </head>
 
 <body>
+  <!-- HEADER -->
   <header class="navbar">
     <div class="wrap nav">
       <div class="nav-left">
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema">
-          <i class="ri-moon-line" id="themeIcon"></i>
-        </button>
         <a class="brand" href="index.html" aria-label="Ir para início">GUTTYTECH</a>
       </div>
 
       <nav class="nav-menu" aria-label="Menu principal">
-        <a class="nav-link" href="index.html">HOME</a>
-        <a class="nav-link active" href="servicos.html">SERVIÇOS</a>
-        <a class="nav-link" href="sobre.html">SOBRE MIM</a>
-        <a class="nav-link" href="comunidade.html">COMUNIDADE</a>
-        <a class="nav-link" href="blog.html">BLOG</a>
+        <a class="nav-link" href="index.html" id="mHome">HOME</a>
+        <a class="nav-link active" href="servicos.html" id="mServices">SERVIÇOS</a>
+        <a class="nav-link" href="sobre.html" id="mAbout">SOBRE MIM</a>
+        <a class="nav-link" href="comunidade.html" id="mCommunity">COMUNIDADE</a>
+        <a class="nav-link" href="blog.html" id="mBlog">BLOG</a>
       </nav>
 
       <div class="nav-right">
@@ -909,42 +925,55 @@
         <div class="lang" id="lang">
           <button class="lang-btn" id="langBtn" type="button" aria-label="Idioma" aria-expanded="false">
             <img class="lang-flag" id="langFlag" src="images/languages/brasil.png" alt="Idioma">
-            <span class="lang-code" id="langCode">BR</span>
+            <span class="lang-code" id="langCode">PT-BR</span>
             <i class="ri-arrow-down-s-line" style="color:var(--iconSoft)"></i>
           </button>
 
           <div class="lang-menu" role="menu" aria-label="Idiomas">
             <div class="lang-item" data-lang="pt" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/brasil.png" alt="BR">
-                <span>BR</span>
+                <img class="lang-flag" src="images/languages/brasil.png" alt="Português (Brasil)">
+                <div>
+                  <span>PT-BR</span>
+                  <small>Português (Brasil)</small>
+                </div>
               </div>
               <i class="ri-check-line check active" id="checkPT"></i>
             </div>
 
             <div class="lang-item" data-lang="en" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/en.png" alt="EN">
-                <span>EN</span>
+                <img class="lang-flag" src="images/languages/en.png" alt="English">
+                <div>
+                  <span>EN</span>
+                  <small>English</small>
+                </div>
               </div>
               <i class="ri-check-line check" id="checkEN"></i>
             </div>
 
             <div class="lang-item" data-lang="eu" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/eu.png" alt="EU">
-                <span>EU</span>
+                <img class="lang-flag" src="images/languages/eu.png" alt="Português (Portugal)">
+                <div>
+                  <span>PT-PT</span>
+                  <small>Português (Portugal)</small>
+                </div>
               </div>
               <i class="ri-check-line check" id="checkEU"></i>
             </div>
           </div>
         </div>
 
-        <a class="btn btn-primary" id="btnDiscordDesktop" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer" aria-label="Entrar">
+        <!-- Discord desktop -->
+        <a class="btn btn-primary" id="btnDiscordDesktop"
+           href="https://discord.com/channels/1368385324950097960/1370430612179255364"
+           target="_blank" rel="noopener noreferrer" aria-label="Entrar">
           <i class="ri-discord-fill"></i>
           <span id="btnSignIn">Entrar</span>
         </a>
 
+        <!-- Mobile: menu -->
         <button class="icon-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menu">
           <i class="ri-more-2-fill"></i>
         </button>
@@ -952,34 +981,25 @@
     </div>
   </header>
 
+  <!-- HERO (sem fade / sem textos em cima) -->
   <section class="hero" aria-label="Serviços">
-    <div class="hero-media">
-      <picture>
-        <source media="(max-width: 980px)" srcset="images/mobile/banner-servicos.png">
-        <img src="images/banners/banner-servicos.gif" alt="Serviços GuttyTECH - Escolha seu pacote">
-      </picture>
-      <div class="hero-overlay"></div>
-    </div>
-
-    <div class="hero-content">
-      <div>
-        <h1 class="hero-title" id="tHeroTitle">SERVIÇOS DE OTIMIZAÇÃO</h1>
-        <p class="hero-sub" id="tHeroSub">Escolha o loadout certo — performance real: consistência, estabilidade e resposta.</p>
-      </div>
-    </div>
+    <picture>
+      <source media="(max-width: 860px)" srcset="images/mobile/banner-servicos.png">
+      <img src="images/banners/banner-servicos.gif" alt="Serviços GuttyTECH - Escolha seu pacote" />
+    </picture>
   </section>
 
-  <div class="divider" style="margin-top:22px;"></div>
+  <div class="divider mobile-after-hero" style="margin-top:22px;"></div>
 
   <main>
     <section class="wrap section" aria-labelledby="tCardsTitle">
       <h2 class="h2" id="tCardsTitle">ESCOLHA SEU LOADOUT</h2>
-      <p class="muted" id="tCardsSub">Cards completos com descrição e foco. Clique para entrar no Discord e fechar.</p>
+      <p class="muted" id="tCardsSub">Escolha rápido ou use a busca. Clique no Discord e feche.</p>
 
-      <!-- EXITLAG (PARCEIRO) -->
+      <!-- EXITLAG (troca logo no claro/escuro automático) -->
       <div class="exitlag" aria-label="ExitLag">
         <div class="exitlag-left">
-          <img class="exitlag-logo" src="images/parceiros/exitlag.png" alt="ExitLag">
+          <img class="exitlag-logo" id="exitlagLogo" src="images/parceiros/exitlag.png" alt="ExitLag">
           <p class="exitlag-text" id="tExitLagText">
             <strong>Quer reduzir ping e melhorar rota?</strong> Use nosso link parceiro.
           </p>
@@ -992,6 +1012,7 @@
         </a>
       </div>
 
+      <!-- Toolbar -->
       <div class="toolbar" aria-label="Ferramentas de lista">
         <div class="tool-left">
           <div class="chip active" id="chipAll"><i class="ri-grid-fill"></i><span id="tChipAll">Todos</span></div>
@@ -1010,6 +1031,7 @@
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="divider"></div>
     <div class="wrap footer-row" style="padding-top:22px;">
@@ -1019,12 +1041,15 @@
         <a href="https://www.youtube.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
         <a href="https://www.tiktok.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="ri-tiktok-line"></i></a>
         <a href="mailto:Gutty@GuttyTech.com.br" aria-label="Email"><i class="ri-mail-line"></i></a>
+        <a href="https://discord.com/channels/1368385324950097960/1370430612179255364"
+           target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="ri-discord-fill"></i></a>
       </div>
     </div>
   </footer>
 
-  <!-- DRAWER (mobile) -->
+  <!-- MOBILE DRAWER -->
   <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+
   <aside class="drawer" id="drawer" aria-label="Menu">
     <div class="drawer-top">
       <h3 class="drawer-title" id="tDrawerTitle">MENU</h3>
@@ -1041,20 +1066,8 @@
       <a class="drawer-link" href="blog.html"><span id="tDBlog">BLOG</span><i class="ri-arrow-right-s-line"></i></a>
     </nav>
 
-    <div class="drawer-section">
+    <div class="drawer-section" aria-label="Preferências">
       <p class="drawer-hint" id="tDrawerPrefs">PREFERÊNCIAS</p>
-
-      <div class="drawer-row">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-          <strong id="tDrawerTheme">Tema</strong>
-          <span id="tDrawerThemeSub">Claro/Escuro</span>
-        </div>
-        <div class="drawer-actions">
-          <button class="mini-btn" id="drawerThemeBtn" type="button" aria-label="Alternar tema">
-            <i class="ri-moon-line" id="drawerThemeIcon"></i>
-          </button>
-        </div>
-      </div>
 
       <div class="drawer-row">
         <div style="display:flex; flex-direction:column; gap:2px;">
@@ -1062,7 +1075,7 @@
           <span id="tDrawerLangSub">Trocar idioma</span>
         </div>
         <div class="drawer-actions">
-          <button class="mini-btn" id="openLangModal" type="button" aria-label="Abrir idiomas">
+          <button class="mini-btn" id="openLangModal" type="button" aria-label="Trocar idioma">
             <i class="ri-translate-2"></i>
           </button>
         </div>
@@ -1070,40 +1083,49 @@
     </div>
   </aside>
 
-  <!-- LANGUAGE CENTER MODAL (mobile) -->
-  <div class="modal-overlay" id="langModalOverlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Selecionar idioma">
-      <div class="modal-head">
-        <h4 id="tLangModalTitle">Selecionar idioma</h4>
-        <button class="modal-close" id="langModalClose" type="button" aria-label="Fechar">
-          <i class="ri-close-line"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <button class="lang-option" type="button" data-lang="pt">
-          <div class="lang-left">
-            <img src="images/languages/brasil.png" alt="BR">
-            <span>BR</span>
-          </div>
-          <i class="ri-check-line"></i>
-        </button>
+  <!-- LANG MODAL (mobile) -->
+  <div class="lang-modal-overlay" id="langModalOverlay" aria-hidden="true"></div>
+  <div class="lang-modal" id="langModal" role="dialog" aria-modal="true" aria-label="Selecionar idioma">
+    <div class="lang-modal-top">
+      <h4 id="tLangModalTitle">IDIOMA</h4>
+      <button class="drawer-close" id="langModalClose" type="button" aria-label="Fechar">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
 
-        <button class="lang-option" type="button" data-lang="en">
-          <div class="lang-left">
-            <img src="images/languages/en.png" alt="EN">
+    <div class="lang-modal-list">
+      <button class="lang-choice" type="button" data-lang="pt" id="mLangPT">
+        <div class="lang-choice-left">
+          <div class="row">
+            <img src="images/languages/brasil.png" alt="Português (Brasil)" />
+            <span>PT-BR</span>
+          </div>
+          <small>Português (Brasil)</small>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
+
+      <button class="lang-choice" type="button" data-lang="en" id="mLangEN">
+        <div class="lang-choice-left">
+          <div class="row">
+            <img src="images/languages/en.png" alt="English" />
             <span>EN</span>
           </div>
-          <i class="ri-check-line"></i>
-        </button>
+          <small>English</small>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
 
-        <button class="lang-option" type="button" data-lang="eu">
-          <div class="lang-left">
-            <img src="images/languages/eu.png" alt="EU">
-            <span>EU</span>
+      <button class="lang-choice" type="button" data-lang="eu" id="mLangEU">
+        <div class="lang-choice-left">
+          <div class="row">
+            <img src="images/languages/eu.png" alt="Português (Portugal)" />
+            <span>PT-PT</span>
           </div>
-          <i class="ri-check-line"></i>
-        </button>
-      </div>
+          <small>Português (Portugal)</small>
+        </div>
+        <i class="ri-check-line"></i>
+      </button>
     </div>
   </div>
 
@@ -1122,294 +1144,183 @@
       return "";
     }
 
-    /* THEME */
-    const root = document.documentElement;
-    const themeToggle = document.getElementById("themeToggle");
-    const themeIcon = document.getElementById("themeIcon");
-    const drawerThemeBtn = document.getElementById("drawerThemeBtn");
-    const drawerThemeIcon = document.getElementById("drawerThemeIcon");
-
-    function applyTheme(theme){
-      root.setAttribute("data-theme", theme);
-      setCookie("gutty_theme", theme);
-      const isDark = theme === "dark";
-      if(themeIcon) themeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
-      if(drawerThemeIcon) drawerThemeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
+    /* =========================
+       ExitLag logo: claro -> exitlag2.png | escuro -> exitlag.png
+       (segue o sistema, sem toggle manual)
+       ========================= */
+    function applyExitLagLogo(){
+      const img = document.getElementById("exitlagLogo");
+      if(!img) return;
+      const isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      img.src = isDark ? "images/parceiros/exitlag.png" : "images/parceiros/exitlag2.png";
+    }
+    applyExitLagLogo();
+    if(window.matchMedia){
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      mq.addEventListener?.("change", applyExitLagLogo);
     }
 
-    /* LANG */
+    /* =========================
+       LANGUAGE (igual sobre.html)
+       ========================= */
     function getLang(){ return getCookie("gutty_lang") || "pt"; }
+
+    const dict = {
+      pt:{
+        ui:{ code:"PT-BR", flag:"images/languages/brasil.png", htmlLang:"pt-BR" },
+        btnSignIn:"Entrar",
+        tCardsTitle:"ESCOLHA SEU LOADOUT",
+        tCardsSub:"Escolha rápido ou use a busca. Clique no Discord e feche.",
+        tFooter:"© 2025 GuttyTECH — Performance é obsessão.",
+        tChipAll:"Todos",
+        tChipRec:"Recomendado",
+        tChipQuick:"Rápidos",
+        searchPh:"Buscar serviço...",
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERÊNCIAS",
+        tDHome:"HOME",
+        tDServices:"SERVIÇOS",
+        tDAbout:"SOBRE MIM",
+        tDCommunity:"COMUNIDADE",
+        tDBlog:"BLOG",
+        tLangModalTitle:"IDIOMA",
+        tDrawerLang:"Idioma",
+        tDrawerLangSub:"Trocar idioma",
+        exitLagText:"<strong>Quer reduzir ping e melhorar rota?</strong> Use nosso link parceiro.",
+        exitLagBtn:"Abrir ExitLag",
+        empty:"Nenhum serviço encontrado com esse filtro/busca.",
+        priceLabel:"Preço",
+        talkLabel:"Fechar no Discord",
+        pinRecommended:"Mais pedido"
+      },
+      en:{
+        ui:{ code:"EN", flag:"images/languages/en.png", htmlLang:"en" },
+        btnSignIn:"Sign in",
+        tCardsTitle:"CHOOSE YOUR LOADOUT",
+        tCardsSub:"Use filters or search. Click Discord to close.",
+        tFooter:"© 2025 GuttyTECH — Performance is an obsession.",
+        tChipAll:"All",
+        tChipRec:"Recommended",
+        tChipQuick:"Quick",
+        searchPh:"Search service...",
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERENCES",
+        tDHome:"HOME",
+        tDServices:"SERVICES",
+        tDAbout:"ABOUT ME",
+        tDCommunity:"COMMUNITY",
+        tDBlog:"BLOG",
+        tLangModalTitle:"LANGUAGE",
+        tDrawerLang:"Language",
+        tDrawerLangSub:"Change language",
+        exitLagText:"<strong>Want lower ping and better routes?</strong> Use our partner link.",
+        exitLagBtn:"Open ExitLag",
+        empty:"No services found for this filter/search.",
+        priceLabel:"Price",
+        talkLabel:"Talk on Discord",
+        pinRecommended:"Top pick"
+      },
+      eu:{
+        ui:{ code:"PT-PT", flag:"images/languages/eu.png", htmlLang:"pt-PT" },
+        btnSignIn:"Entrar",
+        tCardsTitle:"ESCOLHE O TEU LOADOUT",
+        tCardsSub:"Usa filtros ou pesquisa. Clica no Discord para fechar.",
+        tFooter:"© 2025 GuttyTECH — Performance é obsessão.",
+        tChipAll:"Todos",
+        tChipRec:"Recomendado",
+        tChipQuick:"Rápidos",
+        searchPh:"Pesquisar serviço...",
+        tDrawerTitle:"MENU",
+        tDrawerPrefs:"PREFERÊNCIAS",
+        tDHome:"HOME",
+        tDServices:"SERVIÇOS",
+        tDAbout:"SOBRE MIM",
+        tDCommunity:"COMUNIDADE",
+        tDBlog:"BLOG",
+        tLangModalTitle:"IDIOMA",
+        tDrawerLang:"Idioma",
+        tDrawerLangSub:"Mudar idioma",
+        exitLagText:"<strong>Queres reduzir ping e melhorar rota?</strong> Usa o nosso link parceiro.",
+        exitLagBtn:"Abrir ExitLag",
+        empty:"Nenhum serviço encontrado com esse filtro/pesquisa.",
+        priceLabel:"Preço",
+        talkLabel:"Fechar no Discord",
+        pinRecommended:"Mais pedido"
+      }
+    };
+
     function regionFromLang(lang){
       if(lang === "pt") return "BR";
       if(lang === "eu") return "EU";
       return "INT";
     }
-    function moneyLabel(lang){ return (lang === "pt") ? "Preço" : "Price"; }
-    function talkLabel(lang){ return (lang === "pt") ? "Falar no Discord" : "Talk on Discord"; }
-
-    const dict = {
-      pt:{
-        ui:{ code:"BR", flag:"images/languages/brasil.png" },
-        btn:"Entrar",
-        heroTitle:"SERVIÇOS DE OTIMIZAÇÃO",
-        heroSub:"Escolha o loadout certo — performance real: consistência, estabilidade e resposta.",
-        cardsTitle:"ESCOLHA SEU LOADOUT",
-        cardsSub:"Cards completos com descrição e foco. Clique para entrar no Discord e fechar.",
-        footer:"© 2025 GuttyTECH — Performance é obsessão.",
-        chipAll:"Todos",
-        chipRec:"Recomendado",
-        chipQuick:"Rápidos",
-        searchPh:"Buscar serviço...",
-        drawerTitle:"MENU",
-        drawerPrefs:"PREFERÊNCIAS",
-        drawerTheme:"Tema",
-        drawerThemeSub:"Claro/Escuro",
-        drawerLang:"Idioma",
-        drawerLangSub:"Trocar idioma",
-        dHome:"HOME",
-        dServices:"SERVIÇOS",
-        dAbout:"SOBRE MIM",
-        dCommunity:"COMUNIDADE",
-        dBlog:"BLOG",
-        exitLagText:"<strong>Quer reduzir ping e melhorar rota?</strong> Use nosso link parceiro.",
-        exitLagBtn:"Abrir ExitLag",
-        langModalTitle:"Selecionar idioma",
-        empty:"Nenhum serviço encontrado com esse filtro/busca."
-      },
-      en:{
-        ui:{ code:"EN", flag:"images/languages/en.png" },
-        btn:"Sign in",
-        heroTitle:"OPTIMIZATION SERVICES",
-        heroSub:"Pick the right loadout — real performance: consistency, stability and responsiveness.",
-        cardsTitle:"CHOOSE YOUR LOADOUT",
-        cardsSub:"Full cards with focus and description. Click to talk on Discord.",
-        footer:"© 2025 GuttyTECH — Performance is an obsession.",
-        chipAll:"All",
-        chipRec:"Recommended",
-        chipQuick:"Quick",
-        searchPh:"Search service...",
-        drawerTitle:"MENU",
-        drawerPrefs:"PREFERENCES",
-        drawerTheme:"Theme",
-        drawerThemeSub:"Light/Dark",
-        drawerLang:"Language",
-        drawerLangSub:"Change language",
-        dHome:"HOME",
-        dServices:"SERVICES",
-        dAbout:"ABOUT ME",
-        dCommunity:"COMMUNITY",
-        dBlog:"BLOG",
-        exitLagText:"<strong>Want lower ping and better routes?</strong> Use our partner link.",
-        exitLagBtn:"Open ExitLag",
-        langModalTitle:"Select language",
-        empty:"No services found for this filter/search."
-      },
-      eu:{
-        ui:{ code:"EU", flag:"images/languages/eu.png" },
-        btn:"Sign in",
-        heroTitle:"OPTIMIZATION SERVICES (EU)",
-        heroSub:"Choose your loadout — consistent, stable and responsive performance.",
-        cardsTitle:"CHOOSE YOUR LOADOUT",
-        cardsSub:"Full cards with focus and description. Click to talk on Discord.",
-        footer:"© 2025 GuttyTECH — Performance is an obsession.",
-        chipAll:"All",
-        chipRec:"Recommended",
-        chipQuick:"Quick",
-        searchPh:"Search service...",
-        drawerTitle:"MENU",
-        drawerPrefs:"PREFERENCES",
-        drawerTheme:"Theme",
-        drawerThemeSub:"Light/Dark",
-        drawerLang:"Language",
-        drawerLangSub:"Change language",
-        dHome:"HOME",
-        dServices:"SERVICES",
-        dAbout:"ABOUT ME",
-        dCommunity:"COMMUNITY",
-        dBlog:"BLOG",
-        exitLagText:"<strong>Want lower ping and better routes?</strong> Use our partner link.",
-        exitLagBtn:"Open ExitLag",
-        langModalTitle:"Select language",
-        empty:"No services found for this filter/search."
-      }
-    };
 
     /* Services */
     const services = [
       {
         key:"software", icon:"ri-windows-line", featured:false,
-        badgePT:"", badgeEN:"",
-        omegaPT:"OTIMIZAÇÃO DE SOFTWARE", omegaEN:"SOFTWARE OPTIMIZATION",
-        titlePT:"Otimização de Software (Windows no Talo)", titleEN:"Software Optimization (Windows Boost)",
-        descPT:"Windows mais limpo e responsivo: menos bloat, menos travamento e mais consistência no FPS e no frame-time.",
-        descEN:"Cleaner, faster Windows: less bloat, fewer freezes, and more consistent FPS/frame-times.",
-        featuresPT:[
-          "Limpeza e remoção de processos desnecessários",
-          "Ajustes de inicialização, serviços e conflitos",
-          "Tweaks para reduzir input lag e stutter",
-          "Validação antes/depois (quando aplicável)"
-        ],
-        featuresEN:[
-          "Cleanup and removal of unnecessary processes",
-          "Startup/services tuning and conflict reduction",
-          "Tweaks to reduce input lag and stutter",
-          "Before/after validation (when applicable)"
-        ],
+        titlePT:"SISTEMA", titleEN:"SYSTEM",
+        omegaPT:"Windows no Talo", omegaEN:"Windows Boost",
+        descPT:"Windows mais limpo e responsivo: menos travamento, mais consistência e resposta.",
+        descEN:"Cleaner, faster Windows: fewer freezes, more consistency and responsiveness.",
+        featuresPT:["Foco: Fluidez","Menos stutter e conflitos","Ajustes de inicialização/serviços","Ver detalhes no Discord"],
+        featuresEN:["Focus: Smoothness","Less stutter & conflicts","Startup/services tuning","See details on Discord"],
         price:{ BR:"R$ 115", EU:"€ 30", INT:"$ 35" },
         tags:["quick"]
       },
       {
         key:"omega", icon:"ri-fire-line", featured:true,
-        badgePT:"RECOMENDADO", badgeEN:"RECOMMENDED",
-        omegaPT:"O TRATAMENTO ÔMEGA", omegaEN:"OMEGA TREATMENT",
-        titlePT:"O TRATAMENTO ÔMEGA (Completo)", titleEN:"OMEGA TREATMENT (Full)",
-        descPT:"Pacote completo: Software + BIOS/ajustes avançados. O objetivo é consistência real: menos stutter, melhor resposta.",
-        descEN:"Full package: Software + BIOS/advanced tuning. Goal: real consistency—less stutter, better responsiveness.",
-        featuresPT:[
-          "Tudo do Software + tudo do BIOS",
-          "Ajustes avançados para frame-time/consistência",
-          "Correções conhecidas (MPO/graphics) quando necessário",
-          "Suporte VIP e orientação de upgrade (papo reto)"
-        ],
-        featuresEN:[
-          "Everything from Software + everything from BIOS",
-          "Advanced tuning for frame-time/consistency",
-          "Known fixes (MPO/graphics) when needed",
-          "VIP support + upgrade guidance"
-        ],
+        titlePT:"MAIS PEDIDO", titleEN:"MOST WANTED",
+        omegaPT:"Tratamento Ômega", omegaEN:"Omega Treatment",
+        descPT:"Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.",
+        descEN:"Full package for real consistency: less stutter, better frame-time and feel.",
+        featuresPT:["Resultado: Máximo","Software + BIOS/latência","Ajustes avançados e validação","Fechar no Discord"],
+        featuresEN:["Result: Maximum","Software + BIOS/latency","Advanced tuning + validation","Close on Discord"],
         price:{ BR:"R$ 200", EU:"€ 50", INT:"$ 55" },
         tags:["recommended"]
       },
       {
         key:"bios", icon:"ri-cpu-line", featured:false,
-        badgePT:"", badgeEN:"",
-        omegaPT:"OTIMIZAÇÃO DE BIOS", omegaEN:"BIOS OPTIMIZATION",
-        titlePT:"Otimização de BIOS (Coração da Besta)", titleEN:"BIOS Optimization (Heart of the Beast)",
-        descPT:"Ajuste fino de RAM/CPU via BIOS para reduzir latência e aumentar consistência e estabilidade.",
-        descEN:"Fine RAM/CPU BIOS tuning to reduce latency and improve stability and consistency.",
-        featuresPT:[
-          "Tuning de RAM além do XMP (quando possível)",
-          "CPU configurada para turbo estável e seguro",
-          "Curvas de fans / térmica sob medida",
-          "Ajustes de estabilidade e consistência"
-        ],
-        featuresEN:[
-          "RAM tuning beyond XMP (when possible)",
-          "CPU tuned for stable, thermal-safe boost",
-          "Fan curves / thermal tuning",
-          "Stability and consistency tweaks"
-        ],
+        titlePT:"BIOS / LATÊNCIA", titleEN:"BIOS / LATENCY",
+        omegaPT:"Coração da Besta", omegaEN:"Heart of the Beast",
+        descPT:"Ajuste de RAM/CPU pra reduzir latência e melhorar estabilidade e consistência.",
+        descEN:"RAM/CPU tuning to reduce latency and improve stability and consistency.",
+        featuresPT:["Foco: Latência","RAM além do XMP (quando possível)","CPU turbo estável e seguro","Ajustes de estabilidade"],
+        featuresEN:["Focus: Latency","RAM beyond XMP (when possible)","Stable/safe CPU boost","Stability tuning"],
         price:{ BR:"R$ 145", EU:"€ 35", INT:"$ 40" },
         tags:["quick"]
       },
       {
         key:"architect", icon:"ri-tools-line", featured:false,
-        badgePT:"", badgeEN:"",
-        omegaPT:"ARQUITETO ÔMEGA", omegaEN:"OMEGA ARCHITECT",
-        titlePT:"Arquiteto Ômega (Consultoria de Build)", titleEN:"OMEGA Architect (Build Consulting)",
-        descPT:"Consultoria para montar o PC certo pro seu objetivo (jogar, stream, edição). Sem gastar errado.",
-        descEN:"Build consulting to choose the right parts for your goal (gaming, streaming, editing). No wasted money.",
-        featuresPT:[
-          "Indicação de peças (custo/benefício real)",
-          "Compatibilidade e caminho de upgrade",
-          "Config recomendada por objetivo",
-          "Checklist final antes da compra"
-        ],
-        featuresEN:[
-          "Parts selection (real value/performance)",
-          "Compatibility and upgrade path",
-          "Goal-based configuration",
-          "Final checklist before buying"
-        ],
+        titlePT:"CONSULTORIA", titleEN:"CONSULTING",
+        omegaPT:"Arquiteto Ômega", omegaEN:"Omega Architect",
+        descPT:"Consultoria pra montar o PC certo pro seu objetivo. Sem gastar errado.",
+        descEN:"Build consulting to pick the right parts for your goal. No wasted money.",
+        featuresPT:["Peças custo/benefício real","Compatibilidade e upgrade","Config por objetivo","Checklist antes de comprar"],
+        featuresEN:["Real value parts list","Compatibility + upgrades","Goal-based config","Pre-buy checklist"],
         price:{ BR:"R$ 80", EU:"€ 30", INT:"$ 35" },
         tags:[]
       },
       {
         key:"install", icon:"ri-download-cloud-2-line", featured:false,
-        badgePT:"", badgeEN:"",
-        omegaPT:"INSTALAÇÃO ÔMEGA", omegaEN:"OMEGA INSTALL",
-        titlePT:"Instalação Ômega (Formatação de Elite)", titleEN:"OMEGA Install (Elite Clean Install)",
-        descPT:"Instalação limpa e organizada: Windows, drivers e base pronta para performance (sem lixo).",
-        descEN:"Clean, organized install: Windows, drivers and a performance-ready baseline (no bloat).",
-        featuresPT:[
-          "Instalação limpa e organizada",
-          "Drivers essenciais + configuração base",
-          "Higiene de sistema (sem tralha)",
-          "Entrega pronta para uso"
-        ],
-        featuresEN:[
-          "Clean and organized installation",
-          "Essential drivers + baseline setup",
-          "System hygiene (no bloat)",
-          "Delivered ready to use"
-        ],
+        titlePT:"FORMATAÇÃO", titleEN:"CLEAN INSTALL",
+        omegaPT:"Instalação Ômega", omegaEN:"Omega Install",
+        descPT:"Instalação limpa e organizada: Windows, drivers e base pronta pra performance.",
+        descEN:"Clean, organized install: Windows, drivers and performance baseline.",
+        featuresPT:["Instalação limpa","Drivers essenciais","Higiene do sistema","Entrega pronta pra uso"],
+        featuresEN:["Clean installation","Essential drivers","System hygiene","Ready to use delivery"],
         price:{ BR:"R$ 80", EU:"€ 30", INT:"$ 35" },
         tags:["quick"]
       },
       {
         key:"security", icon:"ri-shield-check-line", featured:false,
-        badgePT:"", badgeEN:"",
-        omegaPT:"VARREDURA E BLINDAGEM", omegaEN:"SCAN & SHIELD",
-        titlePT:"Varredura e Blindagem (Segurança)", titleEN:"Scan & Shield (Security)",
-        descPT:"Varredura e reforço contra pragas, riscos e configurações perigosas. PC protegido e estável.",
-        descEN:"Scan and hardening against malware, risks and unsafe settings. Stable and protected system.",
-        featuresPT:[
-          "Varredura e limpeza (quando aplicável)",
-          "Reforço de configurações de segurança",
-          "Checagem de integridade e riscos",
-          "Orientação preventiva"
-        ],
-        featuresEN:[
-          "Scan & cleanup (when applicable)",
-          "Security configuration hardening",
-          "Integrity and risk checks",
-          "Preventive guidance"
-        ],
+        titlePT:"SEGURANÇA", titleEN:"SECURITY",
+        omegaPT:"Varredura e Blindagem", omegaEN:"Scan & Shield",
+        descPT:"Varredura e reforço contra riscos e configurações perigosas.",
+        descEN:"Scan and hardening against risks and unsafe settings.",
+        featuresPT:["Varredura e limpeza","Reforço de segurança","Checagem de integridade","Orientação preventiva"],
+        featuresEN:["Scan & cleanup","Security hardening","Integrity checks","Preventive guidance"],
         price:{ BR:"R$ 160", EU:"€ 60", INT:"$ 65" },
-        tags:[]
-      },
-      {
-        key:"rescue", icon:"ri-lifebuoy-line", featured:false,
-        badgePT:"", badgeEN:"",
-        omegaPT:"RESGATE DO COVIL", omegaEN:"CAVE RESCUE",
-        titlePT:"Resgate do Covil (Suporte Avulso)", titleEN:"Cave Rescue (Hourly Support)",
-        descPT:"Suporte por hora para resolver pepino: travamento, stutter, queda de FPS, configuração, etc.",
-        descEN:"Hourly support to fix issues: stutters, FPS drops, crashes, configuration problems, etc.",
-        featuresPT:[
-          "Diagnóstico rápido e objetivo",
-          "Correções guiadas e explicadas",
-          "Plano do que fazer depois",
-          "Cobrança por hora"
-        ],
-        featuresEN:[
-          "Fast, objective diagnosis",
-          "Guided fixes with explanations",
-          "Clear next-steps plan",
-          "Hourly billing"
-        ],
-        price:{ BR:"R$ 100/hora", EU:"€ 40/hora", INT:"$ 45/hour" },
-        tags:["quick"]
-      },
-      {
-        key:"masterclass", icon:"ri-trophy-line", featured:false,
-        badgePT:"", badgeEN:"",
-        omegaPT:"MASTERCLASS ÔMEGA", omegaEN:"OMEGA MASTERCLASS",
-        titlePT:"MASTERCLASS ÔMEGA (Overclock de Elite)", titleEN:"OMEGA Masterclass (Elite Overclock)",
-        descPT:"Overclock de elite/estudo avançado com mentalidade de competição. Para quem quer nível máximo.",
-        descEN:"Elite overclock/advanced training with competition mindset. For those who want the top level.",
-        featuresPT:[
-          "Estratégia e metodologia de overclock",
-          "Estabilidade vs performance real",
-          "Tuning avançado e validação",
-          "Sessão focada e completa"
-        ],
-        featuresEN:[
-          "Overclock strategy & methodology",
-          "Stability vs real-world performance",
-          "Advanced tuning + validation",
-          "Focused full session"
-        ],
-        price:{ BR:"R$ 600", EU:"€ 150", INT:"$ 200" },
         tags:[]
       }
     ];
@@ -1433,13 +1344,12 @@
 
       if(currentFilter === "recommended" && !inRecommended) return false;
       if(currentFilter === "quick" && !inQuick) return false;
-
       if(!q) return true;
 
-      const t1 = (lang === "pt") ? s.titlePT : s.titleEN;
-      const t2 = (lang === "pt") ? s.omegaPT : s.omegaEN;
-      const d  = (lang === "pt") ? s.descPT : s.descEN;
-      const feats = (lang === "pt") ? s.featuresPT : s.featuresEN;
+      const t1 = (lang === "pt" || lang === "eu") ? s.titlePT : s.titleEN;
+      const t2 = (lang === "pt" || lang === "eu") ? s.omegaPT : s.omegaEN;
+      const d  = (lang === "pt" || lang === "eu") ? s.descPT : s.descEN;
+      const feats = (lang === "pt" || lang === "eu") ? s.featuresPT : s.featuresEN;
 
       const hay = normalize([t1,t2,d,(feats||[]).join(" "), s.price[region]].join(" "));
       return hay.includes(q);
@@ -1451,25 +1361,24 @@
       const grid = document.getElementById("cards");
       if(!grid) return;
 
+      const d = dict[lang] || dict.pt;
       grid.innerHTML = "";
+
       const visible = services.filter(s => serviceMatches(s, lang, region));
 
       for(const s of visible){
         const isFeatured = !!s.featured;
-        const badge = (lang === "pt") ? s.badgePT : s.badgeEN;
 
-        const topTitle = (lang === "pt") ? s.titlePT : s.titleEN;
-        const omegaName = (lang === "pt") ? s.omegaPT : s.omegaEN;
-        const desc = (lang === "pt") ? s.descPT : s.descEN;
-        const feats = (lang === "pt") ? s.featuresPT : s.featuresEN;
+        const topTitle = (lang === "pt" || lang === "eu") ? s.titlePT : s.titleEN;
+        const omegaName = (lang === "pt" || lang === "eu") ? s.omegaPT : s.omegaEN;
+        const desc = (lang === "pt" || lang === "eu") ? s.descPT : s.descEN;
+        const feats = (lang === "pt" || lang === "eu") ? s.featuresPT : s.featuresEN;
 
         const article = document.createElement("article");
-        article.className = `card ${isFeatured ? "featured" : ""}`;
+        article.className = "card";
         article.dataset.key = s.key;
 
         article.innerHTML = `
-          ${isFeatured ? `<div class="badge"><i class="ri-fire-fill"></i><span>${badge}</span></div>` : ""}
-
           <div class="card-top">
             <div class="icon"><i class="${s.icon}"></i></div>
             <div class="kicker">
@@ -1479,6 +1388,7 @@
           </div>
 
           <div class="card-mid">
+            ${isFeatured ? `<div class="pin"><i class="ri-fire-fill"></i><span>${d.pinRecommended}</span></div>` : ``}
             <p class="desc">${desc}</p>
             <ul class="features">
               ${feats.map(f => `<li><i class="ri-check-line"></i><span>${f}</span></li>`).join("")}
@@ -1487,12 +1397,14 @@
 
           <div class="card-bot">
             <div class="price">
-              <span>${moneyLabel(lang)}</span>
+              <span>${d.priceLabel}</span>
               <strong>${s.price[region]}</strong>
             </div>
-            <a class="btn ${isFeatured ? "btn-primary" : ""}" href="https://discord.com/invite/gutty" target="_blank" rel="noopener noreferrer">
+            <a class="btn ${isFeatured ? "btn-primary" : ""}"
+               href="https://discord.com/channels/1368385324950097960/1370430612179255364"
+               target="_blank" rel="noopener noreferrer">
               <i class="ri-discord-fill"></i>
-              <span>${talkLabel(lang)}</span>
+              <span>${d.talkLabel}</span>
             </a>
           </div>
         `;
@@ -1510,7 +1422,6 @@
           background: var(--panel2);
           color: var(--text2);
         `;
-        const d = dict[getLang()] || dict.pt;
         empty.textContent = d.empty;
         grid.appendChild(empty);
       }
@@ -1550,7 +1461,7 @@
       }, 120);
     });
 
-    /* DESKTOP dropdown */
+    /* DESKTOP language dropdown */
     const langWrap = document.getElementById("lang");
     const langBtn = document.getElementById("langBtn");
     const langFlag = document.getElementById("langFlag");
@@ -1564,86 +1475,49 @@
       langWrap.classList.toggle("open", open);
       langBtn.setAttribute("aria-expanded", open ? "true" : "false");
     }
-    langBtn?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      setLangOpen(!langWrap.classList.contains("open"));
-    });
+    langBtn?.addEventListener("click", (e) => { e.stopPropagation(); setLangOpen(!langWrap.classList.contains("open")); });
     document.addEventListener("click", () => setLangOpen(false));
-
-    /* Mobile modal */
-    const langModalOverlay = document.getElementById("langModalOverlay");
-    const openLangModalBtn = document.getElementById("openLangModal");
-    const langModalClose = document.getElementById("langModalClose");
-
-    function openLang(){
-      langModalOverlay.classList.add("open");
-      langModalOverlay.setAttribute("aria-hidden", "false");
-      document.body.classList.add("no-scroll");
-    }
-    function closeLang(){
-      langModalOverlay.classList.remove("open");
-      langModalOverlay.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("no-scroll");
-    }
-    openLangModalBtn?.addEventListener("click", openLang);
-    langModalClose?.addEventListener("click", closeLang);
-    langModalOverlay?.addEventListener("click", (e) => {
-      if(e.target === langModalOverlay) closeLang();
-    });
 
     function syncLangUI(code){
       const d = dict[code] || dict.pt;
-
       if(langCode) langCode.textContent = d.ui.code;
       if(langFlag) langFlag.src = d.ui.flag;
-
       checkPT?.classList.toggle("active", code === "pt");
       checkEN?.classList.toggle("active", code === "en");
       checkEU?.classList.toggle("active", code === "eu");
-
-      document.querySelectorAll(".lang-option").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang") === code);
-      });
+      document.querySelectorAll(".lang-choice").forEach(btn => btn.classList.toggle("active", btn.getAttribute("data-lang") === code));
     }
 
     function applyLang(code){
       const d = dict[code] || dict.pt;
       setCookie("gutty_lang", code);
 
-      document.getElementById("btnSignIn").textContent = d.btn;
+      document.getElementById("btnSignIn").textContent = d.btnSignIn;
+      document.getElementById("tCardsTitle").textContent = d.tCardsTitle;
+      document.getElementById("tCardsSub").textContent = d.tCardsSub;
+      document.getElementById("tFooter").textContent = d.tFooter;
 
-      document.getElementById("tHeroTitle").textContent = d.heroTitle;
-      document.getElementById("tHeroSub").textContent = d.heroSub;
-
-      document.getElementById("tCardsTitle").textContent = d.cardsTitle;
-      document.getElementById("tCardsSub").textContent = d.cardsSub;
-
-      document.getElementById("tFooter").textContent = d.footer;
-
-      document.getElementById("tChipAll").textContent = d.chipAll;
-      document.getElementById("tChipRec").textContent = d.chipRec;
-      document.getElementById("tChipQuick").textContent = d.chipQuick;
+      document.getElementById("tChipAll").textContent = d.tChipAll;
+      document.getElementById("tChipRec").textContent = d.tChipRec;
+      document.getElementById("tChipQuick").textContent = d.tChipQuick;
       if(searchInput) searchInput.placeholder = d.searchPh;
 
-      document.getElementById("tDrawerTitle").textContent = d.drawerTitle;
-      document.getElementById("tDrawerPrefs").textContent = d.drawerPrefs;
-      document.getElementById("tDrawerTheme").textContent = d.drawerTheme;
-      document.getElementById("tDrawerThemeSub").textContent = d.drawerThemeSub;
-      document.getElementById("tDrawerLang").textContent = d.drawerLang;
-      document.getElementById("tDrawerLangSub").textContent = d.drawerLangSub;
+      document.getElementById("tDrawerTitle").textContent = d.tDrawerTitle;
+      document.getElementById("tDrawerPrefs").textContent = d.tDrawerPrefs;
+      document.getElementById("tDHome").textContent = d.tDHome;
+      document.getElementById("tDServices").textContent = d.tDServices;
+      document.getElementById("tDAbout").textContent = d.tDAbout;
+      document.getElementById("tDCommunity").textContent = d.tDCommunity;
+      document.getElementById("tDBlog").textContent = d.tDBlog;
 
-      document.getElementById("tDHome").textContent = d.dHome;
-      document.getElementById("tDServices").textContent = d.dServices;
-      document.getElementById("tDAbout").textContent = d.dAbout;
-      document.getElementById("tDCommunity").textContent = d.dCommunity;
-      document.getElementById("tDBlog").textContent = d.dBlog;
+      document.getElementById("tLangModalTitle").textContent = d.tLangModalTitle;
+      document.getElementById("tDrawerLang").textContent = d.tDrawerLang;
+      document.getElementById("tDrawerLangSub").textContent = d.tDrawerLangSub;
 
       document.getElementById("tExitLagText").innerHTML = d.exitLagText;
       document.getElementById("tExitLagBtn").textContent = d.exitLagBtn;
 
-      document.getElementById("tLangModalTitle").textContent = d.langModalTitle;
-
-      document.documentElement.lang = (code === "pt") ? "pt-BR" : "en";
+      document.documentElement.lang = d.ui.htmlLang;
       syncLangUI(code);
       renderCards();
     }
@@ -1655,14 +1529,7 @@
       });
     });
 
-    document.querySelectorAll(".lang-option").forEach(btn => {
-      btn.addEventListener("click", () => {
-        applyLang(btn.getAttribute("data-lang"));
-        closeLang();
-      });
-    });
-
-    /* DRAWER */
+    /* Drawer */
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const drawer = document.getElementById("drawer");
     const drawerOverlay = document.getElementById("drawerOverlay");
@@ -1685,31 +1552,43 @@
     drawerClose?.addEventListener("click", closeDrawer);
     drawerOverlay?.addEventListener("click", closeDrawer);
 
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape"){
-        closeDrawer();
-        closeLang();
-      }
+    /* Lang modal (mobile) */
+    const openLangModalBtn = document.getElementById("openLangModal");
+    const langModal = document.getElementById("langModal");
+    const langModalOverlay = document.getElementById("langModalOverlay");
+    const langModalClose = document.getElementById("langModalClose");
+
+    function openLangModal(){
+      langModal.classList.add("open");
+      langModalOverlay.classList.add("open");
+      langModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+    }
+    function closeLangModal(){
+      langModal.classList.remove("open");
+      langModalOverlay.classList.remove("open");
+      langModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+    }
+
+    openLangModalBtn?.addEventListener("click", () => { openLangModal(); syncLangUI(getLang()); });
+    langModalClose?.addEventListener("click", closeLangModal);
+    langModalOverlay?.addEventListener("click", closeLangModal);
+
+    document.querySelectorAll(".lang-choice").forEach(btn => {
+      btn.addEventListener("click", () => { applyLang(btn.getAttribute("data-lang")); closeLangModal(); });
     });
 
-    /* THEME click */
-    themeToggle?.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme") || "dark";
-      applyTheme(current === "dark" ? "light" : "dark");
-    });
-    drawerThemeBtn?.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme") || "dark";
-      applyTheme(current === "dark" ? "light" : "dark");
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape"){ closeDrawer(); closeLangModal(); }
     });
 
     /* INIT */
     (function init(){
-      applyTheme(getCookie("gutty_theme") || "dark");
       applyLang(getLang());
-
       currentFilter = "all";
       setActiveChip("all");
-      requestAnimationFrame(() => renderCards());
+      renderCards();
     })();
   </script>
 </body>
