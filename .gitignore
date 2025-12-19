@@ -7,4 +7,5 @@ yarn-error.log*
 .pnpm-debug.log*
 dist/
 build/
-coverage/
+.cache/
+
