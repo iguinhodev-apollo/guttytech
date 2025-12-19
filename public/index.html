@@ -1,68 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GuttyTECH - A Forja da Performance</title>
-  <meta name="description" content="Performance de elite para jogos e trabalho. Otimização profissional, BIOS e consistência real." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GuttyTECH</title>
+  <meta name="description" content="Otimização e performance real. Escolha um caminho rápido ou veja todos os loadouts." />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
 
   <style>
     :root{
+      --bg:#050505;
+      --panel:rgba(18,18,18,.92);
+      --panel2:rgba(12,12,12,.92);
+      --text:#ffffff;
+      --text2:rgba(255,255,255,.80);
+      --border:rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.70);
+
       --red:#ff0000;
       --redBorder: rgba(255,0,0,.30);
 
-      --r12:12px; --r16:16px; --r18:18px; --r26:26px;
+      --r12:12px; --r16:16px; --r22:22px; --r26:26px;
       --max:1120px;
 
-      /* HERO (igual sobre.html) */
-      --heroBorderRadius: var(--r26);
-      --heroBorder: 1px solid var(--border);
-      --heroMarginTop: 26px;
-      --heroWidth: min(var(--max), calc(100% - 32px));
-      --heroHeightDesktop: auto;
-      --heroAspectDesktop: 16/6;
-
-      /* MOBILE hero sizing */
-      --heroMobileHeight: clamp(240px, 38vh, 420px);
-    }
-
-    /* ====== AUTOMÁTICO: segue o tema do sistema ====== */
-    :root{
-      --bg:#ffffff;
-      --panel: rgba(245,245,245,.96);
-      --panel2: rgba(250,250,250,.96);
-      --text:#000000;
-      --text2:rgba(0,0,0,.78);
-      --border:rgba(0,0,0,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.12);
-
-      --icon: rgba(0,0,0,.98);
-      --iconSoft: rgba(0,0,0,.80);
+      --icon: rgba(255,255,255,.92);
+      --iconSoft: rgba(255,255,255,.82);
 
       --pad: 18px;
       --gap: 18px;
-    }
-    @media (prefers-color-scheme: dark){
-      :root{
-        --bg:#050505;
-        --panel: rgba(18,18,18,.92);
-        --panel2: rgba(12,12,12,.92);
-        --text:#ffffff;
-        --text2:rgba(255,255,255,.80);
-        --border:rgba(255,255,255,.12);
-        --shadow: 0 18px 60px rgba(0,0,0,.70);
 
-        --icon: rgba(255,255,255,.98);
-        --iconSoft: rgba(255,255,255,.86);
-      }
+      --drawerW: min(86vw, 380px);
+
+      /* HERO media */
+      --heroMediaRatio: 16/7;
+      --heroPosY: 50%;
+      --heroMaxH: none;
+    }
+
+    html[data-theme="light"]{
+      --bg:#ffffff;
+      --panel:rgba(245,245,245,.96);
+      --panel2:rgba(250,250,250,.96);
+      --text:#0a0a0a;
+      --text2:rgba(0,0,0,.72);
+      --border:rgba(0,0,0,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.12);
+
+      --icon: rgba(0,0,0,.85);
+      --iconSoft: rgba(0,0,0,.70);
     }
 
     *{ box-sizing:border-box; }
@@ -71,15 +60,15 @@
       margin:0;
       background:var(--bg);
       color:var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height:1.65;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.6;
       overflow-x:hidden;
       -webkit-tap-highlight-color: transparent;
     }
     a{ color:inherit; text-decoration:none; }
     img{ max-width:100%; display:block; }
     button{ font-family:inherit; }
-    :focus-visible{ outline: 2px solid rgba(255,0,0,.55); outline-offset: 3px; border-radius: 14px; }
+    :focus-visible{ outline:2px solid rgba(255,0,0,.45); outline-offset:2px; border-radius:12px; }
 
     .wrap{ width:min(var(--max), calc(100% - 32px)); margin:0 auto; }
     .divider{
@@ -91,46 +80,28 @@
 
     /* NAVBAR */
     .navbar{
-      position: sticky;
-      top:0;
-      z-index:50;
+      position:sticky; top:0; z-index:50;
       background: color-mix(in srgb, var(--bg) 84%, transparent);
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+      border-bottom:1px solid var(--border);
     }
     .nav{
       min-height:78px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
       gap:12px;
     }
-    .nav-left{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
+    .nav-left{ display:flex; align-items:center; gap:12px; min-width:0; }
     .brand{
       font-family:"Bebas Neue", cursive;
-      font-size:30px;
-      letter-spacing:2px;
-      white-space:nowrap;
+      font-size:30px; letter-spacing:2px; white-space:nowrap;
     }
-
     .nav-menu{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      margin-left:auto;
+      display:flex; align-items:center; gap:18px; margin-left:auto;
     }
     .nav-link{
       color:var(--text2);
-      font-weight:800;
-      font-size:14px;
-      letter-spacing:.6px;
-      padding:10px 12px;
-      border-radius:var(--r12);
+      font-weight:800; font-size:14px; letter-spacing:.6px;
+      padding:10px 12px; border-radius:var(--r12);
       border:1px solid transparent;
       transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
       white-space:nowrap;
@@ -139,54 +110,43 @@
       transform: translateY(-1px);
       border-color: var(--redBorder);
       background: color-mix(in srgb, var(--panel) 70%, transparent);
-      color: var(--text);
+      color:var(--text);
     }
     .nav-link.active{
-      color: var(--text);
+      color:var(--text);
       border-color: var(--redBorder);
       background: color-mix(in srgb, var(--red) 10%, transparent);
     }
-
-    .nav-right{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+    .nav-right{ display:flex; align-items:center; gap:10px; }
 
     .icon-btn{
       width:42px; height:42px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
+      display:inline-flex; align-items:center; justify-content:center;
       border-radius:14px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
-      color: var(--text);
+      color:var(--text);
       cursor:pointer;
-      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+      transition: transform .18s ease, border-color .18s ease;
       user-select:none;
     }
-    .icon-btn:hover{ border-color: var(--redBorder); transform: translateY(-2px); }
+    .icon-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
     .icon-btn i{ font-size:18px; color: var(--icon); }
 
     .btn{
       height:42px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:0 14px;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; padding:0 14px;
       border-radius:14px;
-      font-weight:900;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      font-size:12px;
+      font-weight:900; letter-spacing:1px;
+      text-transform:uppercase; font-size:12px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
-      color: var(--text);
+      color:var(--text);
       cursor:pointer;
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
       white-space:nowrap;
+      user-select:none;
     }
     .btn:hover{
       transform: translateY(-2px);
@@ -199,7 +159,7 @@
       color:#fff;
     }
 
-    /* Language (desktop) */
+    /* LANGUAGE desktop dropdown */
     .lang{ position: relative; }
     .lang-btn{
       height:42px;
@@ -213,15 +173,14 @@
       cursor:pointer;
       transition: transform .18s ease, border-color .18s ease;
       color: var(--text);
+      user-select:none;
     }
     .lang-btn:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
-
     .lang-flag{
       width:20px; height:20px;
       border-radius:6px;
       object-fit:cover;
       border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
-      background: transparent;
     }
     .lang-code{
       font-weight:900;
@@ -233,7 +192,7 @@
       position:absolute;
       right:0;
       top: calc(100% + 10px);
-      width:260px;
+      width:210px;
       border-radius:16px;
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--panel) 92%, transparent);
@@ -243,7 +202,6 @@
       z-index:60;
     }
     .lang.open .lang-menu{ display:block; }
-
     .lang-item{
       display:flex;
       align-items:center;
@@ -258,78 +216,79 @@
     .lang-item:last-child{ border-bottom:0; }
     .lang-item:hover{ background: color-mix(in srgb, var(--red) 7%, transparent); }
     .lang-item-left{ display:flex; align-items:center; gap:10px; }
-    .lang-item small{
-      display:block;
-      color: var(--text2);
-      font-weight:700;
-      margin-top:2px;
-      letter-spacing:.2px;
-    }
     .check{ opacity:0; }
-    .check.active{ opacity:1; color: var(--icon); }
+    .check.active{ opacity:1; }
 
-    /* ================= HERO =================
-       Igual sobre.html:
-       - Desktop: cover com aspect 16/6
-       - Mobile: altura fixa + contain (não corta)
-       - Fundo blur com a mesma imagem
-    */
+    /* HERO (sem conflito / textos fora do banner) */
     .hero{
-      width: var(--heroWidth);
-      margin: var(--heroMarginTop) auto 0;
-      border-radius: var(--heroBorderRadius);
+      width:min(var(--max), calc(100% - 32px));
+      margin:26px auto 0;
+      border-radius:var(--r26);
       overflow:hidden;
-      border: var(--heroBorder);
+      border:1px solid var(--border);
       box-shadow: var(--shadow);
+      background: var(--panel2);
+    }
+    .hero-media{
       background:#000;
-      position: relative;
-      line-height:0;
     }
-    .hero .hero-bg{
-      position:absolute;
-      inset:0;
-      background: url("images/banners/banner-home.gif") center/cover no-repeat;
-      filter: blur(18px) brightness(.75);
-      transform: scale(1.15);
-      opacity:.85;
-    }
-    .hero img{
-      position:relative;
-      z-index:1;
+    .hero-media img{
       width:100%;
-      height: var(--heroHeightDesktop);
-      aspect-ratio: var(--heroAspectDesktop);
-      object-fit: cover;   /* desktop */
-      object-position: center;
+      aspect-ratio: var(--heroMediaRatio);
+      object-fit:cover;
+      object-position: center var(--heroPosY);
+      max-height: var(--heroMaxH);
+      display:block;
+    }
+    .hero-body{
+      padding: 18px;
+      border-top:1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      background: color-mix(in srgb, var(--panel2) 78%, transparent);
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .hero-copy{ min-width: min(560px, 100%); flex: 1 1 420px; }
+    .hero-title{
+      font-family:"Bebas Neue", cursive;
+      font-size: clamp(2.0rem, 3.6vw, 3.0rem);
+      letter-spacing:2px;
+      margin:0 0 6px;
+      line-height:1.02;
+    }
+    .hero-sub{
+      margin:0;
+      color: var(--text2);
+      font-weight:600;
+      max-width: 80ch;
+    }
+    .hero-actions{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
     }
 
-    /* CONTENT */
-    .section{ padding: 54px 0; }
+    /* SECTION */
+    .section{ padding:54px 0; }
     .h2{
       font-family:"Bebas Neue", cursive;
       font-size: clamp(1.9rem, 2.3vw, 2.6rem);
-      letter-spacing: 1.5px;
-      margin: 0 0 10px;
-      color: var(--text);
+      letter-spacing:1.5px;
+      margin:0 0 10px;
     }
     .muted{
       margin:0 0 18px;
       max-width: 85ch;
       color: var(--text2);
-      font-weight:700;
     }
 
-    /* DESTAQUES: sempre colunas (sem lista)
-       Desktop: 3
-       Tablet: 2 (lado a lado)
-       Mobile: 2 (lado a lado) -> se ficar muito apertado, ele quebra pra 1 abaixo de 360px
-    */
+    /* QUICK GRID (aqui é onde precisa ser perfeito) */
     .grid{
       display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0,1fr));
       gap: var(--gap);
       align-items:stretch;
-      margin-top: 18px;
+      margin-top: 14px;
     }
 
     .card{
@@ -345,46 +304,37 @@
       position:relative;
       will-change: transform;
     }
+    html[data-theme="light"] .card{ box-shadow: 0 12px 30px rgba(0,0,0,.10); }
     .card:hover{
       transform: translateY(-6px);
       border-color: var(--redBorder);
       background: var(--panel);
     }
 
-    .featured{
-      border-color: rgba(255,0,0,.32);
-      background:
-        radial-gradient(720px 320px at 20% 10%, rgba(255,0,0,.12), transparent 65%),
-        var(--panel2);
-    }
-
-    .badge{
-      position:absolute;
-      top:14px; right:14px;
+    /* Tag recomendado: NÃO sobrepõe título. Fica como “chip” no topo do conteúdo */
+    .tag{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:7px 11px;
+      padding:8px 12px;
       border-radius:999px;
-      border:1px solid rgba(255,0,0,.65);
-      background: rgba(255,0,0,.30);
-      color:#fff;
-      font-weight:900;
-      letter-spacing:.9px;
-      text-transform:uppercase;
-      font-size:11px;
-      box-shadow:
-        0 14px 34px rgba(255,0,0,.18),
-        inset 0 0 0 1px rgba(255,255,255,.08);
-      text-shadow: 0 8px 18px rgba(0,0,0,.35);
+      border:1px solid color-mix(in srgb, var(--red) 55%, var(--border));
+      background: color-mix(in srgb, var(--red) 16%, transparent);
+      color: var(--text);
+      font-weight: 900;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+      font-size: 11px;
+      width: fit-content;
+      margin: 0 0 10px;
     }
-    .badge i{ color:#fff; opacity:.95; }
+    .tag i{ color: color-mix(in srgb, var(--red) 90%, var(--text)); }
 
     .card-top{
-      padding: var(--pad) var(--pad) 12px;
+      padding: var(--pad) var(--pad) 10px;
       display:flex;
-      gap:14px;
-      align-items:center;
+      gap:12px;
+      align-items:flex-start;
     }
     .icon{
       width:52px; height:52px;
@@ -399,15 +349,17 @@
       color: var(--icon);
       opacity:.95;
     }
+
     .kicker{
       display:flex;
       flex-direction:column;
-      gap:4px;
+      gap:6px;
       min-width:0;
+      flex:1 1 auto;
     }
     .kicker small{
       color: var(--text2);
-      font-weight:900;
+      font-weight:800;
       letter-spacing:.8px;
       text-transform:uppercase;
       font-size:11px;
@@ -415,62 +367,54 @@
     .card-title{
       font-family:"Bebas Neue", cursive;
       letter-spacing:1.2px;
-      font-size:1.9rem;
+      font-size:1.85rem;
       margin:0;
       line-height:1.05;
-      color: var(--text);
+      word-break: break-word;
     }
+
     .card-mid{ padding:0 var(--pad) 14px; }
-    .desc{ margin:6px 0 0; color: var(--text2); font-weight:700; }
+    .desc{ margin:6px 0 14px; color: var(--text2); }
+
+    .meta{
+      display:grid;
+      gap:8px;
+      padding: 12px;
+      border-radius: 18px;
+      border:1px solid color-mix(in srgb, var(--border) 85%, transparent);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+    }
+    .meta-row{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .meta-row span{
+      color: var(--text2);
+      font-weight:800;
+      letter-spacing:.7px;
+      text-transform: uppercase;
+      font-size:11px;
+    }
+    .meta-row strong{
+      font-weight: 1000;
+      letter-spacing:.2px;
+    }
 
     .card-bot{
       margin-top:auto;
-      padding:16px var(--pad) var(--pad);
+      padding:14px var(--pad) var(--pad);
       border-top:1px solid color-mix(in srgb, var(--border) 70%, transparent);
       display:flex;
-      gap:12px;
+      gap:10px;
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
     }
-    .mini-stat{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      min-width: 140px;
-    }
-    .mini-stat span{
-      color: var(--text2);
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.8px;
-      text-transform:uppercase;
-    }
-    .mini-stat strong{
-      font-size:16px;
-      letter-spacing:.4px;
-      color: var(--text);
-      font-weight:900;
-    }
-
-    /* CTA */
-    .cta{
-      border:1px solid var(--border);
-      background: var(--panel2);
-      border-radius: var(--r26);
-      padding: 18px;
-      box-shadow: 0 12px 30px color-mix(in srgb, #000 35%, transparent);
-    }
-    .cta-row{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 16px;
-      flex-wrap:wrap;
-    }
 
     /* FOOTER */
-    .footer{ padding: 26px 0 44px; }
+    .footer{ padding:26px 0 44px; }
     .footer-row{
       display:flex;
       align-items:center;
@@ -478,10 +422,10 @@
       gap:18px;
       flex-wrap:wrap;
     }
-    .social{ display:flex; gap:12px; }
+    .social{ display:flex; gap:10px; }
     .social a{
-      width:52px; height:52px;
-      border-radius:18px;
+      width:42px; height:42px;
+      border-radius:14px;
       border:1px solid var(--border);
       background: var(--panel);
       display:flex;
@@ -491,65 +435,61 @@
       transition: transform .16s ease, border-color .16s ease;
     }
     .social a:hover{ transform: translateY(-2px); border-color: var(--redBorder); }
-    .social i{ font-size: 24px; color: var(--icon); }
 
-    /* ===== RESPONSIVE ===== */
+    /* ===== RESPONSIVO (o que você pediu) =====
+       - PC com resolução baixa: continua em 3 colunas (sem virar lista)
+       - Celular: se não cabe lado a lado, vira 1 embaixo do outro (sem sobreposição)
+    */
+
+    /* “PC baixo” (até ~980px): ainda 3 colunas, só compacta */
     @media (max-width: 980px){
       :root{
         --pad: 14px;
-        --gap: 12px;
+        --gap: 14px;
+        --heroMediaRatio: 16/9;
+        --heroMaxH: 340px;
+        --heroPosY: 45%;
       }
-      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } /* tablet: lado a lado */
-      .card-title{ font-size: 1.7rem; }
-    }
-
-    @media (max-width: 860px){
       .nav-menu{ display:none; }
-      #lang{ display:none !important; }
-      #btnDiscordDesktop{ display:none !important; }
       #mobileMenuBtn{ display:inline-flex !important; }
+      #btnDiscordDesktop{ display:none !important; }
+      #lang{ display:none !important; }
+      /* mantém 3 colunas para “PC baixo” */
+      .grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+      /* compacta tipografia pra não quebrar */
+      .card-title{ font-size: 1.55rem; }
+      .desc{ font-size: .95rem; }
+    }
 
-      /* HERO MOBILE: borda a borda, sem cortar (contain) */
+    /* “limite real de celular”: aqui vira coluna única para não bugar (print) */
+    @media (max-width: 700px){
       :root{
-        --heroWidth: 100vw;
-        --heroMarginTop: 0px;
-        --heroBorderRadius: 0px;
-        --heroBorder: none;
+        --gap: 12px;
+        --pad: 14px;
+        --heroMaxH: 280px;
       }
-      .hero{
-        height: var(--heroMobileHeight);
-        box-shadow:none;
-      }
-      .hero img{
-        height: 100%;
-        width: 100%;
-        aspect-ratio: auto;
-        object-fit: contain;     /* NÃO CORTA */
-        object-position: center; /* centraliza */
-      }
-      .divider.mobile-after-hero{
-        width: calc(100% - 32px);
-        margin-top: 18px;
-      }
-    }
-
-    /* Mobile pequeno: se ficar apertado, cai pra 1 coluna */
-    @media (max-width: 380px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 520px){
       .wrap{ width: calc(100% - 22px); }
+      .hero{ width: calc(100% - 22px); margin-top: 16px; }
+      .hero-body{ padding: 14px; }
+      .grid{ grid-template-columns: 1fr; } /* <<< aqui corrige o bug do print */
+      .card:hover{ transform: none; }
+      .hero-actions{ width:100%; }
+      .hero-actions .btn{ width:100%; justify-content:center; }
+    }
+
+    @media (max-width: 420px){
+      :root{ --heroMaxH: 250px; }
       .brand{ font-size: 28px; }
-      .social a{ width:54px; height:54px; border-radius:20px; }
-      .social i{ font-size: 26px; }
+      .icon{ width:48px; height:48px; }
+      .card-title{ font-size: 1.45rem; }
+      .desc{ font-size: .92rem; }
     }
 
     @media (prefers-reduced-motion: reduce){
       *{ transition:none !important; animation:none !important; }
     }
 
-    /* ===== MOBILE DRAWER ===== */
+    /* ===== DRAWER (mobile) ===== */
     #mobileMenuBtn{ display:none; }
     .drawer-overlay{
       position:fixed;
@@ -563,10 +503,9 @@
     }
     .drawer{
       position:fixed;
-      top:0;
-      right:0;
+      top:0; right:0;
       height:100%;
-      width: min(86vw, 380px);
+      width: var(--drawerW);
       background: color-mix(in srgb, var(--bg) 86%, transparent);
       border-left: 1px solid var(--border);
       box-shadow: 0 30px 80px rgba(0,0,0,.65);
@@ -665,11 +604,7 @@
       text-transform: uppercase;
       color: var(--text);
     }
-    .drawer-row span{
-      color: var(--text2);
-      font-weight:700;
-      font-size:12px;
-    }
+    .drawer-row span{ color: var(--text2) !important; font-weight:700; font-size:12px; }
     .drawer-actions{ display:flex; gap: 10px; align-items:center; }
 
     .mini-btn{
@@ -684,169 +619,162 @@
     }
     .mini-btn i{ font-size:18px; color: var(--icon); }
 
-    /* Mobile language modal (igual sobre.html) */
-    .lang-modal-overlay{
-      position: fixed;
-      inset: 0;
+    .no-scroll{ overflow:hidden; }
+
+    /* ===== CENTER MODAL (LANG mobile) ===== */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
       background: rgba(0,0,0,.60);
-      backdrop-filter: blur(10px);
-      opacity: 0;
-      pointer-events: none;
+      backdrop-filter: blur(12px);
+      opacity:0;
+      pointer-events:none;
       transition: opacity .18s ease;
       z-index: 200;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
     }
-    .lang-modal-overlay.open{ opacity:1; pointer-events:auto; }
+    .modal-overlay.open{ opacity:1; pointer-events:auto; }
 
-    .lang-modal{
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%) scale(.98);
-      width: min(92vw, 420px);
+    .modal{
+      width: min(520px, 100%);
       border-radius: 22px;
       border: 1px solid var(--border);
       background: color-mix(in srgb, var(--panel2) 92%, transparent);
       box-shadow: var(--shadow);
-      padding: 16px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .18s ease, transform .18s ease;
-      z-index: 210;
+      overflow:hidden;
     }
-    .lang-modal.open{
-      opacity: 1;
-      pointer-events: auto;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    .lang-modal-top{
+    .modal-head{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
-      margin-bottom: 10px;
+      gap:12px;
+      padding: 14px 14px;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
     }
-    .lang-modal-top h4{
+    .modal-head h4{
       margin:0;
-      font-family:"Bebas Neue", cursive;
-      letter-spacing: 1.6px;
-      font-size: 24px;
+      font-weight: 1000;
+      letter-spacing:.9px;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--text2);
+    }
+    .modal-close{
+      width:42px; height:42px;
+      border-radius: 14px;
+      border:1px solid rgba(255,0,0,.35);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
       color: var(--text);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
     }
-    .lang-modal-list{
-      display:grid;
-      gap:10px;
-      margin-top: 10px;
+    .modal-close i{ color: var(--icon); font-size:18px; }
+
+    .modal-body{
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
     }
-    .lang-choice{
+
+    .lang-option{
+      width:100%;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
       padding: 14px;
       border-radius: 18px;
-      border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+      border:1px solid color-mix(in srgb, var(--border) 85%, transparent);
       background: color-mix(in srgb, var(--panel) 72%, transparent);
       cursor:pointer;
-    }
-    .lang-choice-left{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      font-weight: 900;
-      letter-spacing: .6px;
-      text-transform: uppercase;
       color: var(--text);
+      text-align:left;
     }
-    .lang-choice-left .row{
+    .lang-left{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: .8px;
+      text-transform: uppercase;
     }
-    .lang-choice-left img{
+    .lang-left img{
       width:22px; height:22px;
       border-radius: 7px;
       border:1px solid color-mix(in srgb, var(--text) 20%, transparent);
       object-fit: cover;
     }
-    .lang-choice-left small{
-      color: var(--text2);
-      font-weight:800;
-      letter-spacing:.2px;
-      text-transform:none;
-    }
-    .lang-choice i{ opacity:.25; color: var(--icon); }
-    .lang-choice.active{
+    .lang-option i{ opacity:.25; }
+    .lang-option.active{
       border-color: rgba(255,0,0,.35);
       box-shadow: inset 0 0 0 1px rgba(255,0,0,.12);
     }
-    .lang-choice.active i{ opacity:1; color: color-mix(in srgb, var(--red) 86%, var(--text)); }
-
-    .no-scroll{ overflow:hidden; }
+    .lang-option.active i{
+      opacity:1;
+      color: color-mix(in srgb, var(--red) 86%, var(--text));
+    }
   </style>
 </head>
 
 <body>
-  <!-- HEADER -->
   <header class="navbar">
     <div class="wrap nav">
       <div class="nav-left">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema">
+          <i class="ri-moon-line" id="themeIcon"></i>
+        </button>
         <a class="brand" href="index.html" aria-label="Ir para início">GUTTYTECH</a>
       </div>
 
       <nav class="nav-menu" aria-label="Menu principal">
-        <a class="nav-link active" href="index.html" id="mHome">HOME</a>
-        <a class="nav-link" href="servicos.html" id="mServices">SERVIÇOS</a>
-        <a class="nav-link" href="sobre.html" id="mAbout">SOBRE MIM</a>
-        <a class="nav-link" href="comunidade.html" id="mCommunity">COMUNIDADE</a>
-        <a class="nav-link" href="blog.html" id="mBlog">BLOG</a>
+        <a class="nav-link active" href="index.html">HOME</a>
+        <a class="nav-link" href="servicos.html">SERVIÇOS</a>
+        <a class="nav-link" href="sobre.html">SOBRE MIM</a>
+        <a class="nav-link" href="comunidade.html">COMUNIDADE</a>
+        <a class="nav-link" href="blog.html">BLOG</a>
       </nav>
 
       <div class="nav-right">
-        <!-- Language desktop -->
         <div class="lang" id="lang">
           <button class="lang-btn" id="langBtn" type="button" aria-label="Idioma" aria-expanded="false">
             <img class="lang-flag" id="langFlag" src="images/languages/brasil.png" alt="Idioma">
-            <span class="lang-code" id="langCode">PT-BR</span>
+            <span class="lang-code" id="langCode">BR</span>
             <i class="ri-arrow-down-s-line" style="color:var(--iconSoft)"></i>
           </button>
 
           <div class="lang-menu" role="menu" aria-label="Idiomas">
             <div class="lang-item" data-lang="pt" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/brasil.png" alt="Português (Brasil)">
-                <div>
-                  <span>PT-BR</span>
-                  <small>Português (Brasil)</small>
-                </div>
+                <img class="lang-flag" src="images/languages/brasil.png" alt="BR">
+                <span>BR</span>
               </div>
               <i class="ri-check-line check active" id="checkPT"></i>
             </div>
 
             <div class="lang-item" data-lang="en" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/en.png" alt="English">
-                <div>
-                  <span>EN</span>
-                  <small>English</small>
-                </div>
+                <img class="lang-flag" src="images/languages/en.png" alt="EN">
+                <span>EN</span>
               </div>
               <i class="ri-check-line check" id="checkEN"></i>
             </div>
 
             <div class="lang-item" data-lang="eu" role="menuitem">
               <div class="lang-item-left">
-                <img class="lang-flag" src="images/languages/eu.png" alt="Português (Portugal)">
-                <div>
-                  <span>PT-PT</span>
-                  <small>Português (Portugal)</small>
-                </div>
+                <img class="lang-flag" src="images/languages/eu.png" alt="EU">
+                <span>EU</span>
               </div>
               <i class="ri-check-line check" id="checkEU"></i>
             </div>
           </div>
         </div>
 
-        <!-- Discord desktop (link atualizado) -->
         <a class="btn btn-primary" id="btnDiscordDesktop"
            href="https://discord.com/channels/1368385324950097960/1370430612179255364"
            target="_blank" rel="noopener noreferrer" aria-label="Entrar">
@@ -854,7 +782,6 @@
           <span id="btnSignIn">Entrar</span>
         </a>
 
-        <!-- Mobile: menu -->
         <button class="icon-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menu">
           <i class="ri-more-2-fill"></i>
         </button>
@@ -862,68 +789,95 @@
     </div>
   </header>
 
-  <!-- HERO (igual sobre.html) -->
-  <section class="hero" aria-label="GuttyTECH">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <img src="images/banners/banner-home.gif" alt="GuttyTECH - A Forja da Performance" />
+  <!-- HERO -->
+  <section class="hero" aria-label="Home GuttyTECH">
+    <div class="hero-media">
+      <picture>
+        <source media="(max-width: 980px)" srcset="images/mobile/banner-home.png">
+        <img src="images/banners/banner-home.gif" alt="GuttyTECH - Performance real">
+      </picture>
+    </div>
+
+    <!-- textos fora do GIF pra não bugar -->
+    <div class="hero-body">
+      <div class="hero-copy">
+        <h1 class="hero-title" id="tHeroTitle">PERFORMANCE REAL.</h1>
+        <p class="hero-sub" id="tHeroSub">Escolha um caminho rápido ou vá em Serviços para ver todos os loadouts.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="servicos.html" id="tHeroCTA">
+          <i class="ri-rocket-2-fill"></i>
+          <span>Ver Serviços</span>
+        </a>
+        <a class="btn" href="https://discord.com/channels/1368385324950097960/1370430612179255364" target="_blank" rel="noopener noreferrer" id="tHeroDiscord">
+          <i class="ri-discord-fill"></i>
+          <span>Discord</span>
+        </a>
+      </div>
+    </div>
   </section>
 
-  <div class="divider mobile-after-hero" style="margin-top:22px;"></div>
+  <div class="divider" style="margin-top:22px;"></div>
 
   <main>
-    <!-- DESTAQUES -->
-    <section class="wrap section" aria-labelledby="tCardsTitle">
-      <h2 class="h2" id="tCardsTitle">DESTAQUES</h2>
-      <p class="muted" id="tCardsSub">Escolha um caminho rápido ou vá em Serviços para ver todos os loadouts.</p>
+    <section class="wrap section" aria-labelledby="tQuickTitle">
+      <h2 class="h2" id="tQuickTitle">CAMINHO RÁPIDO</h2>
+      <p class="muted" id="tQuickSub">Três atalhos principais. No PC (mesmo resolução menor) fica 3 lado a lado. No celular vira lista sem bugar.</p>
 
-      <div class="grid">
+      <div class="grid" id="quickGrid">
         <!-- Card 1 -->
         <article class="card">
           <div class="card-top">
             <div class="icon"><i class="ri-windows-line"></i></div>
             <div class="kicker">
-              <small id="tC1K">SISTEMA</small>
-              <h3 class="card-title" id="tC1T">Windows no Talo</h3>
+              <small id="tC1Top">SISTEMA</small>
+              <h3 class="card-title" id="tC1Title">WINDOWS NO TALO</h3>
             </div>
           </div>
           <div class="card-mid">
-            <p class="desc" id="tC1D">Windows mais limpo e responsivo: menos travamento, mais consistência e resposta.</p>
+            <p class="desc" id="tC1Desc">Windows mais limpo e responsivo: menos travamento, mais consistência e resposta.</p>
+            <div class="meta">
+              <div class="meta-row"><span id="tC1MetaA">FOCO</span><strong id="tC1MetaB">Fluidez</strong></div>
+              <div class="meta-row"><span id="tC1MetaC">TEMPO</span><strong id="tC1MetaD">Rápido</strong></div>
+            </div>
           </div>
           <div class="card-bot">
-            <div class="mini-stat">
-              <span id="tC1S1">Foco</span>
-              <strong id="tC1S2">Fluidez</strong>
-            </div>
-            <a class="btn" href="servicos.html">
+            <a class="btn" href="servicos.html#software" id="tC1Btn">
               <i class="ri-arrow-right-line"></i>
-              <span id="tC1B">Ver detalhes</span>
+              <span>Ver detalhes</span>
+            </a>
+            <a class="btn btn-primary" href="https://discord.com/channels/1368385324950097960/1370430612179255364" target="_blank" rel="noopener noreferrer">
+              <i class="ri-discord-fill"></i>
+              <span id="tC1Btn2">Fechar</span>
             </a>
           </div>
         </article>
 
-        <!-- Card 2 -->
-        <article class="card featured">
-          <div class="badge"><i class="ri-fire-fill"></i><span id="tBadge">Mais pedido</span></div>
+        <!-- Card 2 (recomendado, chip dentro) -->
+        <article class="card">
           <div class="card-top">
             <div class="icon"><i class="ri-fire-line"></i></div>
             <div class="kicker">
-              <small id="tC2K">COMPLETO</small>
-              <h3 class="card-title" id="tC2T">Tratamento Ômega</h3>
+              <small id="tC2Top">COMPLETO</small>
+              <h3 class="card-title" id="tC2Title">TRATAMENTO ÔMEGA</h3>
             </div>
           </div>
           <div class="card-mid">
-            <p class="desc" id="tC2D">Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.</p>
+            <div class="tag" id="tC2Tag"><i class="ri-fire-fill"></i><span>MAIS PEDIDO</span></div>
+            <p class="desc" id="tC2Desc">Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.</p>
+            <div class="meta">
+              <div class="meta-row"><span id="tC2MetaA">RESULTADO</span><strong id="tC2MetaB">Máximo</strong></div>
+              <div class="meta-row"><span id="tC2MetaC">INDICADO</span><strong id="tC2MetaD">Competitivo</strong></div>
+            </div>
           </div>
           <div class="card-bot">
-            <div class="mini-stat">
-              <span id="tC2S1">Resultado</span>
-              <strong id="tC2S2">Máximo</strong>
-            </div>
-            <a class="btn btn-primary"
-               href="https://discord.com/channels/1368385324950097960/1370430612179255364"
-               target="_blank" rel="noopener noreferrer">
+            <a class="btn" href="servicos.html#omega" id="tC2Btn">
+              <i class="ri-arrow-right-line"></i>
+              <span>Ver detalhes</span>
+            </a>
+            <a class="btn btn-primary" href="https://discord.com/channels/1368385324950097960/1370430612179255364" target="_blank" rel="noopener noreferrer">
               <i class="ri-discord-fill"></i>
-              <span id="tC2B">Fechar no Discord</span>
+              <span id="tC2Btn2">Fechar</span>
             </a>
           </div>
         </article>
@@ -933,50 +887,32 @@
           <div class="card-top">
             <div class="icon"><i class="ri-cpu-line"></i></div>
             <div class="kicker">
-              <small id="tC3K">BIOS / LATÊNCIA</small>
-              <h3 class="card-title" id="tC3T">Coração da Besta</h3>
+              <small id="tC3Top">BIOS / LATÊNCIA</small>
+              <h3 class="card-title" id="tC3Title">CORAÇÃO DA BESTA</h3>
             </div>
           </div>
           <div class="card-mid">
-            <p class="desc" id="tC3D">Ajuste de RAM/CPU pra reduzir latência e melhorar estabilidade e consistência.</p>
+            <p class="desc" id="tC3Desc">Ajuste fino de RAM/CPU pra reduzir latência e aumentar consistência e estabilidade.</p>
+            <div class="meta">
+              <div class="meta-row"><span id="tC3MetaA">FOCO</span><strong id="tC3MetaB">Latência</strong></div>
+              <div class="meta-row"><span id="tC3MetaC">NÍVEL</span><strong id="tC3MetaD">Avançado</strong></div>
+            </div>
           </div>
           <div class="card-bot">
-            <div class="mini-stat">
-              <span id="tC3S1">Foco</span>
-              <strong id="tC3S2">Latência</strong>
-            </div>
-            <a class="btn" href="servicos.html">
+            <a class="btn" href="servicos.html#bios" id="tC3Btn">
               <i class="ri-arrow-right-line"></i>
-              <span id="tC3B">Ver detalhes</span>
+              <span>Ver detalhes</span>
+            </a>
+            <a class="btn btn-primary" href="https://discord.com/channels/1368385324950097960/1370430612179255364" target="_blank" rel="noopener noreferrer">
+              <i class="ri-discord-fill"></i>
+              <span id="tC3Btn2">Fechar</span>
             </a>
           </div>
         </article>
       </div>
     </section>
-
-    <div class="divider"></div>
-
-    <!-- CTA -->
-    <section class="wrap section" aria-labelledby="tCtaTitle">
-      <div class="cta">
-        <div class="cta-row">
-          <div>
-            <h2 class="h2" id="tCtaTitle" style="margin-bottom:8px;">ENTRE NO DISCORD</h2>
-            <p class="muted" id="tCtaSub" style="margin-bottom:0;">No Discord: guias, dicas, suporte e uma comunidade que vive performance.</p>
-          </div>
-
-          <a class="btn btn-primary"
-             href="https://discord.com/channels/1368385324950097960/1370430612179255364"
-             target="_blank" rel="noopener noreferrer">
-            <i class="ri-discord-fill"></i>
-            <span id="tCtaDiscord">Entrar no Discord</span>
-          </a>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="divider"></div>
     <div class="wrap footer-row" style="padding-top:22px;">
@@ -986,15 +922,12 @@
         <a href="https://www.youtube.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
         <a href="https://www.tiktok.com/@guttytech" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="ri-tiktok-line"></i></a>
         <a href="mailto:Gutty@GuttyTech.com.br" aria-label="Email"><i class="ri-mail-line"></i></a>
-        <a href="https://discord.com/channels/1368385324950097960/1370430612179255364"
-           target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="ri-discord-fill"></i></a>
       </div>
     </div>
   </footer>
 
-  <!-- MOBILE DRAWER -->
+  <!-- DRAWER (mobile) -->
   <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
-
   <aside class="drawer" id="drawer" aria-label="Menu">
     <div class="drawer-top">
       <h3 class="drawer-title" id="tDrawerTitle">MENU</h3>
@@ -1011,8 +944,20 @@
       <a class="drawer-link" href="blog.html"><span id="tDBlog">BLOG</span><i class="ri-arrow-right-s-line"></i></a>
     </nav>
 
-    <div class="drawer-section" aria-label="Preferências">
+    <div class="drawer-section">
       <p class="drawer-hint" id="tDrawerPrefs">PREFERÊNCIAS</p>
+
+      <div class="drawer-row">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <strong id="tDrawerTheme">Tema</strong>
+          <span id="tDrawerThemeSub">Claro/Escuro</span>
+        </div>
+        <div class="drawer-actions">
+          <button class="mini-btn" id="drawerThemeBtn" type="button" aria-label="Alternar tema">
+            <i class="ri-moon-line" id="drawerThemeIcon"></i>
+          </button>
+        </div>
+      </div>
 
       <div class="drawer-row">
         <div style="display:flex; flex-direction:column; gap:2px;">
@@ -1020,71 +965,48 @@
           <span id="tDrawerLangSub">Trocar idioma</span>
         </div>
         <div class="drawer-actions">
-          <button class="mini-btn" id="openLangModal" type="button" aria-label="Trocar idioma">
+          <button class="mini-btn" id="openLangModal" type="button" aria-label="Abrir idiomas">
             <i class="ri-translate-2"></i>
           </button>
-        </div>
-      </div>
-
-      <div class="drawer-row">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-          <strong id="tDrawerDiscord">Discord</strong>
-          <span id="tDrawerDiscordSub">Entrar agora</span>
-        </div>
-        <div class="drawer-actions">
-          <a class="mini-btn"
-             href="https://discord.com/channels/1368385324950097960/1370430612179255364"
-             target="_blank" rel="noopener noreferrer" aria-label="Entrar no Discord">
-            <i class="ri-discord-fill"></i>
-          </a>
         </div>
       </div>
     </div>
   </aside>
 
-  <!-- LANG MODAL (mobile) -->
-  <div class="lang-modal-overlay" id="langModalOverlay" aria-hidden="true"></div>
-  <div class="lang-modal" id="langModal" role="dialog" aria-modal="true" aria-label="Selecionar idioma">
-    <div class="lang-modal-top">
-      <h4 id="tLangModalTitle">IDIOMA</h4>
-      <button class="drawer-close" id="langModalClose" type="button" aria-label="Fechar">
-        <i class="ri-close-line"></i>
-      </button>
-    </div>
-
-    <div class="lang-modal-list">
-      <button class="lang-choice" type="button" data-lang="pt" id="mLangPT">
-        <div class="lang-choice-left">
-          <div class="row">
-            <img src="images/languages/brasil.png" alt="Português (Brasil)" />
-            <span>PT-BR</span>
+  <!-- LANGUAGE CENTER MODAL (mobile) -->
+  <div class="modal-overlay" id="langModalOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Selecionar idioma">
+      <div class="modal-head">
+        <h4 id="tLangModalTitle">Selecionar idioma</h4>
+        <button class="modal-close" id="langModalClose" type="button" aria-label="Fechar">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button class="lang-option" type="button" data-lang="pt">
+          <div class="lang-left">
+            <img src="images/languages/brasil.png" alt="BR">
+            <span>BR</span>
           </div>
-          <small>Português (Brasil)</small>
-        </div>
-        <i class="ri-check-line"></i>
-      </button>
+          <i class="ri-check-line"></i>
+        </button>
 
-      <button class="lang-choice" type="button" data-lang="en" id="mLangEN">
-        <div class="lang-choice-left">
-          <div class="row">
-            <img src="images/languages/en.png" alt="English" />
+        <button class="lang-option" type="button" data-lang="en">
+          <div class="lang-left">
+            <img src="images/languages/en.png" alt="EN">
             <span>EN</span>
           </div>
-          <small>English</small>
-        </div>
-        <i class="ri-check-line"></i>
-      </button>
+          <i class="ri-check-line"></i>
+        </button>
 
-      <button class="lang-choice" type="button" data-lang="eu" id="mLangEU">
-        <div class="lang-choice-left">
-          <div class="row">
-            <img src="images/languages/eu.png" alt="Português (Portugal)" />
-            <span>PT-PT</span>
+        <button class="lang-option" type="button" data-lang="eu">
+          <div class="lang-left">
+            <img src="images/languages/eu.png" alt="EU">
+            <span>EU</span>
           </div>
-          <small>Português (Portugal)</small>
-        </div>
-        <i class="ri-check-line"></i>
-      </button>
+          <i class="ri-check-line"></i>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1103,185 +1025,282 @@
       return "";
     }
 
-    /* =========================
-       LANGUAGE (mesmo padrão do sobre.html)
-       ========================= */
+    /* THEME */
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const drawerThemeBtn = document.getElementById("drawerThemeBtn");
+    const drawerThemeIcon = document.getElementById("drawerThemeIcon");
+
+    function applyTheme(theme){
+      root.setAttribute("data-theme", theme);
+      setCookie("gutty_theme", theme);
+      const isDark = theme === "dark";
+      if(themeIcon) themeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
+      if(drawerThemeIcon) drawerThemeIcon.className = isDark ? "ri-moon-line" : "ri-sun-line";
+    }
+
+    /* LANG */
     function getLang(){ return getCookie("gutty_lang") || "pt"; }
 
     const dict = {
       pt:{
-        ui:{ code:"PT-BR", flag:"images/languages/brasil.png", htmlLang:"pt-BR" },
-        btnSignIn:"Entrar",
-        tCardsTitle:"DESTAQUES",
-        tCardsSub:"Escolha um caminho rápido ou vá em Serviços para ver todos os loadouts.",
-        tBadge:"Mais pedido",
-        tC1K:"SISTEMA", tC1T:"Windows no Talo", tC1D:"Windows mais limpo e responsivo: menos travamento, mais consistência e resposta.", tC1S1:"Foco", tC1S2:"Fluidez", tC1B:"Ver detalhes",
-        tC2K:"COMPLETO", tC2T:"Tratamento Ômega", tC2D:"Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.", tC2S1:"Resultado", tC2S2:"Máximo", tC2B:"Fechar no Discord",
-        tC3K:"BIOS / LATÊNCIA", tC3T:"Coração da Besta", tC3D:"Ajuste de RAM/CPU pra reduzir latência e melhorar estabilidade e consistência.", tC3S1:"Foco", tC3S2:"Latência", tC3B:"Ver detalhes",
-        tCtaTitle:"ENTRE NO DISCORD",
-        tCtaSub:"No Discord: guias, dicas, suporte e uma comunidade que vive performance.",
-        tCtaDiscord:"Entrar no Discord",
-        tFooter:"© 2025 GuttyTECH — Performance é obsessão.",
-        tDrawerTitle:"MENU",
-        tDrawerPrefs:"PREFERÊNCIAS",
-        tDHome:"HOME",
-        tDServices:"SERVIÇOS",
-        tDAbout:"SOBRE MIM",
-        tDCommunity:"COMUNIDADE",
-        tDBlog:"BLOG",
-        tLangModalTitle:"IDIOMA",
-        tDrawerLang:"Idioma",
-        tDrawerLangSub:"Trocar idioma",
-        tDrawerDiscord:"Discord",
-        tDrawerDiscordSub:"Entrar agora"
+        ui:{ code:"BR", flag:"images/languages/brasil.png" },
+        btn:"Entrar",
+        heroTitle:"PERFORMANCE REAL.",
+        heroSub:"Escolha um caminho rápido ou vá em Serviços para ver todos os loadouts.",
+        heroCTA:"Ver Serviços",
+        heroDiscord:"Discord",
+        quickTitle:"CAMINHO RÁPIDO",
+        quickSub:"Três atalhos principais. No PC (mesmo resolução menor) fica 3 lado a lado. No celular vira lista sem bugar.",
+        footer:"© 2025 GuttyTECH — Performance é obsessão.",
+        drawerTitle:"MENU",
+        drawerPrefs:"PREFERÊNCIAS",
+        drawerTheme:"Tema",
+        drawerThemeSub:"Claro/Escuro",
+        drawerLang:"Idioma",
+        drawerLangSub:"Trocar idioma",
+        dHome:"HOME",
+        dServices:"SERVIÇOS",
+        dAbout:"SOBRE MIM",
+        dCommunity:"COMUNIDADE",
+        dBlog:"BLOG",
+        c1top:"SISTEMA",
+        c1title:"WINDOWS NO TALO",
+        c1desc:"Windows mais limpo e responsivo: menos travamento, mais consistência e resposta.",
+        c1ma:"FOCO", c1mb:"Fluidez",
+        c1mc:"TEMPO", c1md:"Rápido",
+        cbtn:"Ver detalhes",
+        cbtn2:"Fechar",
+        c2top:"COMPLETO",
+        c2title:"TRATAMENTO ÔMEGA",
+        c2tag:"MAIS PEDIDO",
+        c2desc:"Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.",
+        c2ma:"RESULTADO", c2mb:"Máximo",
+        c2mc:"INDICADO", c2md:"Competitivo",
+        c3top:"BIOS / LATÊNCIA",
+        c3title:"CORAÇÃO DA BESTA",
+        c3desc:"Ajuste fino de RAM/CPU pra reduzir latência e aumentar consistência e estabilidade.",
+        c3ma:"FOCO", c3mb:"Latência",
+        c3mc:"NÍVEL", c3md:"Avançado",
+        langModalTitle:"Selecionar idioma"
       },
       en:{
-        ui:{ code:"EN", flag:"images/languages/en.png", htmlLang:"en" },
-        btnSignIn:"Sign in",
-        tCardsTitle:"HIGHLIGHTS",
-        tCardsSub:"Pick a quick path or go to Services to see all loadouts.",
-        tBadge:"Most wanted",
-        tC1K:"SYSTEM", tC1T:"Windows Boost", tC1D:"Cleaner and faster Windows: fewer freezes, more consistency and responsiveness.", tC1S1:"Focus", tC1S2:"Smoothness", tC1B:"View details",
-        tC2K:"FULL", tC2T:"Omega Treatment", tC2D:"Full package for real consistency: less stutter, better frame-times and sharper feel.", tC2S1:"Result", tC2S2:"Maximum", tC2B:"Close on Discord",
-        tC3K:"BIOS / LATENCY", tC3T:"Heart of the Beast", tC3D:"RAM/CPU tuning to reduce latency and improve stability and consistency.", tC3S1:"Focus", tC3S2:"Latency", tC3B:"View details",
-        tCtaTitle:"JOIN DISCORD",
-        tCtaSub:"On Discord: guides, tips, support and a community obsessed with performance.",
-        tCtaDiscord:"Join Discord",
-        tFooter:"© 2025 GuttyTECH — Performance is an obsession.",
-        tDrawerTitle:"MENU",
-        tDrawerPrefs:"PREFERENCES",
-        tDHome:"HOME",
-        tDServices:"SERVICES",
-        tDAbout:"ABOUT ME",
-        tDCommunity:"COMMUNITY",
-        tDBlog:"BLOG",
-        tLangModalTitle:"LANGUAGE",
-        tDrawerLang:"Language",
-        tDrawerLangSub:"Change language",
-        tDrawerDiscord:"Discord",
-        tDrawerDiscordSub:"Join now"
+        ui:{ code:"EN", flag:"images/languages/en.png" },
+        btn:"Sign in",
+        heroTitle:"REAL PERFORMANCE.",
+        heroSub:"Pick a quick path or open Services to see all loadouts.",
+        heroCTA:"Open Services",
+        heroDiscord:"Discord",
+        quickTitle:"QUICK PATH",
+        quickSub:"Three main shortcuts. On PC (even lower resolution) it stays 3 columns. On mobile it stacks cleanly.",
+        footer:"© 2025 GuttyTECH — Performance is an obsession.",
+        drawerTitle:"MENU",
+        drawerPrefs:"PREFERENCES",
+        drawerTheme:"Theme",
+        drawerThemeSub:"Light/Dark",
+        drawerLang:"Language",
+        drawerLangSub:"Change language",
+        dHome:"HOME",
+        dServices:"SERVICES",
+        dAbout:"ABOUT ME",
+        dCommunity:"COMMUNITY",
+        dBlog:"BLOG",
+        c1top:"SYSTEM",
+        c1title:"WINDOWS BOOST",
+        c1desc:"Cleaner, faster Windows: fewer freezes, more consistency and responsiveness.",
+        c1ma:"FOCUS", c1mb:"Smoothness",
+        c1mc:"TIME", c1md:"Quick",
+        cbtn:"Details",
+        cbtn2:"Close",
+        c2top:"FULL",
+        c2title:"OMEGA TREATMENT",
+        c2tag:"TOP PICK",
+        c2desc:"Full package for real consistency: less stutter, better frame-time and feel.",
+        c2ma:"RESULT", c2mb:"Maximum",
+        c2mc:"BEST FOR", c2md:"Competitive",
+        c3top:"BIOS / LATENCY",
+        c3title:"HEART OF THE BEAST",
+        c3desc:"Fine RAM/CPU tuning to reduce latency and improve stability and consistency.",
+        c3ma:"FOCUS", c3mb:"Latency",
+        c3mc:"LEVEL", c3md:"Advanced",
+        langModalTitle:"Select language"
       },
       eu:{
-        ui:{ code:"PT-PT", flag:"images/languages/eu.png", htmlLang:"pt-PT" },
-        btnSignIn:"Entrar",
-        tCardsTitle:"DESTAQUES",
-        tCardsSub:"Escolhe um caminho rápido ou vai a Serviços para ver todos os loadouts.",
-        tBadge:"Mais pedido",
-        tC1K:"SISTEMA", tC1T:"Windows no Talo", tC1D:"Windows mais limpo e responsivo: menos bloqueios, mais consistência e resposta.", tC1S1:"Foco", tC1S2:"Fluidez", tC1B:"Ver detalhes",
-        tC2K:"COMPLETO", tC2T:"Tratamento Ômega", tC2D:"Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.", tC2S1:"Resultado", tC2S2:"Máximo", tC2B:"Fechar no Discord",
-        tC3K:"BIOS / LATÊNCIA", tC3T:"Coração da Besta", tC3D:"Ajuste de RAM/CPU para reduzir latência e melhorar estabilidade e consistência.", tC3S1:"Foco", tC3S2:"Latência", tC3B:"Ver detalhes",
-        tCtaTitle:"ENTRA NO DISCORD",
-        tCtaSub:"No Discord: guias, dicas, suporte e uma comunidade que vive performance.",
-        tCtaDiscord:"Entrar no Discord",
-        tFooter:"© 2025 GuttyTECH — Performance é obsessão.",
-        tDrawerTitle:"MENU",
-        tDrawerPrefs:"PREFERÊNCIAS",
-        tDHome:"HOME",
-        tDServices:"SERVIÇOS",
-        tDAbout:"SOBRE MIM",
-        tDCommunity:"COMUNIDADE",
-        tDBlog:"BLOG",
-        tLangModalTitle:"IDIOMA",
-        tDrawerLang:"Idioma",
-        tDrawerLangSub:"Mudar idioma",
-        tDrawerDiscord:"Discord",
-        tDrawerDiscordSub:"Entrar agora"
+        ui:{ code:"EU", flag:"images/languages/eu.png" },
+        btn:"Entrar",
+        heroTitle:"PERFORMANCE REAL.",
+        heroSub:"Escolhe um caminho rápido ou abre Serviços para ver todos os loadouts.",
+        heroCTA:"Ver Serviços",
+        heroDiscord:"Discord",
+        quickTitle:"CAMINHO RÁPIDO",
+        quickSub:"Três atalhos principais. No PC mantém 3 colunas. No telemóvel vira lista sem bugs.",
+        footer:"© 2025 GuttyTECH — Performance é obsessão.",
+        drawerTitle:"MENU",
+        drawerPrefs:"PREFERÊNCIAS",
+        drawerTheme:"Tema",
+        drawerThemeSub:"Claro/Escuro",
+        drawerLang:"Idioma",
+        drawerLangSub:"Trocar idioma",
+        dHome:"HOME",
+        dServices:"SERVIÇOS",
+        dAbout:"SOBRE MIM",
+        dCommunity:"COMUNIDADE",
+        dBlog:"BLOG",
+        c1top:"SISTEMA",
+        c1title:"WINDOWS NO TALO",
+        c1desc:"Windows mais limpo e responsivo: menos travamento, mais consistência e resposta.",
+        c1ma:"FOCO", c1mb:"Fluidez",
+        c1mc:"TEMPO", c1md:"Rápido",
+        cbtn:"Ver detalhes",
+        cbtn2:"Fechar",
+        c2top:"COMPLETO",
+        c2title:"TRATAMENTO ÔMEGA",
+        c2tag:"MAIS PEDIDO",
+        c2desc:"Pacote completo para consistência real: menos stutter, melhor frame-time e sensação na mão.",
+        c2ma:"RESULTADO", c2mb:"Máximo",
+        c2mc:"INDICADO", c2md:"Competitivo",
+        c3top:"BIOS / LATÊNCIA",
+        c3title:"CORAÇÃO DA BESTA",
+        c3desc:"Ajuste fino de RAM/CPU para reduzir latência e aumentar consistência e estabilidade.",
+        c3ma:"FOCO", c3mb:"Latência",
+        c3mc:"NÍVEL", c3md:"Avançado",
+        langModalTitle:"Selecionar idioma"
       }
     };
 
-    const T = {
-      btnSignIn: document.getElementById("btnSignIn"),
-      tCardsTitle: document.getElementById("tCardsTitle"),
-      tCardsSub: document.getElementById("tCardsSub"),
-      tBadge: document.getElementById("tBadge"),
-
-      tC1K: document.getElementById("tC1K"),
-      tC1T: document.getElementById("tC1T"),
-      tC1D: document.getElementById("tC1D"),
-      tC1S1: document.getElementById("tC1S1"),
-      tC1S2: document.getElementById("tC1S2"),
-      tC1B: document.getElementById("tC1B"),
-
-      tC2K: document.getElementById("tC2K"),
-      tC2T: document.getElementById("tC2T"),
-      tC2D: document.getElementById("tC2D"),
-      tC2S1: document.getElementById("tC2S1"),
-      tC2S2: document.getElementById("tC2S2"),
-      tC2B: document.getElementById("tC2B"),
-
-      tC3K: document.getElementById("tC3K"),
-      tC3T: document.getElementById("tC3T"),
-      tC3D: document.getElementById("tC3D"),
-      tC3S1: document.getElementById("tC3S1"),
-      tC3S2: document.getElementById("tC3S2"),
-      tC3B: document.getElementById("tC3B"),
-
-      tCtaTitle: document.getElementById("tCtaTitle"),
-      tCtaSub: document.getElementById("tCtaSub"),
-      tCtaDiscord: document.getElementById("tCtaDiscord"),
-      tFooter: document.getElementById("tFooter"),
-
-      tDrawerTitle: document.getElementById("tDrawerTitle"),
-      tDrawerPrefs: document.getElementById("tDrawerPrefs"),
-      tDHome: document.getElementById("tDHome"),
-      tDServices: document.getElementById("tDServices"),
-      tDAbout: document.getElementById("tDAbout"),
-      tDCommunity: document.getElementById("tDCommunity"),
-      tDBlog: document.getElementById("tDBlog"),
-
-      tLangModalTitle: document.getElementById("tLangModalTitle"),
-      tDrawerLang: document.getElementById("tDrawerLang"),
-      tDrawerLangSub: document.getElementById("tDrawerLangSub"),
-      tDrawerDiscord: document.getElementById("tDrawerDiscord"),
-      tDrawerDiscordSub: document.getElementById("tDrawerDiscordSub"),
-    };
-
-    const langWrap = document.getElementById("lang");
-    const langBtn = document.getElementById("langBtn");
-    const langFlag = document.getElementById("langFlag");
-    const langCode = document.getElementById("langCode");
-    const checkPT = document.getElementById("checkPT");
-    const checkEN = document.getElementById("checkEN");
-    const checkEU = document.getElementById("checkEU");
-
-    function setLangOpen(open){
-      if(!langWrap || !langBtn) return;
-      langWrap.classList.toggle("open", open);
-      langBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    }
-    langBtn?.addEventListener("click", (e) => { e.stopPropagation(); setLangOpen(!langWrap.classList.contains("open")); });
-    document.addEventListener("click", () => setLangOpen(false));
-
     function syncLangUI(code){
       const d = dict[code] || dict.pt;
-      if(langCode) langCode.textContent = d.ui.code;
-      if(langFlag) langFlag.src = d.ui.flag;
 
-      checkPT?.classList.toggle("active", code === "pt");
-      checkEN?.classList.toggle("active", code === "en");
-      checkEU?.classList.toggle("active", code === "eu");
+      document.getElementById("langCode").textContent = d.ui.code;
+      document.getElementById("langFlag").src = d.ui.flag;
 
-      document.querySelectorAll(".lang-choice").forEach(btn => btn.classList.toggle("active", btn.getAttribute("data-lang") === code));
+      document.getElementById("checkPT").classList.toggle("active", code === "pt");
+      document.getElementById("checkEN").classList.toggle("active", code === "en");
+      document.getElementById("checkEU").classList.toggle("active", code === "eu");
+
+      document.querySelectorAll(".lang-option").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang") === code);
+      });
     }
 
     function applyLang(code){
       const d = dict[code] || dict.pt;
       setCookie("gutty_lang", code);
+
+      document.getElementById("btnSignIn").textContent = d.btn;
+
+      document.getElementById("tHeroTitle").textContent = d.heroTitle;
+      document.getElementById("tHeroSub").textContent = d.heroSub;
+
+      document.getElementById("tHeroCTA").querySelector("span").textContent = d.heroCTA;
+      document.getElementById("tHeroDiscord").querySelector("span").textContent = d.heroDiscord;
+
+      document.getElementById("tQuickTitle").textContent = d.quickTitle;
+      document.getElementById("tQuickSub").textContent = d.quickSub;
+
+      document.getElementById("tFooter").textContent = d.footer;
+
+      document.getElementById("tDrawerTitle").textContent = d.drawerTitle;
+      document.getElementById("tDrawerPrefs").textContent = d.drawerPrefs;
+      document.getElementById("tDrawerTheme").textContent = d.drawerTheme;
+      document.getElementById("tDrawerThemeSub").textContent = d.drawerThemeSub;
+      document.getElementById("tDrawerLang").textContent = d.drawerLang;
+      document.getElementById("tDrawerLangSub").textContent = d.drawerLangSub;
+
+      document.getElementById("tDHome").textContent = d.dHome;
+      document.getElementById("tDServices").textContent = d.dServices;
+      document.getElementById("tDAbout").textContent = d.dAbout;
+      document.getElementById("tDCommunity").textContent = d.dCommunity;
+      document.getElementById("tDBlog").textContent = d.dBlog;
+
+      document.getElementById("tC1Top").textContent = d.c1top;
+      document.getElementById("tC1Title").textContent = d.c1title;
+      document.getElementById("tC1Desc").textContent = d.c1desc;
+      document.getElementById("tC1MetaA").textContent = d.c1ma;
+      document.getElementById("tC1MetaB").textContent = d.c1mb;
+      document.getElementById("tC1MetaC").textContent = d.c1mc;
+      document.getElementById("tC1MetaD").textContent = d.c1md;
+      document.getElementById("tC1Btn").querySelector("span").textContent = d.cbtn;
+      document.getElementById("tC1Btn2").textContent = d.cbtn2;
+
+      document.getElementById("tC2Top").textContent = d.c2top;
+      document.getElementById("tC2Title").textContent = d.c2title;
+      document.getElementById("tC2Tag").querySelector("span").textContent = d.c2tag;
+      document.getElementById("tC2Desc").textContent = d.c2desc;
+      document.getElementById("tC2MetaA").textContent = d.c2ma;
+      document.getElementById("tC2MetaB").textContent = d.c2mb;
+      document.getElementById("tC2MetaC").textContent = d.c2mc;
+      document.getElementById("tC2MetaD").textContent = d.c2md;
+      document.getElementById("tC2Btn").querySelector("span").textContent = d.cbtn;
+      document.getElementById("tC2Btn2").textContent = d.cbtn2;
+
+      document.getElementById("tC3Top").textContent = d.c3top;
+      document.getElementById("tC3Title").textContent = d.c3title;
+      document.getElementById("tC3Desc").textContent = d.c3desc;
+      document.getElementById("tC3MetaA").textContent = d.c3ma;
+      document.getElementById("tC3MetaB").textContent = d.c3mb;
+      document.getElementById("tC3MetaC").textContent = d.c3mc;
+      document.getElementById("tC3MetaD").textContent = d.c3md;
+      document.getElementById("tC3Btn").querySelector("span").textContent = d.cbtn;
+      document.getElementById("tC3Btn2").textContent = d.cbtn2;
+
+      document.getElementById("tLangModalTitle").textContent = d.langModalTitle;
+
+      document.documentElement.lang = (code === "pt") ? "pt-BR" : "en";
       syncLangUI(code);
-
-      Object.keys(T).forEach(k => {
-        if(!T[k] || d[k] == null) return;
-        T[k].textContent = d[k];
-      });
-
-      document.documentElement.lang = d.ui.htmlLang;
     }
 
+    /* DESKTOP dropdown */
+    const langWrap = document.getElementById("lang");
+    const langBtn = document.getElementById("langBtn");
+
+    function setLangOpen(open){
+      langWrap?.classList.toggle("open", open);
+      langBtn?.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    langBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setLangOpen(!langWrap.classList.contains("open"));
+    });
+    document.addEventListener("click", () => setLangOpen(false));
+
     document.querySelectorAll(".lang-item").forEach(item => {
-      item.addEventListener("click", () => { applyLang(item.getAttribute("data-lang")); setLangOpen(false); });
+      item.addEventListener("click", () => {
+        applyLang(item.getAttribute("data-lang"));
+        setLangOpen(false);
+      });
     });
 
-    /* Drawer */
+    /* Mobile modal */
+    const langModalOverlay = document.getElementById("langModalOverlay");
+    const openLangModalBtn = document.getElementById("openLangModal");
+    const langModalClose = document.getElementById("langModalClose");
+
+    function openLang(){
+      langModalOverlay.classList.add("open");
+      langModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+    }
+    function closeLang(){
+      langModalOverlay.classList.remove("open");
+      langModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+    }
+    openLangModalBtn?.addEventListener("click", openLang);
+    langModalClose?.addEventListener("click", closeLang);
+    langModalOverlay?.addEventListener("click", (e) => {
+      if(e.target === langModalOverlay) closeLang();
+    });
+
+    document.querySelectorAll(".lang-option").forEach(btn => {
+      btn.addEventListener("click", () => {
+        applyLang(btn.getAttribute("data-lang"));
+        closeLang();
+      });
+    });
+
+    /* DRAWER */
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const drawer = document.getElementById("drawer");
     const drawerOverlay = document.getElementById("drawerOverlay");
@@ -1299,44 +1318,32 @@
       drawerOverlay.setAttribute("aria-hidden", "true");
       document.body.classList.remove("no-scroll");
     }
-
     mobileMenuBtn?.addEventListener("click", openDrawer);
     drawerClose?.addEventListener("click", closeDrawer);
     drawerOverlay?.addEventListener("click", closeDrawer);
 
-    /* Lang modal (mobile) */
-    const openLangModalBtn = document.getElementById("openLangModal");
-    const langModal = document.getElementById("langModal");
-    const langModalOverlay = document.getElementById("langModalOverlay");
-    const langModalClose = document.getElementById("langModalClose");
-
-    function openLangModal(){
-      langModal.classList.add("open");
-      langModalOverlay.classList.add("open");
-      langModalOverlay.setAttribute("aria-hidden", "false");
-      document.body.classList.add("no-scroll");
-    }
-    function closeLangModal(){
-      langModal.classList.remove("open");
-      langModalOverlay.classList.remove("open");
-      langModalOverlay.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("no-scroll");
-    }
-
-    openLangModalBtn?.addEventListener("click", () => { openLangModal(); syncLangUI(getLang()); });
-    langModalClose?.addEventListener("click", closeLangModal);
-    langModalOverlay?.addEventListener("click", closeLangModal);
-
-    document.querySelectorAll(".lang-choice").forEach(btn => {
-      btn.addEventListener("click", () => { applyLang(btn.getAttribute("data-lang")); closeLangModal(); });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape"){
+        closeDrawer();
+        closeLang();
+      }
     });
 
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape"){ closeDrawer(); closeLangModal(); }
+    /* THEME click */
+    themeToggle?.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "dark";
+      applyTheme(current === "dark" ? "light" : "dark");
+    });
+    drawerThemeBtn?.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "dark";
+      applyTheme(current === "dark" ? "light" : "dark");
     });
 
     /* INIT */
-    applyLang(getLang());
+    (function init(){
+      applyTheme(getCookie("gutty_theme") || "dark");
+      applyLang(getLang());
+    })();
   </script>
 </body>
 </html>
